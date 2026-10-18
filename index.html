@@ -80,7 +80,9 @@ body{font-family:var(--body);background:var(--off);color:var(--ink);line-height:
 .spk{width:150px;text-align:center;}
 .spk .face{width:108px;height:108px;border-radius:50%;object-fit:cover;object-position:top center;border:3px solid var(--yellow);box-shadow:0 4px 12px rgba(10,19,74,.15);}
 .spk .n{font-weight:700;font-size:15px;margin-top:12px;color:var(--navy);line-height:1.2;}
-.spk .org{height:30px;width:auto;max-width:132px;object-fit:contain;display:block;margin:11px auto 0;}
+.spk .org-link{display:block;margin:11px auto 0;width:fit-content;}
+.spk .org{height:30px;width:auto;max-width:132px;object-fit:contain;display:block;transition:transform .12s ease;}
+.spk .org-link:hover .org{transform:scale(1.06);}
 @media(max-width:720px){.spk{width:44%;max-width:160px;}.spk .face{width:96px;height:96px;}}
 
 /* footer */
@@ -133,14 +135,14 @@ footer a:hover{text-decoration:underline;}
     <h3>Presented by</h3>
     <p class="lead">Welcome to Chinatown with partner Entrepreneur Assistance Centers from across New York.</p>
     <div class="spk-row">
-      <div class="spk"><img class="face" src="speakers/bryan.jpg" alt="Bryan Lozano"><div class="n">Bryan Lozano</div><img class="org" src="speakers/logo_wtc.png" alt="Welcome to Chinatown"></div>
-      <div class="spk"><img class="face" src="speakers/daniel.jpg" alt="Daniel Bempah"><div class="n">Daniel Bempah</div><img class="org" src="speakers/logo_wtc.png" alt="Welcome to Chinatown"></div>
+      <div class="spk"><img class="face" src="speakers/bryan.jpg" alt="Bryan Lozano"><div class="n">Bryan Lozano</div><a class="org-link" href="https://welcometochinatown.com" target="_blank" rel="noopener"><img class="org" src="speakers/logo_wtc.png" alt="Welcome to Chinatown"></a></div>
+      <div class="spk"><img class="face" src="speakers/daniel.jpg" alt="Daniel Bempah"><div class="n">Daniel Bempah</div><a class="org-link" href="https://welcometochinatown.com" target="_blank" rel="noopener"><img class="org" src="speakers/logo_wtc.png" alt="Welcome to Chinatown"></a></div>
     </div>
     <div class="spk-row">
-      <div class="spk"><img class="face" src="speakers/bhavna.jpg" alt="Bhavna Punjwani"><div class="n">Bhavna Punjwani</div><img class="org" src="speakers/logo_qedc.svg" alt="Queens EDC"></div>
-      <div class="spk"><img class="face" src="speakers/iris.jpg" alt="Iris Cohello"><div class="n">Iris Cohello</div><img class="org" src="speakers/logo_wedc.png" alt="WEDC"></div>
-      <div class="spk"><img class="face" src="speakers/jennifer.jpg" alt="Jennifer McGee"><div class="n">Jennifer McGee</div><img class="org" src="speakers/logo_wise.png" alt="WISE"></div>
-      <div class="spk"><img class="face" src="speakers/yujia.jpg" alt="Yujia Hu"><div class="n">Yujia Hu</div><img class="org" src="speakers/logo_sbidc_dark.svg" alt="SBIDC"></div>
+      <div class="spk"><img class="face" src="speakers/bhavna.jpg" alt="Bhavna Punjwani"><div class="n">Bhavna Punjwani</div><a class="org-link" href="https://www.queensny.org" target="_blank" rel="noopener"><img class="org" src="speakers/logo_qedc.svg" alt="Queens EDC"></a></div>
+      <div class="spk"><img class="face" src="speakers/iris.jpg" alt="Iris Cohello"><div class="n">Iris Cohello</div><a class="org-link" href="https://wedcbiz.org" target="_blank" rel="noopener"><img class="org" src="speakers/logo_wedc.png" alt="WEDC"></a></div>
+      <div class="spk"><img class="face" src="speakers/jennifer.jpg" alt="Jennifer McGee"><div class="n">Jennifer McGee</div><a class="org-link" href="https://wisecenter.org" target="_blank" rel="noopener"><img class="org" src="speakers/logo_wise.png" alt="WISE"></a></div>
+      <div class="spk"><img class="face" src="speakers/yujia.jpg" alt="Yujia Hu"><div class="n">Yujia Hu</div><a class="org-link" href="https://www.sbidc.org" target="_blank" rel="noopener"><img class="org" src="speakers/logo_sbidc_dark.svg" alt="SBIDC"></a></div>
     </div>
   </section>
 </main>
