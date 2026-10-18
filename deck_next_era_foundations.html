@@ -1,0 +1,1007 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>BuiltSmall AI Foundations</title>
+<link href="https://fonts.googleapis.com/css2?family=Mulish:wght@400;600;700;800;900&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#111f75;
+  --navy2:#1a2a8a;
+  --navy-deep:#0a134a;
+  --yellow:#e5e138;
+  --yellow-soft:#f0ec7a;
+  --off:#ededed;
+  --muted:rgba(237,237,237,0.65);
+  --line:rgba(237,237,237,0.12);
+  --red:#c93535;
+  --serif:'Mulish', system-ui, sans-serif;
+  --body:'DM Sans', system-ui, sans-serif;
+  --mono:'DM Mono', ui-monospace, monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+html,body{width:100%;height:100%;overflow:hidden;background:#060a26;font-family:var(--body);color:var(--off);}
+.deck{width:100vw;height:100vh;position:relative;}
+.slide{position:absolute;inset:0;display:flex;flex-direction:column;opacity:0;pointer-events:none;transition:opacity .3s;}
+.slide.active{opacity:1;pointer-events:all;}
+/* Brand stripe across the very top of every slide */
+.awning, .awning.thin{height:6px;flex-shrink:0;background:var(--yellow);position:relative;}
+.yellow-bar{height:6px;background:var(--yellow);flex-shrink:0;}
+
+.nav{position:fixed;bottom:22px;right:30px;display:flex;align-items:center;gap:16px;z-index:100;}
+.nav button{background:rgba(229,225,56,.18);border:2px solid rgba(229,225,56,.5);color:var(--yellow);width:46px;height:46px;border-radius:50%;font-size:20px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s;}
+.nav button:hover{background:var(--yellow);color:var(--navy);}
+.slide-counter{color:rgba(237,237,237,.4);font-family:var(--mono);font-size:14px;}
+.progress{position:fixed;bottom:0;left:0;right:0;height:5px;background:rgba(237,237,237,.08);z-index:100;}
+.progress-fill{height:100%;background:var(--yellow);transition:width .3s;}
+
+/* HEADER — scallop hangs below the header into the body */
+.hdr{background:var(--navy2);padding:3vh 4vw 2.3vh;display:flex;align-items:center;justify-content:space-between;border-bottom:5px solid var(--yellow);flex-shrink:0;position:relative;}
+.hdr::after{content:'';position:absolute;left:0;right:0;top:100%;height:18px;background:var(--yellow);pointer-events:none;z-index:5;
+  -webkit-mask-image:radial-gradient(circle 12px at 12px 0, #000 11px, transparent 12px);
+  -webkit-mask-size:24px 18px;-webkit-mask-repeat:repeat-x;-webkit-mask-position:0 0;
+  mask-image:radial-gradient(circle 12px at 12px 0, #000 11px, transparent 12px);
+  mask-size:24px 18px;mask-repeat:repeat-x;mask-position:0 0;}
+.hdr h2{font-family:var(--serif);font-weight:900;font-size:3.6vw;color:var(--off);line-height:1;letter-spacing:-.01em;}
+.hdr .eyebrow{font-family:var(--mono);font-size:1vw;letter-spacing:.18em;text-transform:uppercase;color:var(--yellow);margin-bottom:.4vh;}
+.logo{height:95px;width:auto;}
+.body{flex:1;padding:5.2vh 5vw 4vh;overflow:hidden;background:var(--navy);display:flex;flex-direction:column;justify-content:center;}
+
+/* WTC marks */
+.wtc-inline{display:inline-flex;align-items:center;gap:.5vw;background:var(--navy-deep);border:1.5px solid rgba(229,225,56,.4);padding:.2vh .8vw .2vh .5vw;border-radius:5px;vertical-align:baseline;}
+.wtc-inline img{height:1.5em;width:auto;display:block;}
+.wtc-chip{display:inline-block;height:1.4em;vertical-align:-.32em;margin:0 .15em;}
+
+/* WHO WE ARE — WtC logo on the left, bullets on the right */
+.who-layout{display:grid;grid-template-columns:auto 1fr;gap:5vw;flex:1;align-items:center;}
+.who-mark{display:flex;align-items:center;justify-content:center;}
+.wtc-hero{height:28vh;width:auto;display:block;filter:drop-shadow(0 8px 20px rgba(0,0,0,.35));}
+.who-list li{font-size:1.85vw;}
+
+/* TITLE / CLOSE — light cream background, brand-cover style */
+.s-title{background:var(--off);flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:5vh 4vw 11vh;position:relative;color:var(--navy);}
+.s-title .lockup{height:24vh;width:auto;margin-bottom:3vh;filter:drop-shadow(0 10px 30px rgba(17,31,117,.18));}
+.s-title .eyebrow{font-family:var(--mono);font-size:1.1vw;letter-spacing:.22em;text-transform:uppercase;color:var(--navy);font-weight:500;margin-bottom:1.6vh;opacity:.7;}
+.s-title h1{font-family:var(--serif);font-weight:900;font-size:6.4vw;color:var(--navy);line-height:.98;margin-bottom:1.6vh;letter-spacing:-.02em;}
+.s-title h1 em{color:var(--navy);font-style:normal;background:var(--yellow);padding:0 .3em;}
+.s-title .sub{color:var(--navy);font-size:1.7vw;font-weight:400;margin-bottom:2vh;max-width:62vw;line-height:1.4;opacity:.75;}
+.s-title .tagline{font-family:var(--serif);font-weight:900;font-size:1.5vw;color:var(--navy);letter-spacing:0;margin-top:.5vh;background:var(--yellow);padding:.5vh 1.4vw;border-radius:6px;}
+.meta-row{display:flex;gap:4.5vw;border-top:2px solid var(--navy);padding-top:2vh;margin-top:2.5vh;}
+.meta-item strong{display:block;color:var(--navy);font-size:1.4vw;font-weight:900;font-family:var(--serif);}
+.meta-item span{color:var(--navy);opacity:.6;font-size:.95vw;letter-spacing:.05em;text-transform:uppercase;font-family:var(--mono);}
+.poweredby{position:absolute;bottom:4vh;left:0;right:0;display:flex;justify-content:center;align-items:center;gap:1vw;color:var(--navy);font-size:.9vw;letter-spacing:.14em;text-transform:uppercase;font-family:var(--mono);opacity:.85;}
+.poweredby img{height:4vh;width:auto;}
+
+/* HOLDING — same light treatment */
+.s-hold{background:var(--off);flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:4vw;position:relative;color:var(--navy);}
+.s-hold .lockup{height:30vh;width:auto;margin-bottom:3vh;filter:drop-shadow(0 10px 30px rgba(17,31,117,.18));}
+.s-hold h1{font-family:var(--serif);font-weight:900;font-size:5.8vw;color:var(--navy);line-height:1;margin-bottom:2vh;letter-spacing:-.02em;}
+.s-hold h1 em{color:var(--navy);font-style:normal;background:var(--yellow);padding:0 .3em;}
+.s-hold .start{color:var(--navy);font-size:2.2vw;font-family:var(--mono);margin-bottom:3.5vh;letter-spacing:.04em;font-weight:500;opacity:.7;}
+.s-hold .chat-prompt{background:var(--navy);border-radius:14px;padding:3vh 3.5vw;max-width:65vw;font-size:1.85vw;color:var(--off);line-height:1.55;}
+.s-hold .chat-prompt strong{color:var(--yellow);font-weight:900;}
+
+/* SIMPLE BULLET LIST */
+.bullets{display:flex;flex-direction:column;gap:2.4vh;}
+.bullets li{list-style:none;font-size:2.05vw;color:rgba(237,237,237,.92);line-height:1.5;padding-left:3vw;position:relative;}
+.bullets li::before{content:'';position:absolute;left:0;top:1vw;width:1.8vw;height:4px;background:var(--yellow);}
+.bullets li strong{color:var(--yellow);font-weight:700;}
+.bullets.tight li{font-size:1.85vw;padding-left:2.6vw;}
+
+/* INTRO STAT (slide 3) */
+.stat-layout{display:grid;grid-template-columns:.95fr 1.3fr;gap:4vw;flex:1;align-items:center;}
+.big-stat{font-family:var(--serif);font-weight:900;font-size:11vw;color:var(--yellow);line-height:.9;letter-spacing:-.04em;}
+.big-stat .pct{font-size:5.5vw;vertical-align:top;line-height:1;}
+.big-stat .label{display:block;font-family:var(--body);font-size:1.55vw;color:rgba(237,237,237,.75);font-weight:400;margin-top:2vh;line-height:1.5;max-width:28vw;letter-spacing:0;}
+.stat-side h3{font-family:var(--serif);font-weight:900;font-size:3.4vw;color:var(--off);margin-bottom:2vh;line-height:1.1;letter-spacing:-.01em;}
+.stat-side p{font-size:1.85vw;color:rgba(237,237,237,.82);line-height:1.5;margin-bottom:1.4vh;}
+.stat-side .pull{color:var(--yellow);font-weight:700;}
+
+/* TWO COLUMN (IS / IS NOT) — slide 5 */
+.ws-grid{display:grid;grid-template-columns:1fr 1fr;gap:3vw;flex:1;align-items:stretch;}
+.ws-card{border-radius:14px;padding:3vh 2.5vw;display:flex;flex-direction:column;gap:1.5vh;}
+.ws-card.is{background:rgba(229,225,56,.1);border:3px solid var(--yellow);}
+.ws-card.isnot{background:rgba(237,237,237,.05);border:3px solid rgba(237,237,237,.18);}
+.ws-label{font-family:var(--serif);font-weight:900;font-size:1.3vw;letter-spacing:.1em;text-transform:uppercase;padding:.6vh 1.4vw;border-radius:5px;display:inline-block;width:fit-content;}
+.is .ws-label{background:var(--yellow);color:var(--navy);}
+.isnot .ws-label{background:rgba(237,237,237,.12);color:rgba(237,237,237,.65);}
+.ws-list{list-style:none;display:flex;flex-direction:column;gap:2vh;margin-top:1vh;}
+.ws-list li{font-size:1.75vw;line-height:1.45;color:rgba(237,237,237,.92);padding-left:2vw;position:relative;}
+.ws-list li::before{content:'';position:absolute;left:0;top:.9vw;width:1.2vw;height:3px;}
+.is .ws-list li::before{background:var(--yellow);}
+.isnot .ws-list li::before{background:rgba(237,237,237,.4);}
+
+/* TYPES OF TOOLS — slide 6 */
+.types-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.8vw;flex:1;align-content:center;}
+.type-card{background:rgba(237,237,237,.04);border:2px solid rgba(237,237,237,.12);border-radius:10px;padding:2.4vh 2.2vw;}
+.type-card.start{border-color:var(--yellow);background:rgba(229,225,56,.1);}
+.type-title{font-family:var(--serif);font-weight:900;font-size:1.8vw;color:var(--off);margin-bottom:.8vh;}
+.type-title .tag{display:inline-block;font-size:.95vw;font-family:var(--mono);background:var(--yellow);color:var(--navy);padding:.25vh .9vw;border-radius:4px;margin-left:1vw;letter-spacing:.1em;text-transform:uppercase;vertical-align:middle;font-weight:700;}
+.type-desc{font-size:1.4vw;color:rgba(237,237,237,.85);line-height:1.5;}
+
+/* PITA — slide 7 */
+.pita-layout{display:grid;grid-template-columns:1.25fr 1fr;gap:3vw;flex:1;align-items:center;}
+.pita-lead h3{font-family:var(--serif);font-weight:900;font-size:3.6vw;color:var(--off);line-height:1.05;margin-bottom:2vh;letter-spacing:-.01em;}
+.pita-lead h3 em{color:var(--yellow);font-style:normal;}
+.pita-lead p{font-size:1.85vw;color:rgba(237,237,237,.82);line-height:1.5;margin-bottom:1.5vh;}
+.pita-examples{background:rgba(237,237,237,.04);border:2px solid rgba(237,237,237,.12);border-radius:10px;padding:2.2vh 2.2vw;margin-top:1.5vh;}
+.pita-examples .label{font-size:1.05vw;text-transform:uppercase;letter-spacing:.12em;color:rgba(237,237,237,.6);margin-bottom:1vh;font-family:var(--mono);}
+.pita-examples ul{list-style:none;display:flex;flex-direction:column;gap:.8vh;}
+.pita-examples li{font-size:1.55vw;color:rgba(237,237,237,.92);}
+.pita-chat{background:var(--yellow);border-radius:14px;padding:3.5vh 2.8vw;color:var(--navy);text-align:center;border:4px solid var(--navy-deep);}
+.pita-chat .badge{display:inline-block;background:var(--navy);color:var(--yellow);font-size:1.05vw;font-family:var(--mono);letter-spacing:.14em;text-transform:uppercase;padding:.5vh 1.3vw;border-radius:4px;margin-bottom:1.8vh;font-weight:700;}
+.pita-chat h4{font-family:var(--serif);font-weight:900;font-size:2.7vw;line-height:1.1;margin-bottom:1.3vh;}
+.pita-chat p{font-size:1.5vw;line-height:1.5;color:rgba(17,31,117,.85);}
+
+/* THREE FILTERS — slide 8 */
+.filter-cards{display:flex;flex-direction:column;gap:1.8vh;flex:1;justify-content:center;}
+.filter-card{border:3px solid rgba(229,225,56,.35);border-radius:10px;padding:2.4vh 2.5vw;background:rgba(229,225,56,.05);}
+.filter-num{float:left;font-family:var(--serif);font-weight:900;font-size:3.4vw;color:var(--yellow);line-height:1;margin-right:1.6vw;margin-top:-.3vh;}
+.filter-title{font-family:var(--serif);font-weight:900;font-size:1.85vw;color:var(--off);text-transform:uppercase;letter-spacing:.04em;}
+.filter-sub{font-size:1.5vw;color:rgba(237,237,237,.8);margin-top:.5vh;line-height:1.4;}
+.filter-pass{font-size:1.25vw;margin-top:.7vh;display:flex;gap:2vw;flex-wrap:wrap;}
+.filter-pass .yes{color:var(--yellow);}
+.filter-pass .no{color:rgba(237,237,237,.55);}
+.filter-pass span strong{font-family:var(--mono);letter-spacing:.05em;margin-right:.4vw;font-weight:700;}
+.filter-footer{background:rgba(229,225,56,.14);border:3px solid var(--yellow);border-radius:10px;padding:2vh 2.2vw;font-size:1.65vw;color:var(--off);text-align:center;margin-top:1.5vh;font-family:var(--serif);font-weight:700;}
+.filter-footer strong{color:var(--yellow);font-weight:900;}
+
+/* SECTION DIVIDER — slide 9 */
+.section-inner{flex:1;display:flex;align-items:center;padding:4vw 6vw;gap:4vw;background:radial-gradient(ellipse at 30% 50%, var(--navy2) 0%, var(--navy-deep) 70%);}
+.sec-num{font-family:var(--serif);font-weight:900;font-size:20vw;color:rgba(229,225,56,.16);line-height:.9;flex-shrink:0;letter-spacing:-.04em;}
+.sec-text .badge{background:var(--yellow);color:var(--navy);font-size:1.1vw;font-weight:900;letter-spacing:.12em;text-transform:uppercase;padding:.5vh 1.4vw;border-radius:4px;display:inline-block;margin-bottom:2.5vh;font-family:var(--mono);}
+.sec-text h2{font-family:var(--serif);font-weight:900;font-size:6vw;color:var(--off);line-height:1;margin-bottom:2.5vh;letter-spacing:-.02em;}
+.sec-text p{font-size:1.85vw;color:rgba(237,237,237,.78);font-weight:400;line-height:1.5;max-width:45vw;margin-bottom:1.5vh;}
+.sec-text .jobs-pills{display:flex;gap:.9vw;flex-wrap:wrap;margin-top:2.5vh;}
+.sec-text .jobs-pills span{background:rgba(229,225,56,.14);border:2px solid var(--yellow);color:var(--yellow);font-family:var(--serif);font-weight:700;font-size:1.2vw;padding:.7vh 1.3vw;border-radius:20px;}
+
+/* DEMO FRAME — slides 10/11/12 */
+.demo-frame{flex:1;display:flex;flex-direction:column;justify-content:center;gap:2.5vh;}
+.demo-tag{display:inline-block;background:var(--yellow);color:var(--navy);font-family:var(--mono);font-size:1.1vw;letter-spacing:.14em;text-transform:uppercase;padding:.5vh 1.4vw;border-radius:4px;width:fit-content;font-weight:700;}
+.demo-frame h3{font-family:var(--serif);font-weight:900;font-size:4.4vw;color:var(--off);line-height:1;letter-spacing:-.02em;}
+.demo-frame h3 em{color:var(--yellow);font-style:normal;}
+.demo-bullets{display:flex;flex-direction:column;gap:1.7vh;margin-top:1vh;}
+.demo-bullets li{list-style:none;font-size:1.85vw;color:rgba(237,237,237,.92);line-height:1.45;padding-left:2.6vw;position:relative;}
+.demo-bullets li::before{content:'';position:absolute;left:0;top:.9vw;width:1.5vw;height:4px;background:var(--yellow);}
+.demo-bullets li strong{color:var(--yellow);font-weight:700;}
+.demo-bullets li.catch{color:rgba(237,237,237,.75);}
+.demo-bullets li.catch::before{background:rgba(237,237,237,.45);}
+.demo-bullets li.catch strong{color:rgba(237,237,237,.95);}
+.demo-share-hint{font-family:var(--mono);font-size:1.1vw;color:rgba(237,237,237,.5);letter-spacing:.12em;text-transform:uppercase;margin-top:2.5vh;padding-top:1.5vh;border-top:1px solid var(--line);}
+
+/* SAFETY — slide 16 */
+.safety-grid{display:flex;flex-direction:column;gap:1.6vh;flex:1;justify-content:center;}
+.safety-row{display:flex;gap:1.8vw;align-items:flex-start;background:rgba(237,237,237,.05);border:2px solid rgba(237,237,237,.12);border-radius:10px;padding:1.9vh 2.2vw;}
+.safety-row.lead{background:rgba(229,225,56,.12);border-color:var(--yellow);}
+.safety-num{font-family:var(--serif);font-weight:900;color:var(--yellow);font-size:1.7vw;min-width:3vw;line-height:1;padding-top:.3vh;}
+.safety-text{font-size:1.6vw;color:rgba(237,237,237,.92);line-height:1.45;}
+.safety-text strong{color:var(--yellow);font-weight:700;}
+.safety-foot{font-size:1.2vw;color:rgba(237,237,237,.6);font-style:italic;text-align:center;margin-top:1vh;}
+
+/* SOCIAL PROOF — slide 17 */
+.proof-layout{display:grid;grid-template-columns:1.1fr 1fr;gap:3vw;flex:1;align-items:center;}
+.proof-stats{display:flex;flex-direction:column;gap:2vh;}
+.proof-stat{background:rgba(229,225,56,.1);border:3px solid var(--yellow);border-radius:14px;padding:2.4vh 2.2vw;}
+.proof-stat .num{font-family:var(--serif);font-weight:900;font-size:5vw;color:var(--yellow);line-height:.95;letter-spacing:-.03em;}
+.proof-stat .lbl{font-size:1.55vw;color:rgba(237,237,237,.88);line-height:1.4;margin-top:.8vh;}
+.proof-stat .placeholder{font-family:var(--mono);font-size:.95vw;color:rgba(237,237,237,.5);margin-top:.7vh;letter-spacing:.06em;text-transform:uppercase;}
+.proof-side h3{font-family:var(--serif);font-weight:900;font-size:3vw;color:var(--off);line-height:1.1;margin-bottom:2vh;letter-spacing:-.01em;}
+.proof-side h3 em{color:var(--yellow);font-style:normal;}
+.proof-side p{font-size:1.7vw;color:rgba(237,237,237,.82);line-height:1.45;}
+
+/* CASE STUDY — slides 18/19 */
+.ss-layout{display:grid;grid-template-columns:1fr 1.5fr;gap:3vw;flex:1;align-items:center;}
+.ss-context{display:flex;flex-direction:column;gap:1.4vh;}
+.ss-person{display:flex;align-items:center;gap:1.2vw;margin-bottom:1vh;}
+.ss-photo{width:7.5vw;height:7.5vw;min-width:90px;min-height:90px;border-radius:50%;background:rgba(237,237,237,.1);border:3px solid var(--yellow);display:flex;align-items:center;justify-content:center;font-family:var(--serif);font-weight:900;font-size:2.4vw;color:var(--yellow);overflow:hidden;flex-shrink:0;}
+.ss-photo img{width:100%;height:100%;object-fit:cover;object-position:center 18%;}
+.ss-person-text h3{font-family:var(--serif);font-weight:900;font-size:2.4vw;color:var(--off);line-height:1.05;letter-spacing:-.01em;}
+.ss-person-text .who{font-family:var(--mono);font-size:1.1vw;color:var(--yellow);letter-spacing:.04em;text-transform:uppercase;margin-top:.3vh;}
+.ss-context .problem{font-size:1.55vw;color:rgba(237,237,237,.85);line-height:1.45;}
+.ss-context .problem strong{color:var(--off);font-weight:700;}
+.ss-stats{display:flex;flex-direction:column;gap:1.1vh;margin-top:1.2vh;}
+.ss-stat{background:rgba(229,225,56,.1);border:2px solid var(--yellow);border-radius:8px;padding:1.5vh 1.8vw;font-size:1.45vw;color:rgba(237,237,237,.92);line-height:1.4;}
+.ss-stat strong{color:var(--yellow);font-weight:700;}
+.ss-screen{border-radius:12px;border:3px solid var(--yellow);background:#fff;overflow:hidden;height:64vh;display:flex;align-items:center;justify-content:center;}
+.ss-screen img{width:100%;height:100%;object-fit:cover;object-position:top center;display:block;}
+.ss-screen.empty{background:rgba(237,237,237,.04);border:3px dashed rgba(237,237,237,.18);color:rgba(237,237,237,.45);font-family:var(--mono);font-size:1.1vw;letter-spacing:.1em;text-transform:uppercase;text-align:center;padding:2vw;}
+.ss-screen.small{height:46vh;}
+
+/* JASON two-up dashboard grid (slide 18b) */
+.jason-grid{display:grid;grid-template-columns:1fr 1fr;gap:2.5vw;flex:1;align-items:start;}
+.jason-cell{display:flex;flex-direction:column;gap:1vh;}
+.jason-label{font-family:var(--mono);font-size:1.05vw;letter-spacing:.12em;text-transform:uppercase;color:var(--yellow);font-weight:700;}
+.jason-caption{font-size:1.3vw;color:rgba(237,237,237,.82);line-height:1.4;}
+.jason-foot{margin-top:2vh;padding:1.4vh 2vw;background:rgba(229,225,56,.1);border-left:5px solid var(--yellow);border-radius:0 8px 8px 0;font-family:var(--serif);font-weight:700;font-size:1.55vw;color:var(--off);}
+
+/* PROBLEM FIRST — slide 20 */
+.pf-inner{flex:1;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:0 6vw;gap:2.5vh;}
+.pf-inner h3{font-family:var(--serif);font-weight:900;font-size:5vw;color:var(--off);line-height:1.02;letter-spacing:-.02em;}
+.pf-inner h3 em{color:var(--yellow);font-style:normal;}
+.pf-inner p{font-size:1.9vw;color:rgba(237,237,237,.78);line-height:1.5;max-width:60vw;}
+.pf-inner .punch{font-family:var(--serif);font-weight:900;font-size:3.4vw;color:var(--yellow);margin-top:2.5vh;letter-spacing:-.01em;}
+
+/* PROMPT TABLE — slide 21 */
+.pt{width:100%;border-collapse:collapse;}
+.pt thead tr{background:var(--yellow);}
+.pt thead th{color:var(--navy);font-size:1.4vw;font-weight:900;padding:1.6vh 1.8vw;text-align:left;letter-spacing:.06em;text-transform:uppercase;font-family:var(--serif);}
+.pt tbody tr{border-bottom:2px solid rgba(237,237,237,.1);}
+.pt tbody tr:nth-child(even){background:rgba(229,225,56,.06);}
+.pt tbody td{padding:1.8vh 1.8vw;font-size:1.55vw;vertical-align:top;line-height:1.5;color:rgba(237,237,237,.92);}
+.pt tbody td:first-child{font-weight:900;color:var(--yellow);font-size:1.7vw;white-space:nowrap;width:14vw;font-family:var(--serif);}
+.pt tbody td:nth-child(2){width:24vw;}
+.pt tbody td:last-child{font-family:var(--mono);font-size:1.25vw;color:rgba(237,237,237,.82);}
+
+/* START THIS WEEK — slide 22 */
+.start-grid{display:flex;flex-direction:column;gap:1.8vh;flex:1;justify-content:center;}
+.start-step{display:flex;gap:2.2vw;align-items:center;background:rgba(237,237,237,.05);border:2px solid rgba(237,237,237,.12);border-radius:10px;padding:2.3vh 2.4vw;}
+.start-num{background:var(--yellow);color:var(--navy);font-family:var(--serif);font-weight:900;font-size:2.2vw;width:4.5vw;height:4.5vw;min-width:55px;min-height:55px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.start-text{font-size:1.85vw;color:rgba(237,237,237,.92);line-height:1.4;}
+
+/* OFFERS / PILLARS (slide 23 redesigned to match Built Small Method) */
+.pillars-top{margin-bottom:2.5vh;}
+.pillars-top h3{font-family:var(--serif);font-weight:900;font-size:3vw;color:var(--off);line-height:1.1;letter-spacing:-.01em;}
+.pillars-top h3 em{color:var(--yellow);font-style:normal;}
+.pillars-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.8vw;flex:1;align-items:stretch;}
+.pillar{background:rgba(237,237,237,.04);border:2.5px solid var(--yellow);border-radius:14px;padding:2.4vh 1.8vw;display:flex;flex-direction:column;gap:1.2vh;}
+.pillar-icon{font-family:var(--serif);font-weight:900;font-size:2.4vw;color:var(--yellow);line-height:1;}
+.pillar-t{font-family:var(--serif);font-weight:900;font-size:1.55vw;color:var(--off);line-height:1.1;}
+.pillar-d{font-size:1.2vw;color:rgba(237,237,237,.78);line-height:1.45;}
+
+.qr-block{background:var(--off);border:3px solid var(--yellow);border-radius:14px;padding:2.5vh 1.8vw;text-align:center;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1.2vh;color:var(--navy);}
+.qr-block .qr-img{width:14vw;height:14vw;max-width:220px;max-height:220px;display:block;border-radius:6px;background:var(--off);}
+.qr-block .qr-eyebrow{font-family:var(--mono);font-size:.95vw;letter-spacing:.14em;text-transform:uppercase;color:var(--navy);opacity:.6;font-weight:700;}
+.qr-block .qr-label{font-family:var(--serif);font-weight:900;font-size:1.3vw;color:var(--navy);letter-spacing:0;}
+.qr-block .qr-sub{font-size:1vw;color:var(--navy);opacity:.65;font-family:var(--mono);letter-spacing:.04em;}
+.qr-block.small{padding:2vh 1.4vw;gap:.8vh;}
+.qr-block.small .qr-img{width:10vw;height:10vw;max-width:160px;max-height:160px;}
+.qr-block.small .qr-eyebrow{font-size:.85vw;}
+.qr-block.small .qr-sub{font-size:.9vw;}
+.qr-stack{display:flex;flex-direction:column;gap:1.5vh;}
+
+/* OFFERS list (slide 23) */
+.offers-2col{display:grid;grid-template-columns:1.6fr 1fr;gap:3vw;flex:1;align-items:center;}
+.offers-side h3{font-family:var(--serif);font-weight:900;font-size:2.6vw;color:var(--off);line-height:1.1;margin-bottom:2vh;letter-spacing:-.01em;}
+.offers-side h3 em{color:var(--yellow);font-style:normal;}
+.offers-list{display:flex;flex-direction:column;gap:1.2vh;}
+.offer{display:flex;gap:1.5vw;align-items:flex-start;background:rgba(237,237,237,.05);border-left:5px solid var(--yellow);padding:1.5vh 1.8vw;border-radius:0 8px 8px 0;font-size:1.4vw;color:rgba(237,237,237,.92);line-height:1.4;}
+.offer.highlight{background:rgba(229,225,56,.12);border-left-width:7px;}
+.offer strong{color:var(--yellow);font-weight:900;}
+.offer-n{font-family:var(--serif);font-weight:900;font-size:1.4vw;color:var(--yellow);min-width:2.5vw;}
+
+/* WtC tag — used wherever Powered by WtC appears */
+.wtc-tag{display:inline-flex;align-items:center;gap:1vw;background:var(--off);border:2px solid var(--yellow);border-radius:8px;padding:1vh 1.4vw;font-family:var(--mono);font-size:1vw;color:var(--navy);letter-spacing:.05em;margin-top:1.5vh;width:fit-content;}
+.wtc-tag img{height:5vh;width:auto;display:block;}
+
+/* CLOSE — slide 24 */
+.close-grid{display:grid;grid-template-columns:1.3fr 1fr;gap:3vw;flex:1;align-items:center;padding:0 2vw;}
+.close-left h3{font-family:var(--serif);font-weight:900;font-size:5vw;color:var(--off);line-height:1;margin-bottom:2.5vh;letter-spacing:-.02em;}
+.close-left h3 em{color:var(--yellow);font-style:normal;}
+.close-left p{font-size:1.75vw;color:rgba(237,237,237,.82);line-height:1.45;margin-bottom:1.5vh;}
+.close-meta{margin-top:3vh;display:flex;flex-direction:column;gap:1.2vh;}
+.close-meta .row{font-size:1.45vw;color:rgba(237,237,237,.85);display:flex;gap:1.5vw;align-items:baseline;}
+.close-meta .row strong{color:var(--yellow);font-family:var(--mono);letter-spacing:.06em;text-transform:uppercase;font-size:1.05vw;display:inline-block;min-width:9vw;font-weight:700;}
+
+/* footer powered — appears at bottom of brand-heavy slides */
+.footer-power{position:absolute;bottom:3vh;left:0;right:0;display:flex;justify-content:center;align-items:center;gap:1.2vw;color:var(--navy);font-size:1vw;letter-spacing:.14em;text-transform:uppercase;font-family:var(--mono);opacity:.85;}
+.footer-power img{height:5vh;width:auto;}
+
+
+.demo-video{width:auto;max-width:100%;max-height:70vh;border-radius:12px;border:3px solid var(--yellow);box-shadow:0 8px 40px rgba(0,0,0,.4);background:#000;display:block;}
+
+/* --- ported from morning deck (LLM def + tools matrix) --- */
+.matrix{width:100%;border-collapse:collapse;}
+.matrix thead th{background:var(--yellow);color:var(--navy);font-family:var(--serif);font-weight:900;font-size:1.2vw;padding:1.3vh 1.2vw;text-align:left;letter-spacing:.03em;text-transform:uppercase;}
+.matrix thead th:first-child{width:20vw;}
+.matrix tbody tr{border-bottom:2px solid rgba(237,237,237,.1);}
+.matrix tbody tr:nth-child(even){background:rgba(229,225,56,.05);}
+.matrix td{padding:1.5vh 1.2vw;font-size:1.35vw;vertical-align:top;line-height:1.4;color:rgba(237,237,237,.9);}
+.matrix td:first-child{font-family:var(--serif);font-weight:900;color:var(--yellow);}
+.matrix-cap{margin-top:1.8vh;padding:1.5vh 2vw;background:rgba(229,225,56,.1);border-left:5px solid var(--yellow);border-radius:0 8px 8px 0;font-size:1.45vw;color:var(--off);line-height:1.45;}
+.matrix-cap strong{color:var(--yellow);}
+.matrix-note{margin-bottom:1.6vh;padding:1.3vh 1.8vw;background:rgba(229,225,56,.1);border-left:5px solid var(--yellow);border-radius:0 8px 8px 0;font-size:1.4vw;color:var(--off);line-height:1.45;}
+.matrix-note strong{color:var(--yellow);}
+.def-single{flex:1;display:flex;flex-direction:column;justify-content:center;gap:2.8vh;}
+.def-box{background:rgba(229,225,56,.1);border:3px solid var(--yellow);border-radius:16px;padding:3.5vh 3.5vw;}
+.def-term{font-family:var(--serif);font-weight:900;font-size:3vw;color:var(--yellow);margin-bottom:1.4vh;line-height:1;}
+.def-text{font-size:1.95vw;color:var(--off);line-height:1.5;}
+.def-text strong{color:var(--yellow);}
+.def-sub{font-size:1.55vw;color:rgba(237,237,237,.85);line-height:1.5;}
+.def-sub strong{color:var(--yellow);}
+.matrix-focus{margin-top:1.5vh;padding:1.3vh 1.8vw;background:rgba(229,225,56,.14);border:2px solid var(--yellow);border-radius:8px;font-size:1.4vw;color:var(--off);text-align:center;font-family:var(--serif);font-weight:700;}
+.matrix-focus strong{color:var(--yellow);}
+
+/* --- vocabulary grid (from EAC deck) --- */
+.word-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:2vw;flex:1;align-items:stretch;}
+.word-card{background:rgba(237,237,237,.04);border:2px solid rgba(229,225,56,.3);border-radius:12px;padding:2.6vh 1.9vw;display:flex;flex-direction:column;gap:1.1vh;}
+.word-term{font-family:var(--serif);font-weight:900;font-size:2vw;color:var(--yellow);line-height:1.05;}
+.word-term span{display:block;font-family:var(--mono);font-size:.85vw;color:rgba(237,237,237,.6);text-transform:uppercase;letter-spacing:.08em;margin-top:.4vh;font-weight:400;}
+.word-q{font-size:1.4vw;color:var(--off);font-style:italic;line-height:1.4;}
+.word-a{font-size:1.28vw;color:rgba(237,237,237,.82);line-height:1.45;}
+.word-foot{margin-top:1.8vh;font-family:var(--serif);font-weight:700;font-size:1.5vw;color:var(--off);text-align:center;}
+.word-grid.six{grid-template-columns:1fr 1fr 1fr;grid-auto-rows:1fr;gap:1.6vw;}
+.word-grid.six .word-card{padding:2vh 1.7vw;gap:.9vh;}
+.word-grid.six .word-term{font-size:1.9vw;}
+.word-grid.six .word-a{font-size:1.42vw;line-height:1.45;}
+
+/* speakers slide */
+.spk-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2.4vh 2.6vw;width:100%;flex:1;align-content:center;}
+.spk-card{display:flex;flex-direction:column;align-items:center;text-align:center;gap:.9vh;}
+.spk-photo{width:8.4vw;height:8.4vw;border-radius:50%;object-fit:cover;object-position:top center;border:3px solid var(--yellow);background:#fff;}
+.spk-name{font-family:var(--serif);font-weight:900;font-size:1.45vw;color:var(--off);line-height:1.1;}
+.spk-role{font-size:.98vw;color:rgba(237,237,237,.72);line-height:1.3;max-width:16vw;}
+.spk-logo{height:6.4vh;width:auto;max-width:14vw;object-fit:contain;margin-top:1.4vh;display:block;}
+/* white body variant: logos show on their own, no chips */
+.spk-body{background:#fff;}
+.spk-body .spk-name{color:var(--navy);}
+.spk-body .spk-role{color:rgba(17,31,117,.72);}
+.spk-body .spk-photo{box-shadow:0 5px 16px rgba(17,31,117,.16);}
+/* practice countdown timer */
+.timer-wrap{margin-top:3vh;}
+.timer{font-family:var(--mono);font-weight:500;font-size:6vw;line-height:1;letter-spacing:.02em;color:var(--yellow);}
+.timer.warn{color:#ff6b6b;}
+.timer-btns{display:flex;gap:1vw;margin-top:1.8vh;}
+.timer-btn{font-family:var(--mono);font-size:1.05vw;text-transform:uppercase;letter-spacing:.08em;font-weight:700;background:var(--yellow);color:var(--navy);border:2px solid var(--navy);border-radius:8px;padding:1vh 1.9vw;cursor:pointer;}
+.timer-btn:hover{background:var(--yellow-soft);}
+.timer-btn.ghost{background:transparent;color:var(--off);border-color:rgba(237,237,237,.3);}
+.timer-btn.ghost:hover{background:rgba(237,237,237,.08);}
+</style>
+</head>
+<body>
+<div class="deck" id="deck">
+
+<!-- SLIDE 0: HOLDING -->
+<div class="slide">
+<div class="awning thin"></div>
+<div class="s-title">
+  <img class="lockup" alt="BuiltSmall" src="lockup_lite.png">
+  <h1>Next Era <em>Foundations</em></h1>
+  <div class="sub">AI Foundations for small businesses</div>
+  <div class="tagline">Built Small, for All</div>
+  <div class="setup-line" style="margin-top:3vh;font-family:var(--body);font-size:1.5vw;font-weight:600;letter-spacing:.01em;color:var(--navy);">Open your AI tool and a blank document.</div>
+  <div class="poweredby">
+    <span>Powered by</span>
+    <img alt="Welcome to Chinatown" src="wtc_lite.png">
+  </div>
+</div>
+</div>
+
+<div class="slide">
+<div class="awning thin"></div>
+<div class="hdr"><div><div class="eyebrow">Who we are</div><h2>Welcome to Chinatown</h2></div><img class="logo" alt="BuiltSmall" src="lockup_lite.png"></div>
+<div class="body">
+<div class="who-layout">
+  <div class="who-mark">
+    <img src="wtc_lite.png" alt="Welcome to Chinatown" class="wtc-hero">
+  </div>
+  <ul class="bullets who-list">
+    <li>We support small businesses across New York.</li>
+    <li>New York State named us the <strong>AI Specialist Entrepreneur Assistance Center</strong>.</li>
+    <li><strong>BuiltSmall</strong> is our AI program for small businesses. Training, tools, and support, all free.</li>
+    <li>We trained Entrepreneur Assistance Centers across the state. Some are hosting with us today.</li>
+  </ul>
+</div>
+</div>
+</div>
+
+
+
+<div class="slide">
+<div class="awning thin"></div>
+<div class="hdr"><div><div class="eyebrow">Hosted with our partners</div><h2>Today's speakers</h2></div><img class="logo" alt="BuiltSmall" src="lockup_lite.png"></div>
+<div class="body spk-body">
+<div class="spk-grid">
+  <div class="spk-card"><img class="spk-photo" src="speakers/bhavna.jpg" alt="Bhavna Punjwani"><div class="spk-name">Bhavna Punjwani</div><div class="spk-role">Director of Business Services, Queens EDC</div><img class="spk-logo" src="speakers/logo_qedc.svg" alt="Queens Economic Development Corporation"></div>
+  <div class="spk-card"><img class="spk-photo" src="speakers/bryan.jpg" alt="Bryan Lozano"><div class="spk-name">Bryan Lozano</div><div class="spk-role">Chief Strategy Officer, Welcome to Chinatown</div><img class="spk-logo" src="speakers/logo_wtc.png" alt="Welcome to Chinatown"></div>
+  <div class="spk-card"><img class="spk-photo" src="speakers/daniel.jpg" alt="Daniel Bempah"><div class="spk-name">Daniel Bempah</div><div class="spk-role">Program Manager, Welcome to Chinatown</div><img class="spk-logo" src="speakers/logo_wtc.png" alt="Welcome to Chinatown"></div>
+  <div class="spk-card"><img class="spk-photo" src="speakers/iris.jpg" alt="Iris Cohello"><div class="spk-name">Iris Cohello</div><div class="spk-role">Director, Westchester Women's Business Center</div><img class="spk-logo" src="speakers/logo_wedc.png" alt="Women's Enterprise Development Center"></div>
+  <div class="spk-card"><img class="spk-photo" src="speakers/jennifer.jpg" alt="Jennifer McGee"><div class="spk-name">Jennifer McGee</div><div class="spk-role">Program Manager, WISE Women's Business Center</div><img class="spk-logo" src="speakers/logo_wise.png" alt="WISE Women's Business Center"></div>
+  <div class="spk-card"><img class="spk-photo" src="speakers/yujia.jpg" alt="Yujia Hu"><div class="spk-name">Yujia Hu</div><div class="spk-role">Program Coordinator, SBIDC</div><img class="spk-logo" src="speakers/logo_sbidc_dark.svg" alt="Southwest Brooklyn Industrial Development Corporation"></div>
+</div>
+</div>
+</div>
+
+<div class="slide">
+<div class="awning thin"></div>
+<div class="hdr"><div><div class="eyebrow">Before we begin</div><h2>Who this is for</h2></div><img class="logo" alt="BuiltSmall" src="lockup_lite.png"></div>
+<div class="body">
+<ul class="bullets">
+  <li>Small businesses.</li>
+  <li>Owners who are new to AI, or not yet using it in the business.</li>
+  <li>This session is about the fundamentals, with a bit of hands-on practice.</li>
+  <li>Want to go further? Stay for Session 2: Next Era Advanced, next in this room.<br><span style="font-size:.82em;opacity:.7;">builtsmall.ai/programs</span></li>
+</ul>
+</div>
+</div>
+
+
+<div class="slide">
+<div class="awning thin"></div>
+<div class="hdr"><div><div class="eyebrow">Why this hour</div><h2>What this is for</h2></div><img class="logo" alt="BuiltSmall" src="lockup_lite.png"></div>
+<div class="body">
+<div class="stat-layout">
+  <div>
+    <div class="big-stat"><span class="pct">82%</span><span class="label">of the smallest firms that have not started with AI say the reason is simple. They do not think it applies to their business.</span></div>
+  </div>
+  <div class="stat-side">
+    <h3>New York is home to 2.3 million small businesses.</h3>
+    <p>That is not a technology problem.</p>
+    <p><span class="pull">It is a relevance problem.</span></p>
+    <p>This hour shows you it applies, and how owners like you are already using it.</p>
+  </div>
+</div>
+</div>
+</div>
+
+<div class="slide">
+<div class="awning thin"></div>
+<div class="section-inner">
+  <div class="sec-num">01</div>
+  <div class="sec-text">
+    <div class="badge">Section one</div>
+    <h2>What is AI</h2>
+    <p>What AI is, how it works, and what it means for your business.</p>
+  </div>
+</div>
+</div>
+
+<div class="slide">
+<div class="awning thin"></div>
+<div class="hdr"><div><div class="eyebrow">Section one</div><h2>What is AI</h2></div><img class="logo" alt="BuiltSmall" src="lockup_lite.png"></div>
+<div class="body">
+<div style="flex:1;display:flex;align-items:center;justify-content:center;padding:1vh 0;">
+  <div style="width:min(86vw,128vh);aspect-ratio:16/9;border-radius:12px;overflow:hidden;border:3px solid var(--yellow);box-shadow:0 12px 40px rgba(0,0,0,.45);">
+    <iframe src="https://www.youtube-nocookie.com/embed/sg_fuEzFw0g?rel=0" title="Hook video" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen style="width:100%;height:100%;display:block;border:0;"></iframe>
+  </div>
+</div>
+</div>
+</div>
+<div class="slide">
+<div class="awning thin"></div>
+<div class="hdr"><div><div class="eyebrow">The core concept</div><h2>What is an LLM</h2></div><img class="logo" alt="BuiltSmall" src="lockup_lite.png"></div>
+<div class="body">
+<div class="def-single">
+  <div class="def-box">
+    <div class="def-term">Large Language Model</div>
+    <div class="def-text">A program trained on a <strong>massive amount of human language</strong>, trillions of words, most of the public internet and more. That training is why it reads and writes the way people do, and predicts the next word so well.</div>
+  </div>
+  <div class="def-sub">The name is the definition: <strong>Large</strong> is the huge training data, <strong>Language</strong> is human writing, <strong>Model</strong> predicts the next word. Every chat assistant you know, ChatGPT, Claude, and Gemini, is one.</div>
+</div>
+</div>
+</div>
+<div class="slide">
+<div class="awning thin"></div>
+<div class="hdr"><div><div class="eyebrow">Ground the room</div><h2>What AI is, and is not</h2></div><img class="logo" alt="BuiltSmall" src="lockup_lite.png"></div>
+<div class="body">
+<div class="ws-grid">
+  <div class="ws-card is">
+    <div class="ws-label">It is</div>
+    <ul class="ws-list">
+      <li><strong>Predictive.</strong> It guesses the most likely next word, based on patterns it has seen.</li>
+      <li>A fast drafter. Quick, tireless, confident. You decide what ships.</li>
+      <li>A tool that reads and writes. Newer tools also create documents, images, even spreadsheets.</li>
+    </ul>
+  </div>
+  <div class="ws-card isnot">
+    <div class="ws-label">It is not</div>
+    <ul class="ws-list">
+      <li><strong>Magic.</strong> It does not understand. It pattern-matches, and it can be confidently wrong.</li>
+      <li>Aware of your business unless you tell it.</li>
+      <li>A replacement for your judgment.</li>
+    </ul>
+  </div>
+</div>
+</div>
+</div>
+<div class="slide">
+<div class="awning thin"></div>
+<div class="hdr"><div><div class="eyebrow">Good to know</div><h2>The vocabulary of AI</h2></div><img class="logo" alt="BuiltSmall" src="lockup_lite.png"></div>
+<div class="body">
+<div class="word-grid six">
+  <div class="word-card"><div class="word-term">Prompt</div><div class="word-a">Your instruction to the AI. Prompt engineering is shaping that instruction to get a good answer.</div></div>
+  <div class="word-card"><div class="word-term">Context window</div><div class="word-a">The AI's working memory for one conversation. Your prompt, any files, and its reply all share the same space.</div></div>
+  <div class="word-card"><div class="word-term">Tokens</div><div class="word-a">The pieces of text the AI counts, roughly a word each. More tokens, more it costs.</div></div>
+  <div class="word-card"><div class="word-term">RAG (Retrieval-Augmented Generation)</div><div class="word-a">Give the AI your own documents to answer from. Example: upload your menu or policies to NotebookLM and ask it questions. Claude Projects and custom GPTs work the same way. No coding.</div></div>
+  <div class="word-card"><div class="word-term">Agentic AI</div><div class="word-a">AI that takes actions, browses, fills forms, not just answers.</div></div>
+  <div class="word-card"><div class="word-term">Open source</div><div class="word-a">Models like Llama, DeepSeek, Qwen, or Kimi K2 that you can run on your own device. Private, but technical to set up.</div></div>
+</div>
+</div>
+</div>
+<div class="slide">
+<div class="awning thin"></div>
+<div class="hdr"><div><div class="eyebrow">The landscape</div><h2>Types of AI tools worth knowing</h2></div><img class="logo" alt="BuiltSmall" src="lockup_lite.png"></div>
+<div class="body">
+<div class="matrix-note">Any chat assistant, <strong>ChatGPT, Claude, or Gemini</strong>, can do all of these. Below are the purpose-built and built-in options worth knowing.</div>
+<table class="matrix">
+  <thead><tr><th>Workflow</th><th>Purpose-built tools</th><th>Inside tools you already use</th></tr></thead>
+  <tbody>
+    <tr><td>Writing and drafting</td><td>Copy.ai, Jasper</td><td>Google Docs, Microsoft Word</td></tr>
+    <tr><td>Notes and meeting capture</td><td>Fathom, Fireflies, Granola, Otter</td><td>Google Meet, Zoom AI</td></tr>
+    <tr><td>Marketing and social</td><td>Buffer AI, Jasper</td><td>Instagram, Meta Business Suite</td></tr>
+    <tr><td>Design and images</td><td>Adobe Firefly, Midjourney</td><td>Adobe Express, Canva Magic</td></tr>
+    <tr><td>Customer communication</td><td>Gorgias, Intercom Fin</td><td>Shopify Inbox, Square Messages</td></tr>
+    <tr><td>Bookkeeping and admin</td><td>Digits, Ramp</td><td>QuickBooks AI, Xero</td></tr>
+    <tr><td>Translation</td><td>DeepL, Google Translate</td><td>Google Docs Translate</td></tr>
+  </tbody>
+</table>
+<div class="matrix-focus">In this training we <strong>focus on the chat assistants</strong>, since they can do all of these.</div>
+</div>
+</div>
+
+<div class="slide">
+<div class="awning thin"></div>
+<div class="section-inner">
+  <div class="sec-num">02</div>
+  <div class="sec-text">
+    <div class="badge">Section two</div>
+    <h2>The BuiltSmall framework</h2>
+    <p>How to find where AI fits in your business. Find the task that drains your week, check that it fits AI, then ask it well.</p>
+  </div>
+</div>
+</div>
+
+<div class="slide">
+<div class="awning thin"></div>
+<div class="hdr"><div><div class="eyebrow">The method</div><h2>Start with the task that drains your week</h2></div><img class="logo" alt="BuiltSmall" src="lockup_lite.png"></div>
+<div class="body">
+<div class="pita-layout">
+  <div class="pita-lead">
+    <h3>Start with the work you would <em>hand off in a second</em> if you could.</h3>
+    <p>The repeating, draining tasks that eat your time.</p>
+    <div class="pita-examples">
+      <div class="label">For example</div>
+      <ul>
+        <li>Reconciling sales</li>
+        <li>Sorting receipts</li>
+        <li>Reordering stock</li>
+        <li>Writing the same caption again</li>
+      </ul>
+    </div>
+  </div>
+  <div class="pita-chat">
+    <div class="badge">Call it out</div>
+    <h4>What is your PITA? The pain in the ass task.</h4>
+    <p>We will test a few on the next slide.</p>
+  </div>
+</div>
+</div>
+</div>
+
+<div class="slide">
+<div class="awning thin"></div>
+<div class="hdr"><div><div class="eyebrow">Is it a job for AI</div><h2>Three checks</h2></div><img class="logo" alt="BuiltSmall" src="lockup_lite.png"></div>
+<div class="body">
+<div class="filter-cards">
+  <div class="filter-card">
+    <div class="filter-num">1</div>
+    <div class="filter-title">Procedure</div>
+    <div class="filter-sub">Can you write down the steps?</div>
+    <div class="filter-pass"><span class="yes"><strong>Yes:</strong> sorting receipts</span><span class="no"><strong>No:</strong> choosing a business partner</span></div>
+  </div>
+  <div class="filter-card">
+    <div class="filter-num">2</div>
+    <div class="filter-title">Repetition</div>
+    <div class="filter-sub">Does it repeat in the same shape?</div>
+    <div class="filter-pass"><span class="yes"><strong>Yes:</strong> a weekly reorder email</span><span class="no"><strong>No:</strong> a one-time legal fight</span></div>
+  </div>
+  <div class="filter-card">
+    <div class="filter-num">3</div>
+    <div class="filter-title">Risk</div>
+    <div class="filter-sub">Low risk, let AI run. High risk, AI drafts and you check.</div>
+    <div class="filter-pass"><span class="yes"><strong>Low:</strong> a draft caption</span><span class="no"><strong>High:</strong> filing your taxes</span></div>
+  </div>
+</div>
+<div class="filter-footer">Passes all three? <strong>That is where you start.</strong></div>
+</div>
+</div>
+
+
+<div class="slide">
+<div class="awning thin"></div>
+<div class="hdr"><div><div class="eyebrow">The PITA: procurement</div><h2>Procurement</h2></div><img class="logo" alt="BuiltSmall" src="lockup_lite.png"></div>
+<div class="body">
+<div class="demo-frame">
+  <span class="demo-tag">One list, a dashboard, and every email</span>
+  <h3>One inventory file becomes <em>a reorder dashboard and a stack of supplier emails</em>.</h3>
+  <ul class="demo-bullets">
+    <li><strong>The pain:</strong> knowing what is low, what it costs to restock, and emailing every supplier by hand.</li>
+    <li><strong>One prompt, four parts:</strong> role and goal, steps, output, eval.</li>
+    <li><strong>What it makes:</strong> a reorder dashboard &mdash; items below par, reorder cost by supplier, a quick chart &mdash; plus one ready-to-send email per supplier.</li>
+    <li class="catch"><strong>The catch:</strong> it works off the numbers you give it. Confirm quantities before you send.</li>
+  </ul>
+  <div class="demo-share-hint">Recording on the next slide &rarr;</div>
+</div>
+</div>
+</div>
+
+
+<div class="slide">
+<div class="awning thin"></div>
+<div class="hdr"><div><div class="eyebrow">The demo, recording</div><h2>Procurement</h2></div><img class="logo" alt="BuiltSmall" src="lockup_lite.png"></div>
+<div class="body" style="justify-content:center;align-items:center;">
+  <video class="demo-video" src="demo2.mp4" controls preload="metadata" playsinline></video>
+</div>
+</div>
+
+<div class="slide">
+<div class="awning thin"></div>
+<div class="hdr"><div><div class="eyebrow">More jobs</div><h2>And there is more</h2></div><img class="logo" alt="BuiltSmall" src="lockup_lite.png"></div>
+<div class="body">
+<ul class="bullets">
+  <li>Draft replies to the questions customers ask you again and again.</li>
+  <li>Plan a week of social posts, then turn each one into a flyer or a story.</li>
+  <li>Translate posts, signs, and customer messages across languages.</li>
+  <li>Write a job post, an onboarding checklist, or a simple training guide.</li>
+</ul>
+<div style="margin-top:3vh;padding:1.6vh 2vw;background:rgba(229,225,56,.08);border-left:4px solid var(--yellow);font-family:var(--mono);font-size:1.05vw;color:rgba(237,237,237,.65);letter-spacing:.04em;">
+  Owners in our survey said these eat the week: social and marketing (37%), creating content (32%), customer replies (31%), admin (28%).
+</div>
+</div>
+</div>
+
+<div class="slide">
+<div class="awning thin"></div>
+<div class="hdr"><div><div class="eyebrow">Lead with the human</div><h2>Safety and privacy</h2></div><img class="logo" alt="BuiltSmall" src="lockup_lite.png"></div>
+<div class="body">
+<div class="safety-grid">
+  <div class="safety-row lead">
+    <div class="safety-num">01</div>
+    <div class="safety-text"><strong>Keep a human in the loop.</strong> AI drafts, you decide. Never let it send money, sign, hire, or post on its own.</div>
+  </div>
+  <div class="safety-row">
+    <div class="safety-num">02</div>
+    <div class="safety-text"><strong>Keep private things out.</strong> No card or account numbers, passwords, SSNs, or customer and employee records in public AI tools.</div>
+  </div>
+  <div class="safety-row">
+    <div class="safety-num">03</div>
+    <div class="safety-text"><strong>Assume free tools may learn from what you type.</strong> Turn off training in settings, or use a business plan for sensitive work.</div>
+  </div>
+  <div class="safety-row">
+    <div class="safety-num">04</div>
+    <div class="safety-text"><strong>AI makes things up.</strong> Verify names, numbers, dates, and anything legal, tax, or medical with a person.</div>
+  </div>
+  <div class="safety-row">
+    <div class="safety-num">05</div>
+    <div class="safety-text"><strong>Start inside your business, not pointed at customers.</strong> A public chatbot can be wrong in public. Inside tools are easier to check.</div>
+  </div>
+  <div class="safety-foot">New scams use AI voice cloning and better phishing. Verify any unusual money or access request by phone.</div>
+</div>
+</div>
+</div>
+
+
+<div class="slide">
+<div class="awning thin"></div>
+<div class="hdr"><div><div class="eyebrow">Protect your data</div><h2>Turn off training</h2></div><img class="logo" alt="BuiltSmall" src="lockup_lite.png"></div>
+<div class="body">
+<p style="font-size:1.5vw;color:rgba(237,237,237,.85);line-height:1.5;margin-bottom:1.8vh;">Most chat assistants can stop training on what you type. Here is where to find the setting.</p>
+<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:1.5vw;">
+<div style="border:2px solid rgba(237,237,237,.14);border-radius:10px;padding:1.6vh 1.2vw;background:rgba(237,237,237,.04);display:flex;flex-direction:column;gap:1vh;"><div style="font-family:var(--serif);font-weight:900;font-size:1.5vw;color:var(--off);">ChatGPT</div><div style="background:#fff;border-radius:8px;overflow:hidden;border:1px solid rgba(0,0,0,.12);"><img src="chatgpt_training.png" alt="ChatGPT training setting" style="width:100%;height:auto;display:block;max-height:38vh;object-fit:contain;"></div><div style="font-size:1.05vw;color:rgba(237,237,237,.72);line-height:1.4;">Settings &rsaquo; Data controls &rsaquo; turn off "Improve the model for everyone".</div></div><div style="border:2px solid rgba(237,237,237,.14);border-radius:10px;padding:1.6vh 1.2vw;background:rgba(237,237,237,.04);display:flex;flex-direction:column;gap:1vh;"><div style="font-family:var(--serif);font-weight:900;font-size:1.5vw;color:var(--off);">Claude</div><div style="background:#fff;border-radius:8px;overflow:hidden;border:1px solid rgba(0,0,0,.12);"><img src="claude_training.png" alt="Claude training setting" style="width:100%;height:auto;display:block;max-height:38vh;object-fit:contain;"></div><div style="font-size:1.05vw;color:rgba(237,237,237,.72);line-height:1.4;">Settings &rsaquo; Privacy &rsaquo; turn off "Help improve our AI models".</div></div><div style="border:2px solid rgba(237,237,237,.14);border-radius:10px;padding:1.6vh 1.2vw;background:rgba(237,237,237,.04);display:flex;flex-direction:column;gap:1vh;"><div style="font-family:var(--serif);font-weight:900;font-size:1.5vw;color:var(--off);">Gemini</div><div style="background:#fff;border-radius:8px;overflow:hidden;border:1px solid rgba(0,0,0,.12);"><img src="gemini_training.png" alt="Gemini training setting" style="width:100%;height:auto;display:block;max-height:38vh;object-fit:contain;"></div><div style="font-size:1.05vw;color:rgba(237,237,237,.72);line-height:1.4;">Settings &rsaquo; Gemini Apps Activity &rsaquo; turn it Off.</div></div>
+</div>
+</div>
+</div>
+
+
+<div class="slide">
+<div class="awning thin"></div>
+<div class="hdr"><div><div class="eyebrow">Social proof</div><h2>People like you are already doing this</h2></div><img class="logo" alt="BuiltSmall" src="lockup_lite.png"></div>
+<div class="body">
+<div class="proof-layout">
+  <div class="proof-stats">
+    <div class="proof-stat">
+      <div class="num">678</div>
+      <div class="lbl">small businesses surveyed across New York, in English, Chinese, and Spanish</div>
+      <div class="placeholder">WtC Small Business AI Readiness Survey</div>
+    </div>
+    <div class="proof-stat">
+      <div class="num">49%</div>
+      <div class="lbl">said the thing most likely to get them to try AI is <strong>seeing another business like theirs do it first</strong></div>
+      <div class="placeholder">Top answer, beating cost (42%) and someone to walk through (41%)</div>
+    </div>
+  </div>
+  <div class="proof-side">
+    <h3>Owners try AI when they see a peer <em>like them</em> do it.</h3>
+    <p>So here are two. Both New York. Both small. Both started with a draining task.</p>
+  </div>
+</div>
+</div>
+</div>
+
+<div class="slide">
+<div class="awning thin"></div>
+<div class="hdr"><div><div class="eyebrow">Case study, part 1 of 2</div><h2>Jason at Soft Swerve</h2></div><img class="logo" alt="BuiltSmall" src="lockup_lite.png"></div>
+<div class="body">
+<div class="ss-layout">
+  <div class="ss-context">
+    <div class="ss-person">
+      <div class="ss-photo"><img src="jason.jpg" alt="Jason and Michael, Soft Swerve" onerror="this.style.display='none';this.parentElement.innerHTML='JL';"></div>
+      <div class="ss-person-text">
+        <h3>Soft Swerve Ice Cream</h3>
+        <div class="who">Jason Liu &amp; Michael Tsang, co-founders &middot; 6 NYC locations</div>
+      </div>
+    </div>
+    <p class="problem"><strong>The problem:</strong> no single view of what was selling where. Hours lost reconciling six locations across Square exports.</p>
+    <p class="problem"><strong>What he did:</strong> used AI to build a real dashboard connected to his sales data, slice by location, by hour, by topping.</p>
+    <div class="ss-stats">
+      <div class="ss-stat"><strong>Real-time view</strong> across all six shops</div>
+      <div class="ss-stat"><strong>~6 hours a month saved</strong> on tip reconciliation</div>
+      <div class="ss-stat"><strong>Modifier-level insight</strong> on what attaches and what lags</div>
+    </div>
+  </div>
+  <div class="ss-screen"><img src="jason_modifiers.png" alt="Soft Swerve Modifiers dashboard" onerror="this.parentElement.classList.add('empty');this.parentElement.innerHTML='Modifiers view<br>save as jason_modifiers.png';"></div>
+</div>
+</div>
+</div>
+
+<div class="slide">
+<div class="awning thin"></div>
+<div class="hdr"><div><div class="eyebrow">Case study, part 2 of 2</div><h2>What the dashboard answers</h2></div><img class="logo" alt="BuiltSmall" src="lockup_lite.png"></div>
+<div class="body">
+<div class="jason-grid">
+  <div class="jason-cell">
+    <div class="jason-label">Flavor performance, by location</div>
+    <div class="ss-screen small"><img src="jason_flavors.png" alt="Flavor Performance" onerror="this.parentElement.classList.add('empty');this.parentElement.innerHTML='Flavor performance<br>save as jason_flavors.png';"></div>
+    <div class="jason-caption">Which flavors are growing, which are lagging. Per shop.</div>
+  </div>
+  <div class="jason-cell">
+    <div class="jason-label">Sales by day and hour</div>
+    <div class="ss-screen small"><img src="jason_heatmap.png" alt="Sales heatmap" onerror="this.parentElement.classList.add('empty');this.parentElement.innerHTML='Sales heatmap<br>save as jason_heatmap.png';"></div>
+    <div class="jason-caption">Friday and Saturday nights carry the week. Now staffing matches the curve.</div>
+  </div>
+</div>
+<div class="jason-foot">Same business. Same Square data Jason already had. The AI made it readable.</div>
+</div>
+</div>
+
+<div class="slide">
+<div class="awning thin"></div>
+<div class="hdr"><div><div class="eyebrow">Case study, part 1 of 2</div><h2>Henry at Ideas of Order</h2></div><img class="logo" alt="BuiltSmall" src="lockup_lite.png"></div>
+<div class="body">
+<div class="ss-layout">
+  <div class="ss-context">
+    <div class="ss-person">
+      <div class="ss-photo"><img src="henry.jpg" alt="Henry Ng" onerror="this.style.display='none';this.parentElement.innerHTML='HN';"></div>
+      <div class="ss-person-text">
+        <h3>Ideas of Order</h3>
+        <div class="who">Henry Ng, founder &middot; no coding background</div>
+      </div>
+    </div>
+    <p class="problem"><strong>The problem:</strong> procurement, invoicing, and delivery status managed by hand across spreadsheets and email.</p>
+    <p class="problem"><strong>What he did:</strong> used AI to build an in-house tool that pulls all of it into one place.</p>
+    <div class="ss-stats">
+      <div class="ss-stat"><strong>One project view</strong> by room, by vendor, with budget vs. cost</div>
+      <div class="ss-stat"><strong>Built by a non-developer</strong> by describing the problem</div>
+    </div>
+  </div>
+  <div class="ss-screen"><img src="henry_project.jpg" alt="Ideas of Order project view" onerror="this.parentElement.classList.add('empty');this.parentElement.innerHTML='Project view<br>save as henry_project.jpg';"></div>
+</div>
+</div>
+</div>
+
+<div class="slide">
+<div class="awning thin"></div>
+<div class="hdr"><div><div class="eyebrow">Case study, part 2 of 2</div><h2>What the tool tracks</h2></div><img class="logo" alt="BuiltSmall" src="lockup_lite.png"></div>
+<div class="body">
+<div class="jason-grid">
+  <div class="jason-cell">
+    <div class="jason-label">Invoicing &amp; fee collection</div>
+    <div class="ss-screen small"><img src="henry_invoicing.jpg" alt="Invoicing view" onerror="this.parentElement.classList.add('empty');this.parentElement.innerHTML='Invoicing view<br>save as henry_invoicing.jpg';"></div>
+    <div class="jason-caption">Outstanding fees, by project. Nothing slips through.</div>
+  </div>
+  <div class="jason-cell">
+    <div class="jason-label">Delivery status tracker</div>
+    <div class="ss-screen small"><img src="henry_status.jpg" alt="Status tracker" onerror="this.parentElement.classList.add('empty');this.parentElement.innerHTML='Status tracker<br>save as henry_status.jpg';"></div>
+    <div class="jason-caption">Overdue and due-this-week items, by vendor. One screen instead of a folder of emails.</div>
+  </div>
+</div>
+<div class="jason-foot">Same studio. Same projects. The AI turned scattered tracking into one tool Henry built himself.</div>
+</div>
+</div>
+
+<div class="slide">
+<div class="awning thin"></div>
+<div class="hdr"><div><div class="eyebrow">The pattern</div><h2>Problem first, proven</h2></div><img class="logo" alt="BuiltSmall" src="lockup_lite.png"></div>
+<div class="body">
+<div class="pf-inner">
+  <h3>We said it at the start. <em>Start with the task that drains your week.</em></h3>
+  <p>Jason started with weekly reconciliation. Henry started with procurement by hand. Neither started with AI. They started with the problem.</p>
+  <div class="punch">Pick your pain. That is the whole job.</div>
+</div>
+</div>
+</div>
+
+<div class="slide">
+<div class="awning thin"></div>
+<div class="hdr"><div><div class="eyebrow">The core principle</div><h2>Using AI effectively</h2></div><img class="logo" alt="BuiltSmall" src="lockup_lite.png"></div>
+<div class="body">
+<div class="ws-grid">
+  <div class="ws-card isnot">
+    <div class="ws-label">Vague ask</div>
+    <div style="font-family:var(--mono);font-size:1.5vw;color:rgba(237,237,237,.8);background:var(--navy-deep);border-radius:8px;padding:1.8vh 1.6vw;line-height:1.5;">"Write me a caption."</div>
+    <div style="font-size:1.5vw;color:rgba(237,237,237,.7);line-height:1.45;margin-top:1vh;">A generic caption that could belong to any business.</div>
+  </div>
+  <div class="ws-card is">
+    <div class="ws-label">Specific ask</div>
+    <div style="font-family:var(--mono);font-size:.98vw;color:var(--navy);background:var(--yellow);border-radius:8px;padding:1.5vh 1.4vw;line-height:1.45;text-align:left;">
+      <div><strong>Role &amp; goal:</strong> You are my social media manager. Write an Instagram caption for my tea shop's new jasmine milk tea.</div>
+      <div style="margin-top:.7vh;"><strong>Steps:</strong> Lead with the flavor, say it is new this week, end with a call to visit.</div>
+      <div style="margin-top:.7vh;"><strong>Output:</strong> Friendly tone, under 30 words, in English and Chinese.</div>
+      <div style="margin-top:.7vh;"><strong>Eval:</strong> Check it reads naturally in both languages.</div>
+    </div>
+    <div style="font-size:1.5vw;color:rgba(237,237,237,.9);line-height:1.45;margin-top:1vh;">A caption you can actually post.</div>
+  </div>
+</div>
+<div style="margin-top:2.6vh;text-align:center;font-family:var(--serif);font-weight:900;font-size:1.9vw;color:var(--yellow);line-height:1.2;">The quality of your input sets the quality of your output.</div>
+</div>
+</div>
+
+<div class="slide">
+<div class="awning thin"></div>
+<div class="hdr"><div><div class="eyebrow">How to ask</div><h2>The prompt framework</h2></div><img class="logo" alt="BuiltSmall" src="lockup_lite.png"></div>
+<div class="body">
+<table class="pt">
+  <thead><tr><th>Part</th><th>What to do</th><th>Example</th></tr></thead>
+  <tbody>
+    <tr><td>Role and Goal</td><td>Tell AI who it is and what to accomplish</td><td>You are my bookkeeper. Sort my expenses for last month.</td></tr>
+    <tr><td>Steps</td><td>Break the task into clear numbered steps</td><td>Step 1, group by category. Step 2, total each one. Step 3, flag anything unusual.</td></tr>
+    <tr><td>Output</td><td>Say exactly what you want back</td><td>Give me a table I can paste into a spreadsheet.</td></tr>
+    <tr><td>Eval</td><td>Ask AI to check its own work</td><td>Confirm every line is counted once and the totals add up.</td></tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+
+<div class="slide">
+<div class="awning thin"></div>
+<div class="hdr"><div><div class="eyebrow">Your turn</div><h2>Let's practice for 7 minutes</h2></div><img class="logo" alt="BuiltSmall" src="lockup_lite.png"></div>
+<div class="body">
+<div class="close-grid">
+  <div class="close-left">
+    <h3>Write a prompt for a real problem.</h3>
+    <p>Pick your PITA. Draft a prompt in your doc using the four parts: role and goal, steps, output, eval. Then paste it into your AI tool.</p>
+    <p style="opacity:.85;">No idea where to start? Use one of the ready-made prompts in our prompt guide.</p>
+    <div class="timer-wrap">
+      <div class="timer" id="ptimer">7:00</div>
+      <div class="timer-btns">
+        <button class="timer-btn" onclick="ptStart()">Start</button>
+        <button class="timer-btn ghost" onclick="ptReset()">Reset</button>
+      </div>
+    </div>
+  </div>
+  <div class="qr-block">
+    <div class="qr-eyebrow">Scan for prompts</div>
+    <img src="qr_promptguide.png" alt="Prompt guide QR" class="qr-img">
+    <div class="qr-label">The prompt guide</div>
+    <div class="qr-sub">ready-made prompts by job</div>
+  </div>
+</div>
+</div>
+</div>
+
+
+
+<div class="slide">
+<div class="awning thin"></div>
+<div class="hdr"><div><div class="eyebrow">Keep going</div><h2>Continue working on your prompt</h2></div><img class="logo" alt="BuiltSmall" src="lockup_lite.png"></div>
+<div class="body">
+<div class="start-grid">
+  <div class="start-step"><div class="start-num">1</div><div class="start-text">Keep refining the prompt you started. Small changes make a big difference.</div></div>
+  <div class="start-step"><div class="start-num">2</div><div class="start-text">Practice on another task from your week using the four parts: role and goal, steps, output, eval.</div></div>
+  <div class="start-step"><div class="start-num">3</div><div class="start-text">Use your real details and no private numbers.</div></div>
+  <div class="start-step"><div class="start-num">4</div><div class="start-text">Iterate. Your first try will be average. Point out what is off and ask again.</div></div>
+</div>
+</div>
+</div>
+
+
+
+<div class="slide">
+<div class="awning thin"></div>
+<div class="hdr"><div><div class="eyebrow">Keep going</div><h2>What BuiltSmall offers</h2></div><img class="logo" alt="BuiltSmall" src="lockup_lite.png"></div>
+<div class="body">
+<div class="offers-2col">
+  <div class="offers-side">
+    <h3>Free AI training and tools for small businesses across <em>New York</em>.</h3>
+    <div class="offers-list">
+      <div class="offer"><div class="offer-n">01</div><div><strong>Session 2: Next Era Advanced, next in this room.</strong> Prompting, automations, and building your own tools.</div></div>
+      <div class="offer"><div class="offer-n">02</div><div><strong>Office hours.</strong> One-on-one, in-language support. Bring a real task from your business.</div></div>
+      <div class="offer highlight"><div class="offer-n">03</div><div><strong>Sign up for updates.</strong> We will tell you when new sessions and programs launch.</div></div>
+    </div>
+    <div class="wtc-tag">
+      <img alt="Welcome to Chinatown" src="wtc_lite.png">
+      <span>Powered by Welcome to Chinatown &middot; New York State AI Specialist EAC</span>
+    </div>
+  </div>
+  <div class="qr-stack">
+    <div class="qr-block">
+      <div class="qr-eyebrow">See our programs</div>
+      <img src="qr_programs.png" alt="Programs QR" class="qr-img">
+      <div class="qr-label">Build sessions &amp; more</div>
+      <div class="qr-sub">builtsmall.ai/programs</div>
+    </div>
+    <div class="qr-block small">
+      <div class="qr-eyebrow">Sign up for updates</div>
+      <img src="qr_contact.png" alt="Contact QR" class="qr-img">
+      <div class="qr-sub">builtsmall.ai/contact</div>
+    </div>
+  </div>
+</div>
+</div>
+</div>
+
+
+
+<div class="slide">
+<div class="awning thin"></div>
+<div class="hdr"><div><div class="eyebrow">Thank you</div><h2>Q &amp; A</h2></div><img class="logo" alt="BuiltSmall" src="lockup_lite.png"></div>
+<div class="body">
+<div class="close-grid">
+  <div class="close-left">
+    <h3>Ask us anything.</h3>
+    <div class="wtc-tag">
+      <img alt="Welcome to Chinatown" src="wtc_lite.png">
+      <span>Powered by Welcome to Chinatown</span>
+    </div>
+  </div>
+  <div class="qr-block">
+    <div class="qr-eyebrow">Two minutes, anonymous</div>
+    <img src="qr_survey.png" alt="Feedback survey QR" class="qr-img">
+    <div class="qr-label">How did we do?</div>
+    <div class="qr-sub">Tell us what landed and what to fix</div>
+  </div>
+</div>
+</div>
+</div>
+
+
+</div>
+
+<div class="nav">
+  <button onclick="prev()" aria-label="Previous">&larr;</button>
+  <div class="slide-counter" id="ctr">1 / 31</div>
+  <button onclick="next()" aria-label="Next">&rarr;</button>
+</div>
+<div class="progress"><div class="progress-fill" id="prog" style="width:4%"></div></div>
+
+<script>
+const slides=document.querySelectorAll('.slide');
+const total=slides.length;
+let cur=0;
+function show(n){
+  slides[cur].classList.remove('active');
+  cur=(n+total)%total;
+  slides[cur].classList.add('active');
+  document.getElementById('ctr').textContent=(cur+1)+' / '+total;
+  document.getElementById('prog').style.width=((cur+1)/total*100)+'%';
+}
+function next(){show(cur+1);}
+function prev(){show(cur-1);}
+document.addEventListener('keydown',e=>{
+  if(e.key==='ArrowRight'||e.key===' '||e.key==='PageDown'){e.preventDefault();next();}
+  if(e.key==='ArrowLeft'||e.key==='PageUp'){e.preventDefault();prev();}
+  if(e.key==='Home'){e.preventDefault();show(0);}
+  if(e.key==='End'){e.preventDefault();show(total-1);}
+});
+show(0);
+</script>
+
+<script>
+(function(){
+  var START=420;          // practice length, in seconds (7:00) — the one place to change it
+  var rem=START, iv=null;
+  function el(){return document.getElementById('ptimer');}
+  function fmt(s){var m=Math.floor(s/60),x=s%60;return m+':'+(x<10?'0':'')+x;}
+  window.ptStart=function(){
+    if(iv) return;
+    iv=setInterval(function(){
+      rem--; var e=el(); if(!e){clearInterval(iv);iv=null;return;}
+      if(rem<=0){clearInterval(iv);iv=null;e.textContent='Time!';e.classList.add('warn');return;}
+      e.textContent=fmt(rem); if(rem<=60) e.classList.add('warn');
+    },1000);
+  };
+  window.ptReset=function(){clearInterval(iv);iv=null;rem=START;var e=el();if(e){e.textContent=fmt(START);e.classList.remove('warn');}};
+})();
+</script>
+</body>
+</html>

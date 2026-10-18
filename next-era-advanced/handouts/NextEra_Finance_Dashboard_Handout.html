@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>BuiltSmall Next Era Advanced: Finance Dashboard</title>
+<link href="https://fonts.googleapis.com/css2?family=Mulish:wght@600;700;800;900&family=DM+Sans:wght@400;500;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--navy:#111f75;--gold:#e5e138;--ink:#1f2333;--mut:#5b6178;--line:#c4c8d4;--soft:#f3f4f9;--cream:#f4f2e8}
+*{box-sizing:border-box;margin:0;padding:0}html{font-size:clamp(16px,1.15vw,21px)}
+body{font-family:'DM Sans',system-ui,Arial,sans-serif;color:var(--ink);background:var(--cream);line-height:1.45}
+.page{max-width:62rem;margin:0 auto;padding:1.6rem 2rem 3rem}
+h1,h2,.eyebrow,button,a.btn{font-family:'Mulish',sans-serif}
+.top{display:flex;justify-content:space-between;align-items:flex-start;border-bottom:4px solid var(--navy);padding-bottom:.8rem;margin-bottom:1rem}
+.eyebrow{font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);font-weight:800;background:var(--navy);padding:.2rem .6rem;border-radius:.25rem;display:inline-block}
+h1{font-size:2.1rem;font-weight:900;color:var(--navy);line-height:1.05;margin-top:.4rem}.top img{height:3.2rem;width:auto}
+.lead{font-size:1.1rem;color:var(--mut);margin-bottom:1rem}
+.box{background:#fff;border:2px solid var(--navy);border-radius:.8rem;padding:1rem 1.2rem;margin-top:1rem}
+.box h2{font-size:1.15rem;color:var(--navy);margin-bottom:.5rem;font-weight:900}
+.box h2 span{background:var(--gold);color:var(--navy);border-radius:50%;display:inline-block;width:1.6rem;height:1.6rem;text-align:center;line-height:1.6rem;font-size:.9rem;margin-right:.5rem}
+.facts{background:#fffbe0;border:3px solid var(--gold)}
+pre{font-family:'DM Mono',ui-monospace,monospace;font-size:.88rem;line-height:1.5;background:var(--soft);border:2px solid var(--line);border-radius:.6rem;padding:.8rem 1rem;white-space:pre-wrap}
+button,a.btn{font-weight:800;font-size:.9rem;border-radius:.6rem;padding:.45rem 1rem;cursor:pointer;border:3px solid var(--navy);background:var(--navy);color:var(--gold);margin-top:.5rem;text-decoration:none;display:inline-block}
+table{border-collapse:collapse;width:100%;margin:.4rem 0}th,td{border-bottom:1px solid var(--line);padding:.35rem .6rem;text-align:left;font-size:.95rem}th{color:var(--navy)}td.n{text-align:right;font-variant-numeric:tabular-nums}
+ul{padding-left:1.3rem}li{margin:.25rem 0}
+.check li{list-style:none;position:relative;margin-left:-.2rem;padding-left:1.8rem}.check li::before{content:'';position:absolute;left:0;top:.2rem;width:1.1rem;height:1.1rem;border:2.5px solid var(--navy);border-radius:.25rem}
+textarea{width:100%;font:inherit;border:2px solid var(--line);border-radius:.6rem;padding:.55rem .75rem;min-height:5rem;resize:vertical;margin-top:.3rem}
+label{display:block;font-weight:800;color:var(--navy);margin-top:.6rem}.foot{margin-top:1.4rem;color:var(--mut);font-size:.85rem}
+@page{size:letter;margin:.4in}@media print{html{font-size:10pt}body{background:#fff}button,a.btn{display:none}.page{padding:0;max-width:none}}
+</style></head><body><div class="page">
+<div class="top"><div><span class="eyebrow">BuiltSmall &middot; Next Era Advanced &middot; Practice</span><h1>A dashboard to fix your finances</h1></div><img src="lockup_lite.png" alt="BuiltSmall"></div>
+<p class="lead">A small home-goods shop has 100 orders in a messy spreadsheet. Ask AI for a dashboard that shows what is selling, what is returned, and when.</p>
+<div class="box facts"><h2>The sample file</h2>
+<p>Home-goods shop, 100 orders. Messy on purpose: mixed date styles, category names that do not match, extra spaces, refunds in their own column. Sample data, not a real business.</p>
+<a class="btn" href="retail_store_data.csv" download>Download retail_store_data.csv</a></div>
+<div class="box"><h2><span>1</span>Run it plain</h2><p>Attach the file to a new chat, then send this. Note what is vague.</p>
+<pre id="p1">Here is my shop's sales file. Make me a dashboard.</pre><button onclick="cp('p1',this)">Copy</button></div>
+<div class="box"><h2><span>2</span>Rebuild it with four parts</h2><p>Fill in the [brackets], attach the file, and run it in a <b>new chat.</b></p>
+<pre id="p2">Role & goal: You are my business analyst. I run [type of shop] and I want a dashboard that shows how my shop is doing.
+Steps:
+1. Clean the data: read all the date styles, merge category names that mean the same thing, trim extra spaces.
+2. Calculate total revenue (use the Total column), number of orders, average order value, and total refunds. Do not subtract refunds from revenue.
+3. Show sales by category and sales by month.
+4. List the top 10 items by revenue.
+Output: A simple dashboard with four number cards, a bar chart, a line chart, and a table. Plain English labels, no jargon.
+Eval: Before you answer, check your totals against the file and tell me which cleaning choices you made.</pre><button onclick="cp('p2',this)">Copy</button></div>
+<div class="box"><h2><span>3</span>Check the numbers</h2>
+<table><tr><th>What to check</th><th class="n">Should be about</th></tr>
+<tr><td>Total revenue</td><td class="n">$3,825 ($3,824.56)</td></tr>
+<tr><td>Number of orders</td><td class="n">100</td></tr>
+<tr><td>Average order</td><td class="n">about $38</td></tr>
+<tr><td>Total refunds</td><td class="n">$321.52</td></tr>
+<tr><td>Categories</td><td class="n">6 after merging</td></tr></table>
+<ul class="check"><li>Do your numbers match? If not, <b>ask the AI what it did differently.</b></li><li>Did it explain its cleaning choices?</li></ul>
+<p style="margin-top:.5rem">No dashboard on your screen? Ask: &ldquo;Give me a summary table of the numbers and describe the charts you would build.&rdquo;</p></div>
+<div class="box"><h2><span>4</span>Make it yours</h2>
+<label>My PITA sentence from earlier</label><textarea placeholder="My pain point is that ___. If I had ___, I would ___."></textarea>
+<label>What I would ask a dashboard to show for my business</label><textarea placeholder="Role &amp; goal: ...&#10;Steps: ...&#10;Output: ...&#10;Eval: ..."></textarea></div>
+<div class="box"><h2>See it built for real</h2><p>The working dashboard for this same file is public: <b>github.com/BryanWtC/builtsmall-sales-dashboard-rescue</b></p></div>
+<p class="foot">More worked examples: welcome-to-chinatown.github.io/builtsmall-ai-foundations/handout.html &middot; Never paste passwords, full account numbers, or Social Security numbers into any AI tool.</p>
+</div>
+<script>function cp(id,b){var t=document.getElementById(id).innerText;navigator.clipboard.writeText(t).then(function(){var o=b.textContent;b.textContent='Copied';setTimeout(function(){b.textContent=o},1200)})}</script>
+</body></html>

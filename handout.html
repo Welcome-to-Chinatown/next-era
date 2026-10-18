@@ -1,0 +1,846 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Built Small — AI Prompting Guides for Small Businesses</title>
+<link href="https://fonts.googleapis.com/css2?family=Mulish:wght@700;800;900&family=DM+Serif+Display&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --navy:       #111f75;
+  --gold:       #e5e138;
+  --gold-light: #f0ec7a;
+  --cream:      #ededed;
+  --ink:        #1a1a2e;
+  --muted:      #6b7280;
+  --border:     #e2d9c8;
+  --bg:         #f0ece4;
+  --section-gap: 1.8rem;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { font-size: 16px; }
+
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--bg);
+  color: var(--ink);
+  line-height: 1.65;
+}
+
+/* PAGE */
+.page {
+  max-width: 1280px;
+  width: 96%;
+  margin: 0.35in auto;
+  background: var(--cream);
+  box-shadow: 0 4px 40px rgba(0,0,0,0.15);
+}
+
+/* HEADER */
+.header {
+  background: var(--navy);
+  padding: 0.45in 0.6in 0.38in;
+  position: relative;
+  overflow: hidden;
+}
+.header::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 20px;
+  background: var(--gold);
+  -webkit-mask-image: radial-gradient(circle 13px at 13px 0, #000 12px, transparent 13px);
+  -webkit-mask-size: 26px 20px;
+  -webkit-mask-repeat: repeat-x;
+  mask-image: radial-gradient(circle 13px at 13px 0, #000 12px, transparent 13px);
+  mask-size: 26px 20px;
+  mask-repeat: repeat-x;
+}
+.header-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.28in;
+  gap: 1rem;
+}
+.logo-img { height: 64px; width: auto; display: block; }
+.header-meta {
+  text-align: right;
+  color: rgba(255,255,255,0.55);
+  font-size: 9pt;
+  font-weight: 300;
+  line-height: 1.7;
+}
+.header-meta strong { color: var(--gold-light); font-weight: 500; }
+.header-title {
+  font-family: 'Mulish', sans-serif; font-weight: 900;
+  color: white; font-size: clamp(22pt, 3vw, 28pt);
+  line-height: 1.08; margin-bottom: 7px;
+}
+.header-subtitle {
+  color: rgba(255,255,255,0.65);
+  font-size: clamp(9.5pt, 1.2vw, 11pt);
+  font-weight: 300; letter-spacing: 0.02em;
+}
+
+/* BODY */
+.body { padding: calc(0.42in + 20px) 0.6in 0.5in; }
+
+/* INTRO STRIP */
+.intro-strip {
+  background: var(--navy);
+  border-radius: 7px;
+  padding: 0.22in 0.28in;
+  margin-bottom: var(--section-gap);
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.22in;
+}
+.intro-col-label {
+  font-family: 'Mulish', sans-serif; font-weight: 900;
+  font-size: 8pt; color: var(--gold);
+  letter-spacing: 0.1em; text-transform: uppercase;
+  margin-bottom: 5px;
+}
+.intro-col-text {
+  font-size: 9.5pt; color: rgba(255,255,255,0.82); line-height: 1.55;
+}
+
+/* FRAMEWORK REFERENCE */
+.framework-ref {
+  border: 1.5px solid var(--border);
+  border-radius: 7px;
+  margin-bottom: var(--section-gap);
+  overflow: hidden;
+}
+.framework-ref-head {
+  background: var(--navy);
+  padding: 9px 16px;
+  display: flex; align-items: center; gap: 10px;
+}
+.framework-ref-head-title {
+  font-family: 'Mulish', sans-serif; font-weight: 900;
+  color: var(--gold); font-size: 11pt; letter-spacing: 0.04em;
+}
+.framework-ref-head-sub {
+  color: rgba(255,255,255,0.5); font-size: 9pt; font-weight: 300;
+}
+.framework-steps {
+  display: grid; grid-template-columns: repeat(4, 1fr);
+}
+.framework-step {
+  padding: 0.16in 0.18in;
+  border-right: 1px solid var(--border);
+}
+.framework-step:last-child { border-right: none; }
+.fs-num {
+  background: var(--gold); color: var(--navy);
+  font-family: 'Mulish', sans-serif; font-weight: 900;
+  font-size: 9.5pt; width: 24px; height: 24px;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  margin-bottom: 7px;
+}
+.fs-label {
+  font-family: 'Mulish', sans-serif; font-weight: 900;
+  font-size: 10pt; color: var(--navy); margin-bottom: 4px;
+}
+.fs-desc { font-size: 9pt; color: var(--muted); line-height: 1.5; }
+
+/* GUIDE CARD */
+.guide {
+  margin-bottom: 2.2rem;
+  border: 1.5px solid var(--border);
+  border-radius: 9px;
+  overflow: hidden;
+}
+.guide-header {
+  background: var(--navy);
+  padding: 0.18in 0.26in;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0.14in;
+  align-items: start;
+}
+.guide-num {
+  background: var(--gold); color: var(--navy);
+  font-family: 'Mulish', sans-serif; font-weight: 900;
+  font-size: 12pt; min-width: 30px; height: 30px;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  margin-top: 3px;
+}
+.guide-title {
+  font-family: 'Mulish', sans-serif; font-weight: 900;
+  color: white; font-size: clamp(12pt, 1.5vw, 15pt);
+  line-height: 1.1; margin-bottom: 5px;
+}
+.guide-goal {
+  font-size: 9.5pt; color: rgba(255,255,255,0.65);
+  font-weight: 300; line-height: 1.55;
+}
+
+/* GUIDE BODY */
+.guide-body { padding: 0.22in 0.26in; }
+
+/* FRAMEWORK ROWS — 2-col landscape grid */
+.fw-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.1in 0.22in;
+  margin-bottom: 0.18in;
+}
+.fw-row { display: grid; grid-template-columns: 96px 1fr; gap: 0 0.14in; align-items: start; }
+.fw-step-label { display: flex; align-items: flex-start; gap: 7px; padding-top: 2px; }
+.fw-step-num {
+  background: var(--navy); color: var(--gold);
+  font-family: 'Mulish', sans-serif; font-weight: 900;
+  font-size: 8.5pt; min-width: 19px; height: 19px;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+.fw-step-name {
+  font-family: 'Mulish', sans-serif; font-weight: 700;
+  font-size: 8pt; color: var(--navy);
+  text-transform: uppercase; letter-spacing: 0.04em; line-height: 1.3;
+}
+.fw-step-content { font-size: 9.5pt; color: var(--ink); line-height: 1.55; }
+
+/* PROMPT BLOCKS */
+.prompt-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.14in;
+  margin-top: 0.14in;
+}
+.prompt-section-label {
+  font-family: 'Mulish', sans-serif; font-weight: 900;
+  font-size: 8pt; color: var(--muted);
+  letter-spacing: 0.08em; text-transform: uppercase;
+  margin-bottom: 7px;
+}
+
+.example-block, .template-block {
+  border-radius: 6px;
+  padding: 0.14in 0.16in;
+  position: relative;
+}
+.example-block {
+  background: var(--navy);
+}
+.example-block::before {
+  content: attr(data-label);
+  position: absolute; top: 0; right: 0;
+  background: var(--gold); color: var(--navy);
+  font-size: 7.5pt; font-weight: 700;
+  letter-spacing: 0.06em; text-transform: uppercase;
+  padding: 2px 10px; border-bottom-left-radius: 4px;
+  border-top-right-radius: 6px;
+}
+.example-block pre {
+  font-family: 'DM Mono', monospace;
+  font-size: 8.5pt; color: rgba(255,255,255,0.88);
+  white-space: pre-wrap; line-height: 1.65; padding-top: 6px;
+}
+.example-block pre .hl { color: var(--gold-light); }
+
+.template-block {
+  background: white;
+  border: 1.5px dashed #b0a898;
+}
+.template-block::before {
+  content: attr(data-label);
+  position: absolute; top: 0; right: 0;
+  background: var(--ink); color: var(--gold);
+  font-size: 7.5pt; font-weight: 700;
+  letter-spacing: 0.06em; text-transform: uppercase;
+  padding: 2px 10px; border-bottom-left-radius: 4px;
+  border-top-right-radius: 6px;
+}
+.template-block pre {
+  font-family: 'DM Mono', monospace;
+  font-size: 8.5pt; color: var(--ink);
+  white-space: pre-wrap; line-height: 1.65; padding-top: 6px;
+}
+.template-block pre .blank {
+  background: rgba(229,225,56,0.4);
+  color: var(--navy); font-weight: 700;
+  border-radius: 2px; padding: 0 3px;
+}
+
+/* COPY BTN */
+.copy-btn {
+  position: absolute; bottom: 0; right: 0;
+  background: var(--gold); border: none; cursor: pointer;
+  padding: 3px 11px; font-size: 7.5pt; font-weight: 700;
+  color: var(--navy); letter-spacing: 0.05em; text-transform: uppercase;
+  display: flex; align-items: center; gap: 4px;
+  border-top-left-radius: 4px; border-bottom-right-radius: 6px;
+  transition: background 0.15s; font-family: 'DM Sans', sans-serif;
+}
+.copy-btn:hover { background: var(--gold-light); }
+.copy-btn.copied { background: #1db954; color: white; }
+
+/* CONTEXT NOTE — bold gold band */
+.context-note {
+  margin-top: 0.16in;
+  border-radius: 6px;
+  overflow: hidden;
+  border: 1.5px solid var(--gold);
+}
+.context-note-head {
+  background: var(--gold);
+  padding: 6px 14px;
+  display: flex; align-items: center; gap: 8px;
+}
+.context-note-icon { font-size: 14px; line-height: 1; }
+.context-note-label {
+  font-family: 'Mulish', sans-serif; font-weight: 900;
+  font-size: 8.5pt; color: var(--navy);
+  letter-spacing: 0.06em; text-transform: uppercase;
+}
+.context-note-body {
+  background: #fffde6;
+  padding: 0.12in 0.16in;
+  font-size: 9.5pt; color: var(--ink); line-height: 1.6;
+}
+.context-note-body strong { color: var(--navy); }
+
+/* DIVIDER */
+.guide-divider {
+  border: none;
+  border-top: 1.5px dashed var(--border);
+  margin: 0.16in 0;
+}
+
+/* FOOTER */
+.footer {
+  background: var(--navy);
+  padding: 0.18in 0.6in;
+  display: flex; justify-content: space-between; align-items: center;
+  gap: 1rem;
+}
+.footer-logo { height: 40px; width: auto; }
+.footer-right {
+  font-size: 9pt; color: rgba(255,255,255,0.5); text-align: right;
+}
+.footer-right strong { color: var(--gold); }
+
+/* RESPONSIVE */
+@media (max-width: 900px) {
+  .body { padding: calc(0.38in + 20px) 0.35in 0.4in; }
+  .intro-strip { grid-template-columns: 1fr 1fr; }
+  .framework-steps { grid-template-columns: 1fr 1fr; }
+  .framework-step:nth-child(2) { border-right: none; }
+  .framework-step:nth-child(1),
+  .framework-step:nth-child(2) { border-bottom: 1px solid var(--border); }
+  .fw-grid { grid-template-columns: 1fr; }
+  .prompt-row { grid-template-columns: 1fr; }
+}
+@media (max-width: 600px) {
+  .header { padding: 0.35in 0.3in 0.3in; }
+  .logo-img { height: 48px; }
+  .body { padding: calc(0.32in + 20px) 0.25in 0.35in; }
+  .intro-strip { grid-template-columns: 1fr; gap: 0.14in; }
+  .framework-steps { grid-template-columns: 1fr; }
+  .framework-step { border-right: none; border-bottom: 1px solid var(--border); }
+  .fw-row { grid-template-columns: 80px 1fr; }
+  .guide-header { grid-template-columns: auto 1fr; }
+  .footer { flex-direction: column; align-items: flex-start; gap: 0.5rem; }
+}
+@media print {
+  body { font-size: 10pt !important; }
+  .page { width: 11in !important; max-width: none !important; margin: 0 !important; box-shadow: none !important; }
+  .guide { break-inside: avoid; }
+  @page { size: landscape; margin: 0.4in; }
+}
+</style>
+</head>
+<body>
+<div class="page">
+
+<!-- HEADER -->
+<div class="header">
+  <div class="header-top">
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAALEAAABQCAYAAABWMZTiAAA9FElEQVR4nO2dd5gUVfb3P/dWVeeenjzkaEBFZY0ohjWtOQOmNaGyq5gV84o5gQEXzDkLAuacwxoxCwookmeY2D2dK9z3j+puBhxmehCF3/N6nmdEmKpb59576txzvieUWF73VNLwHOp3nCig8Rf9RUopx+v1CqXUXMdxhkYikRZACCGcdc1beyTN1ARs60MQEcBe1/z8ResBCSFkJpNx/H7/RkqpR4QQ6t1335VKKbGueWuPJDiY6atQ9i8gAvwlyH8RgBBCi0ajVmlp6QGNjY237bbbbtbMmTP1dc1XeySWLBiWFCLhR2yANzAZ8AIWsF6+dH/Rn09WaWmp3tTU9O+qqqq7lVK6EMJa10y1JbFkwfZJKQ2/bTej6XvgCVwPKpX/dbs3KQWgfu+j3f+uwbvS9eeLlZ6jVNd4F6swuSbzX3WMtcHH7+GnyCcCSmma5hiGIVKp1J5VVVXvKKU0IcR6c2S7x4OyEKIU23oTK9Mbw3sWSrWwOkfPMKR7m1pzfa1wN9FxFLajUEohACnFajcrTx6PhnKK3DQBylGYtoMUAk2TSCFwcs/rjEchwLIcd665G9Zk/qZlrzSvtcFHntbGfvyGBO7e2ErYti10XRc+n29KbW3t9kKIX5RScn1x9NrYODZClGJlHkGIPuiew1CqaeVLcIWsoTGBEAIpRZe1SZ6EEHgMDb/fIBT0oOsatu2QTJlksxYIgSZ/uyWOo1hWG8Pn1XE6fbbLn8ejEQn7yJo20WgK03IwDInTyYsgcIWsrNSPUuA4DpomqW9IIGXX5l9RHiRr2qBA0wQt0RRWF/iwlaK81A8KbMcpvBBraz9WfaJSCp9PJxz0ks5YMpNJ26FQuNLn881YtmzZjkBKKSWEEH/EEdAlWsVQVyACmJkJCNkLqW8NKkZeIzuOwu83+OHHOkaf/QwBv+HetQbTEAK8Hp1IxEfP7hEGbVTNNkN68bctetKzewTHcWiNZ3AchabJwvODAQ83TnyH+x/9jKqKIKa1emUghMubUoo7bzmcffYcxE/z6jn+1KfIZC0MXetQgDQpiCey7L3Hxtx1y2HE4hkCAZ2vvl3CmLEzCIe8KKU6nL8mBbF4htNPGcal5+3B8oY4Pq+X+oY4R5/yRJf4+MfuG3H3rYeTSGYL8wr4Db6bVcu/z5lGMOBB0TE/xZDIaWGvV+fRu45ii826E2vNaPHWVqu8omILx3EeEUIcrpTSlVL2uhZk1yYWwr9iDSWQQYgyPIG7EKIGSOf+HWzH1QjX3vwW4655lbKKIFYHgtQROUph2w6W5WDbDoah0bN7hF12HMCIQ7Zg12ED8Hp0orG0y6wQaJrAcRSHHfsw7330C2WlfkzLWe0xKqUgnTbpVhPmpadPYrNNe/DAY59yyhlTCYe9rjbvYAukFESjKS4buydXXbw3dfVxKiuCXH7da1w//k3KKoubfypt8tDkIzhq+N+oXd5KTVWIx6d+xQmnPUVJ2Fc0H5eevydXX7I39Y0JdF1iO+5Jcc34N7nyutd+136s+rxEMssmG9fwytSTCIe8ZLM2QmBVVFTo9fX111dXV1+yPjh67QgxgAaqFakNxhP4L64A2+QtLkcpyiJ+Rp/9DA898UVOI674fZcYEK5wity42axNMplFNzR22LYvp58yjP333gTbdkgks0gh8PsNGhoT7H34vSxe0kIg4MG2ndU839Xk0WiarYb05NnHT6CmuoQrb3idK298narKEFYnvAsB0Via+24fwbFHbE19Q5zysgAnjnmaJ6d93en88/aslIIXnhzFtlv1orEpSfduJVwz/k0uv/61oviQAlpiae6dOJzjjtyGhsY4uq6hlCJS4ueUs6byyFMzf9d+tF03XdNobE6wzx4b8/SDx5LJWK7vIoQViUT0xsbG42pqah5d14K8GiEG0FGqGd3YD8N/Fag4eW2slEJKiRRw8DEP8dGnv1JW6l8rGqCtbRfPmRP7/WMTrrjoH2yxWXeampPYjkNZxM8XXy3mwKMewLZdQe3IHjR0SX1jgiMOHcIDk0ciheDkM6fy+NQvqexEewkhsG0HIeC5J05k+6370BrPIKXggCMeYObXi4mU+LDs1Y+haZJkMkuvHhFenXYKVRVBEimT8lI/J505lceenlk0H+DyscO2fWmJpdCkQJMSBBx89IN8/PkCSiNrZz8MXbK8IcEZo4dx63UH0dScRAihDI/h6Jpmp9PpXSsrKz9Zl4iFXP2vXMTCMl/CytyHEKXkAyFCCCzbQdM17v/vSPr1KSORyLbriHWVVM7EcBxFOOQlEvHz0muz2evQe7jzgY+JlPjwenQam5MM3bYvt994CMmU2SlUZ1oOlRVBnpr+NddOeAuvT+eWaw9k2Pb9aImm0bXVL4VSCkOXZE2bUadPYfHSKB5DwzA0Hpw8ku7dSkimTWQH87dth2DQwy8Lmjj5zKk4jkLXJfF4honXH8ROQ/vTEk2h653zYVo2J50xhYVLmgn6PSgFlu1g5PajT68yEsm1sx/5dZt83/+44/7/UVkRxHGUsMysADwej2d6Q0NDTyGErZTqQJ7+OOrkoXnE4l4s86WcILunhiYFyWSW3j1Luf+/I/F4NNc2XRPgd3VPd1yBLiv1Y5o2Z1wwg3+dMw2AUNBL3fJWjh7+Ny49b3cam5IdCgC4R3pFeYCbJr7Dg499TlVVhLtvG06vHhGSqU6EMOdULlzUzElnTEEpSGcs+vct577bRyCFwLZVh/O3LIfy0gBvvz+P8y57oYCYeAyd+yeNpHfPUpJJs0PhW4mP06dgWjaaJhFCkEhl6dO7jPv/OxJD17DstbMfjuMQKfFx0ZUv88obP1JeFsB2kKlUyvb5fN01TZs+Z84c79SpU8W6CE0X8eYoED7M9A049rcgwuQ1sq5LWqIpdhran9uuP5hEMrtGwQspBXpuI9ojy3ahrcqKIA8+/jmHH/cwsViakhIfy+vjXHLuHhwzcisacs5Oh7NREAh4OO+yF3jn/Z/YdFAP7r71cNdJ6mTTLcuhtNTP+//7hbMveY6yiI/G5iS777IBE64+gNZ4usMXAVy8uKoiyP2PfcbNk9+juipMNJamX074NF12KnyW5b7YH3w8n7Mvfp5Q0INSCl2TtLSk2HmH/tx2/UHEE2u2H6uSUhQgxdFnP8OPc5YTDnpRCC0Wi1qlpaXbVVRU3D9y5EibdZBFVpwQowNZsqn/gFMP+ADX3tJ1SUNjguOO3JqLzt6tKI3YloQQJBJZ6hsTZLJWAU77DRdKYVkO1VUh3vvwFw7550M0NCYIBjzEWtPcfsPB7Lhd8aZBJmPxr7On8dPcWvbafRDjr9qfeLzzTbcsh8ryIA898QU3TXyXbtVhape3cvJx23POabsU9SLZjkNZaYBx17/O9Be+paYmxPKGOLsOG8Ct1x5YFB/5Y/7hJ10+KsoDWJZT2I/jj9qGC876e5f3Y3XkOAqf13WoTzz9aVrjGTyGhkLoTU1NZnl5+TENDQ2XCiGsL774wvjdD+wCdeDYrUoaqBhS3waP/1ZcIV6BCDjKtWFPOO1pnp7+dadOCrgCnE6b7L7LBvTrW8Fb781hzrx6IiV+6ADvNHSNppYkQzbvwbOPn0Ao4EFqkmW1MfY+/F7qGxL4fHqH2KuuS5pb3FPkmYePo6I8wEVXvMSNE9+lqhPYTLjME09keOSuoxh+0OY0NCYoKfFxzMlP8NwrPxSEanUkpcA0bXxeg5emnMTgTbvR3JykW02YS69+letvfbtrfNx5JCMO3pKGJvclcpQiHPRy3KlPMfXZb4raj2JI1yWNTUkOPWAwj91zNIlEBkBJKe1gMKi3tLQMr6mpmfZnIhZdeEVtEBFs61PM9ASECLAqsJlKmUy66RC237oP0VjHGhHcTRBCsLwhzhUX7sXHb5zBBWfuVgDzV3ekmpZNeWmAr75ZwnH/ehIFZDIWffvkjmRNFGUalJX6ee+jnxl7+QtkszaXX7gXww/avFPtlQ8D+7w6p4+dzsyvF1MS9pFKmdx5y2EM2bwHsdb0ak8VcDWbx6MTi6c5cczTNDYmCAY9NDQmGHfhXow4eIsu8GEwZuwMPv9qEZESnzt3IJ02mTz+ULbdqndR+1EM5f2Kac9/xxU3vE55WQDHUcK2bS2dTjvBYPCRurq6IUIISyn1p5gWXZyVhRBlWOYMzOwjKzl6Uriaxe8zeGDyEXSrDnfqsTvKjQB+9uUihh//MFIIrhu3H+Ov2p9EItshymlaNhXlQd7+4GfOuug5SsI+mptT/H2ngdxy7UEuBNYF02D8f98lEPAy8cZD2HrLnkRjxQlhIpHlhDFP09DkhqJDQS8PTj6CirIgmYzVKWIRDnmZPceNgOYdtFTaZPKEQ9l6SK9Ohc/lQyOZNDlxzNPU1cfx+QyUgqxlEwgYPDj5CGqqwiRTZu4ZK/D5zmz49sg0Haoqgtw86T0eeOxzqipDKCVENptFShnw+/0zli5dWgU4fwZisQYPcBCiBCt9B7b55sqIhSaJJ7Js0L+C+24fgRB06rHbtkNVRYh3P/yFcy99nnQqy5iTh3HJebvT1JLsUJBMy6aqMsgjT33BrXe8T3VViLrlrYz657acf/quNBRhD+bt06tveoMnn/mSHt3LuGfiCKorQ6SLgM1CIS9z5jVwyplT0XXpRrk2qubu2w4vQIUd2beW5VBeFuDlN37k4itfprwsQDptEQx6eXDSSKorQ6SK4sPD3J8bOOWsqUDOEROSeDzLhgMruXficHRdkkqZZLM22axNOm12OvaqJISb+5FMmXg9OmdcMIOXXp9NKOgBIWQikbD9fn8/v98/FVe+/nDEogs28Uq34QquF29gMkLbAFSCvGNqWQ5VlUHueegTxpw/g7KyQAGkXx3pmqShKcEN4/bjvNN3JZt1Mdkpz37jQjqruT+fH2FaNi9POZlt/taL1niGkrCXf45+khkvfl+0fer16Dz7+AnsOHQgL7zyHUed9Dgej1Z4xurI0DWWN8Q5ddQO/PemQ1heH6dbTZjb7/6Qcy59noqyYKfz1zRJU3OSW687iDNG78TS2ig1VWHefHcOw094FI+hIUTHCT75wMS/Rw1l0k2H0tTsKgHHcXMsZs9ZTks0Vfg3n0/nmvFv8vo7cygv63iN8usUT2Q4+djtOenY7WhqTuI4ikiJj0EbVWOaTi7vwrEqKyv15ubme8vLy0f/0fbxGgoxuI5eEqH1wRu4AwgBWfLK3bLdo/qCy1/k5snvd+6kuF4KyWSWR+8+iuGHbMkv8xvYd8R9LK1tdT3h1WygpkmisRS77bwBMx49nkQyi8ejk8lY7D/yfr6btYxw2NehILmnSIaB/Sp44alR9O9Xye13vc85lzzf4UvU9v7GpgQ3X3MgZ5+6M8vq3PyIsy56jsn3/a+I+bsCmslYTHnoWPbefWPq6lvp0S3CHfd/xJkXPtclPiZcfSDnnLYz9Q0JjFyOhd9voOcim0q5Ka1La2PsO/w+fv61kVDQ2+H4+cQgXdeY/uhx7LzjhiQSKYSAVMpaNWfbKi8v1xsaGs6trq6+9Y8U5N9hr9ggAij7Z7Kpq3JDSfLOniZd7//qS/fh4P0269xJyeXJGobG6RfM4KNP5jOgfxXbbdWHVCrb6XFaEvbxwcfz+d9nCygJ+0inTcIhLw9OHkllRZB0pvMjORzy8uPc5Zx23nSi0QSnnzKM008ZVhRs5jgOpRE/l17zKi+8OouqyiCNTUluvGJ/9tlzY5qaO5u/ck0ATfCvs59h9pw6yksD1C1v5dRRO3Lm6OL5KCv1c9k1r/D8K7OoKA9g5vI2UimT1niGeCJLIpmloTFBdWWIByYfQSjoJZvt2IZXakX4/MiTHue7H5agHLU6SFCLRqNWOBy+Zfny5fsJIax33nnnDylv+p1Gtw2iFNv6ADMzESHC5PFj9whWmJbNXbcczpaDuxNrzRThLGnEE1mOPuVxdtjrdl57+yfCoY41BLiOZTZj8enMhRiGhpCC1niGQRvVcM9tw3EcVZR9WlEW4NW3fuKSq17BUYprLt2bA/bepAghXBG0+dc50/hhdh3BoAfTsrn3thEM2rCa1njn8/fnsdgxU2iNZ/D5dJqak1x7+b4csM8mNBWlDAS6rvHvc6blTiF3/fIBi/yPYWhEY2m23rInd0w4NJfg03G1TT4dtqExwclnTiGVtvC2k9sthBC2bctsNqsCgcATS5cu3WS33XazpkyZstYRi7XgOeYQi+yTWNmnEKKMAmIhBZmMRSTi48HJR1Be6u/UY3dBdZ2WlhRff7cE07Q7dAwLJMBOmfh9RgEf1nXXztx3r0HcMG4/orE0UnY85XwQ4a4HPuH2uz4kXBJg0vhD2WxQN1qLeAm9Xp3mlhQnjnma1lY3gamiPMCDk48gXIS2s2yHkhIfX327hFPPm47Pq7uBHtPh7luHs9kmXeAjmuKEMVNoiaZcQWvHZszjvsMP3oJxF/3DdaY7WSPLdsPQn3+5mDFjXR7dQqaVrxNCSNM0HU3TIqFQaMb8+fNLR4wYsdYRi7U0mIMQYczMbdjWB9AmWUjTJK2tGTbbpBt33zYcy3ZQnWjEvN0VDHiKEmApBfF4hoMO2YLTTtrBLQXCNRHyEawxJ+/YJdMgEvHxn2tfZcYL39K3TyX3TBxOJOIrCjYrCXv59odl/Pvcafj9BrHWNFtt2ZPJNx9GJtu5tstjsdNf+I5xN7xOZUWQRDJLeamfBycf0SU+vvthGf8+ZxqGnncMf3ttXpDHnrEro47ZloamBIbescK0LIfKigBTn/2WK298I5dP8dvTUgihxeNxKxgMbhyJRJ78I8r/15IQK/I2cbad8n9dlzQ1JTlg70247j/70BxNdaoR8/V3RT1dgdQk6YzFfY98xqwf6ygJ+4hE/IVjriWa5rrL92X/fxRvGmiaZMzYGcz8agHbb9Of/950KKZlFy2Ez738A5dd8ypVlSHq6uMMP2hzrrjwHzQXo+0sh8ryADdPeo/7HvmMbjVhGpuTbDm4O3fefHiOjyLMo/IAz78yi0uveZWyUj9OO4IG7nxa41luufYg/j5sIE0txSdUjb/9XR584nMqy/N5zCuTlFJvamqyysrK9qmvr79tt912s1iLORa/A51ojzRQCYTWfvm/bbuY6JkXPscd9/+P6sqOy4vao7z2yZfnFCYiBIlEhkzWpqI8wE5D+3Pi0duw1+4bI6Vb0xbwG8TjGfYZfh9zf2no1BvXNElrPMOmG9fw/BMn0KtXGTfe+jYXX/UyleXBDvOH8/c3NSeZPP5Q/nXCUGqXt1JVGeJf5zzDA49/TlUR+cNOLpNvxmPHs8uOA6hvSNCjWwkTJr3LBeNe6hIfk246lH+PGkp9g5tMvyrZjsLv01leH2fvw+9j6bIoAb+nXQ27Mo9uAeuzj5/Ajtv3o6VltSmlf0j5/1oWYnCT6VvQjN3x+Fcu/89VBeAxNIaf8ChvvjuX8rLik7eFgEQi60b6fAYej15YQFiRaWWaDvGEm7S+204Dueic3dllxwE0NicJ5vDS/UbeTzptYhgd17flj9qD9t2UR+8+Gq9XY8x507n3kc+Kg80c17md9ujx/H3YQKKxFB6PziHHPMSHn8zvtJhAk4JU2qKqMsir006hV48IrfEMVRVBTjt/Bvc89EnR8J1p2jzzyHHsvssGNDe3L2iW7VBa4uPTmYs46KgHUarzggOXR5Oa6jCvTTvFza9O/TalVCm3/N/j8RCLxfbq3r37Win//wNCgrnyf/NNrPQdCBFhBWLhahYF3DtxOBtvUEW8E499pZEth513GMBuO29IacRfANvz2tlx3Ew3IaA04qck5OXtD37mgCMe4MIrXsollDsM3rQbd958GJls8abBsy/9wLjrX0PXJDdeuT977LoBzavXOEAONtMECjjlzKn8/GsjPp+b4HX/f0fQv0+5W0ygdZw/HPAbLFkWY9TpU8hkLLwenZZomglXH8Cef9+wOD5ya3TKmc8w9+cGQiFPu6eQrklaommGbd+PiTcUl15rO4pAwMOixS2MOn0K2ayN0Y7g5xALYdu2DIVCU2prawesjWT6Pyiu7QqymX0Ey5z+G8QilTaprgzx4OSRBIvw2PP3ZbIWPXuU8PLUk3j3xVO5+pK9Aci0c79tO9i5aJLXqzPh9nc54MgHWLosim05HLjPplx9yd5uVKsY+7QiyMS7PuCuBz6mrCzEXbcczsD+FcQ7EULHUQR8BrXLWxk15mkyWQvLsunRPcIDk0bi8ei5SFfHiEVZxMfHn/3KmRc+SzC4QgDvu30EG/SvIB7Pdg7f+Qzq6l0+kkkTj6f9UyjvDB97xFZcfE7xBQdlpX4+/GQ+Z1/8HMGgp10nMt/nzePx5Mv/gwC/x9H7A5MzFEIEMNMTsK3PVmpYqGvSxSeH9GLy+OLxyXDIx8OPf84lV75M/34VXHTO7kx56FhCAW+7ggyuMCulqK4K89nMhewz/D6++HoxjqM4Y/QwTh21A/WN8U698fzzL7ziZV55YxYbDOzGPbcOJ+A3yBYhhKUlfj6duZCzL3qOcNhHc0uSHbfvx+1Fars89Pf41K+47ua3qKoM0hrP0K0mzAOTjyDgNzBNG9kJH5ESH599uYgxY2fg8xqFKNyqPyLXz+Ky8/fkqMOHFIXq5Hl85KmZ3HDbO6sN90sptVgsZpWUlGzh8XgezTVh0dZUkP9QIXYdUAczPQ7lLAb8tE2mb2xKMuKQLbj8wn8UpRFt26GiMsTNk9/j3oc+wTRtdt1xII/efRSalDlTYvXpm6URPw1NCQ4/9hE+/GQ+mi65ftx+HHrA5p0Ksmsburblv8+ZxlffLGCXnQZx4xX7kSxKCO2CEE688wM3mb6ulX92UdtVlAe47pa3eHzqV3SrDtPQmGD7rfvw35sOIZUyO2aCFafKlBnfcNVNb1BRHsTvNwgGPASDuZ+Ah5KQF5/XIJ7IMGn8oQzdpi/RTgoOCjyWBbhm/Js81UFeeQ6xMMvLyw+tr6+/Tgixxg0L/wDHblVyy/+FNhhve+X/jiIS8fGvs6fx0BOfF1Xx6zhudtiMx05g6DZ9MAyNh5+ayannTiNS4uu4EYkmSaVNggEPzz1+Atv8rTdNLUmOOulx3v3w59XCRG3vjycy9O9TzsN3Hsm2W2/Iaec+wT0Pf0JZace5DYVkJdPmhSdHscN2fWmJpigrDXDCmKd4alrnxQQyV6Tbtvy/oSlJ95oSrpnwJpdf91qnjl6ebNth6DZ9MdrmpYgVxQoXn7M7w7bvR9a0cwUH99HQlHC7L3WwxnkedV3ywlOj2GqLnkRb238BhBBWSUmJ3tzcfFxVVdUalf//CUIMa7v8322IYlFdFeTVZ06hZ/cIwaCHUadP4dGnZ1Ia8ReV7NO3VxkvTTmJnj0iNDUnGXnio3zy2QIqihDkRCJDacTP0SO2Zv6CRl55YzaBgKdTbFvT3G4+m2xUw+vTTyn0nnMcxYFHFlv+L0gmzd9V/g/uSxVPZHMCvOIokQIyWZsB/cp5ffpoKsoD+H0GH3w8n8OOfdjtI9dJyyxNc9NS+/Yq5dVpp1BeFmg3QKOUUrquO4Zh2K2trbt269aty+X/f1KJdefl/3rb8v9Oys3zqYWLl0Y5+cyp1C5vZXl9nEiJr6jmkPlkn3nzGzjt/OlkMiYlIS9THjyWYUP7dWpa2LZDIOAhmTK5edK7vPjaLPz+zgXYvVdREnLDyjdPeo/SiJ90xsTv03lg0sgCPNVxNE6tXP6vFEYO0554/cEMK6L8H9xTIRzyEgn7iIS9hZ9QyEtNVYiFi1vcZH0piMbS7L7LBozPF8R2Yj/ZtkMo6GHe/EZOOdPNcc6bY21JCCFM0xRKKU8gEJi2JuX/f5ImzpMEFcfwX41u7ItSzeTbweWdn0++WMDBRz9YyJjq6G3Pt6gqLw+i5RwRwyg+EGToGsvrW/nPBXvxn7F7kkhmMU2bE057mpffmE1VZSjnGLZ/vxButp7Thehi/j6VK098ffpoNh1UQyyWpqI8wHsf/VK0ttN1t7nhycdux523HE5jU4JQ0MvS2hj7DL+XuuWt+H0G9hpubn78Qp50Q5yaqjAXjnuJCZPeK8ps0XWN+oY4/zpxKJPHr8hxXpUcx7EjkYiWSCQ+q6+v3+Xrr7+2RowY4RTT5+1PbnaRL/+/Hsf+ZuXyf63r5f9uYrdBNJqisSmJx9O1SKZp2ZSVBbjtzg/4/KtF6LrEMDSeuv+fjPrndtQ3JABWqxXzTUu6IsD5+3TdRWgm3fsRHkND0yXNLUn22LVN+X8nC2BZzkrl/zVVIbf8P1drqP/O3hN5J/Duhz7hzgc+pqYqTH1DnKsv3ZtD9h9cpDPqtii456FPuO3ODzpy9PKd6btc/v/nC3Gh/P9y1Foo/88nC7nOSdc50jVJMpXllsnv4zF0slkby3bTR28Ytx+ptEUqZa6Vsve2ZOUSdF5+Yzaz59Th9+lu29jGxIry/6aulf9Pe+E7aqpXlP/fUmT5f0eUb5xy8ZUv8/b7cymN+EmmTO665TC2HNyj0/TaFTz6uezaV3nu5dVXgksp9cbGRqu8vPyY5cuXX5YrNu0UsVgHbYccwI9yFmOmx+X+rlFIptdc6O0/Y/fkyBw+aXRq26k17str5RLq3/ngZ374sZZg0INlOURjacae+XdmPHo8fXuX0dCYyCUFrb1yMUPXaGhM8M4HP+dyFFSumCDJVZfszaEHdK7t8vi616Nx6nnT+erbJVSUB6mta+XEY7Zl7Jm/r/dEPhlKKRh99jQWLWlB0yShoJeH7jhitQ7bb3kUGLrGv8+dxrffL6MkvNq8Fa25udmKRCJX19XVDS9GkNdJ76wV5f+fYWYm5DLeXCEUAhCQzJf/b9OHlrVUbr460jRJrDXNtz8sw+tx1yvfvHq3nTfgjWdHM/r4oSSS2UIu75pUCa9KCheO+n52baFTfgGGy9rceXO+/L+YYgKd1niGE8dMKZT/1+fL/w/ZgsbGNRfkgiO9pIXRZz3j5rCk3ILYe24triA2n+McjaY5YczTNLW0n+OcC03ny/8fLqb8fx0JMaxIpp+B1VH5/6Tiyv9/D2maxMl1vWxLrt2aIhT0MnnCoTz72AkM3a4vzS0p4rmumPky+zUlkStSbUv5EHtJiY8HJx1BRRHabqXy/3OeKXxOIZXrPbH13zov/++ILNtt4fXOhz9z4biXqCgLUN+YYP+9N+Ha/+xLSxHptbbtEA57+X622xRc1yRC/jbHWUrZpfL/dSjEsFL5v7Wa8v8BufJ/8vavRNN+/4+e+1NKQd3yGBsMrGLXYQPdHshtNkPTJJZl09Sc5O87D+TFJ0fxyJ1HssN2fUkmszQ1Jwu5H4UxhVitVso3jMlfZ6VNdtyu7282Ml9MsOmgGu6+7XC3mCDnEK5uTkpBdWWI1976icuueZXKyiDZrE0w6FlR/p9xM/fWZM2Ugm7VYe5/7DPufugTenSPULc8zhmjh3HaSTvS0JjA49E7HaOmKsTLb8zm8utfp6I8gGoHF5VSykQiYQcCgU7L//9kiK096rj837QcqiuC3PPIp/z77GfQ9Jz9/Dv4VVBICw0FPQzdti/XX74vgzaqIZlcfVFqvk4tUuJiux998ivTXviO9z78mQWLW8hmLXRNYng0dF1DywUy8gKdT/S3LIdMxnLhvGO2ZeL1B682uJFvf/Dfez7irLEz0D26u+kdfWJBk2Sbk1x17YGMPXM3WqIpKisCvPnuPA479uFc0azs8ncq3I5DLuznWDZTHzme/f6xCclkFp9PZ+SJj/HKS99jdBb0yUGT2ZYk195wMOeetgvxRPvrni//b2xsvLeysrLd8v/1QIihUP4ve+MN3smq5f+2o4iEvdx+94fM/GYJAb/RZVirLXkMjbLSAH37lDFkcA+2HNwdhduGqxiTJS/MoaAXXZfU1rXy1XdL+PSLhXz7wzJ+XdhMY1Mihzs7uWoK1yn0+QwqygNstnENww/egoP22wzTtHNNZtp/nuMoQkEvt97xPt/NWubWEXYggPkIIMCl5+1BTXWIVMqkojzI41O/5JU3fiQYLC440x5pUpBMm/TsHuHic3Yv1EUub4hz3S1vu13xRcd6RgiBYztIKbn0/D0K319pbw2UUvlPLJxXXV19y6qCvJ4IMYCGUlE0fRge/wRcIV4RDlXKzSKTWierUwTlWzip/OcVUtmCF94VcnKfLst/BUrXNbKmTaw1TXNzipZoingiQzZX7Orz6pRG/FRVBqmqCCKEINaaBlZvfuRJKUVJ2Fe0/Z2vNo+1ZlbiNxT0rDEc2YYbpJSYpl0oPrAdhaFruTazxY0ihNvKrLUNj+0+zU2mt30+n97a2rp/dXX1y++8846eK3Nan4QY3ByLJnTP0Xh8F7Dqt/Q6K9vvCuVfjzXtR7bSWMrdDKVU4Vt5edvVzY3IXZf7Zp9p2m5ZllrxZahiqMvzF7/9jFr+xVsbtOradaUuss0gRXW0V0o5Ho8HIUS8tbV1aI8ePWbncyzWs2/1rij/l7IPuuco2n5Lrysb/meSEKDlsUFcQcnmqpphxcEhCtfnN65rL8/amL9cg+cWS/mvW/1BY8tMJmOHQqGSXPn/UCCqlJLrmRBD2/J/IXuh6cNwnBaU0ty1Xy9OjK7Rqtva2bfv/qL2SQiptbbGrbKyso1DoexTQoh9xo17R1vPzIk8SSALIoTXfwce7wCkTIGSf5QS+Yv+D5HjOFY4XKpns4lbvN7QeeupEIPr6MXRjY2IJq4mnvAg5eq+VfcX/f9FChB2IBDQvp+9aOx6LMRg2xqlkQSnXrAlz7zQi9JIFtteP+3iv+jPpRzOr7xe2XmG0LolBzCwbYFl2bnP566Hb9tftA5IoFAik7Xi67kQg1s1ne98LlB/UP7EX/R/jNzwIULI9RGdaJ/y3+9en7x6N2iSi7QV+PttQosQ+S8dub9o75q218o21xVj5uX56GzslXlpy3Pn17ptwzrn5U+lHD//Z4R4fSIBSE2RNSWZjIbjuBKhaeDz2miayv0bSKmwbUHWlCgn18hAgtfrIMSK6/LXZk1JJu0GeHRd4fc5HQpafvx0WndLDnSFx2g/KCKlwjQlli0K0R6P4bBqGkX+wzTZrMB23GuFAI9n7QWb1ib9JcRdJDdUCtEWg5rqDEMGJykrMbEdQWOzh7m/BIi16oSCbnplIqlTErLo2zuBz+sKQTyhs2CRD8eR+H0OtgOapkgkNbpVZxm0YRwBLKvz8tPPQTSp8Hh+iy1LqUilNUIBm8GDomiaor7Rw9Ja72/C2I6CZEKnpipDpMRC1xWODUtqfWSzEl1XhQR7yxKYlqBbdYZwyEbXFFlTsGSZD8cRSLl+qeS/hLgL5H4Nyv3/i8/6mSMPWUZ1VQbDUCgHsqZkaa2Pa24dyKtvV4GC/fZYzrix8yiLmBiGAhTZrOSnn4NcfO3GzJ4TIhiwibXq7LZTI5Oun0V5qYlSkMlKPvy0jIuu3pj6Jg+GvkKQpVSkUhobbZDgngnf079PsqA1jz9jS975qJxwyFpJ0197yRwO3rsOw+OgSYWuK76dVcLxZ2xBKiXRNLBtQTBoc8NlPzJsuxYMw03K8RoOr71TxZiLNkXT1i/T4i+8qouUzUpuuvwnrhg7j6qKLNmsJNaqE0/opDOS/n2SXHfJHCrLs2RNyWmjFrLZxvFcuyhwHIGmwW7Dmrj8vHk4jsB2wO+zGXfePKorM7TGNZIpd2v22rWByoosliloW/irlJuTccNlPzF4k1ZSaY1MRlJSYrHz0CZMS+QcYkUqLdl4YILTRy2gNGLiMVw7XtcUvXum0DWFUgJNuqfBsG2bOe7IJQT8NobuVpx4vQ69eqbWy4DpX0JcJEmpiCc0dtq+mSMPXcqSZV5My9VyoaBNMGBTmjumfV7btUsVfPZlhIVLfAjR1hxQLG/wsPmgVgb2S9Lc4OWQfevYbFArzS0Guu4arB6Pwzc/lPDTvBA+n1PQqpqmaInpjDhoGcO2a2Z5vRdNU0gJ6bRk6y2jBPzu9UoJDF3R1OLhf5+Xksq4GWyOI9ANxU/zgjQ0eTAMB0eBYTgsXuZj5lcRbFvkrnWf+d3sMMmUtt6ZE38JcZGUtxWHbB5DSnIeuyAcsnl0Sg+G7b8Dp16wGW+9X8HEe/uxeKmf8jKTS67dmCen96A0suJod80SQWVFliGbxdB0h9HHLiJrSvJFJUq5TteSWi+ptCwIjhBgmpLqyixnnfIr6bRE0/OtcxWZrGTjDRL07pEik3UH83gUS5d5GX3+YDIZiSbdF8rQFT//GiCbFbmTQhD028z8JsI5/9kEryfXcyPn6M37Jbhe5q78ZROvKSkQUmGagg0HJAmFLJ58shdTnu+O13Dw+20cx/Xo+/dJkm+23vbDjrqu2GKzGPGkxpaDYzQ1e1xko2D3woJFfixrRTqnpimaWwzOPPlXNtogSWOTUUBDtBz6UFGWZcvNWpk3P4jf5/Zgth1Bv94pyktNUmlZgM3m/BxcOZKfM3s2HJDE77dJZwxkDqmY+0vAPSXWM0H+SxMXSUqBYSg++7LUFU5DYTuCVFpjx22befOZz3j43q/p1S2NYbhHu2ULwiGL/n1SZLMSTVM0Nhs4jgvRJRIau+/UyAWn/0I2K4knNOb+EsCbO9qVgl8XBgpCJgUkkxqbbBTnpGMW09yiEykxmfZiNxYv8+HxOrnOSbD9Vi2Fl8HV3oKNN0jg9TrYOYHPZCTz5gdXchjzc91ko3jhhdN1h2jMYMFiP4ahcP7Yr9x2mVYS4ryt1BUq5Myuj2D4WiTHcQXyi68jXH7jRkhNUV5qommKeEIn1qpzzOFLuPHyn8jmnDDTco/9bjUZMlmJz+vw6ZelRGMGhu4e/b17punfJ4WuK159u4rGJg8ejyqYDQsW+3KOl6v50xnJWaN/pbwsC8DyBi8339mfhkYDXXM3IJNx7eKSkIVti0IrgE02jLt7pFynrjlqsGiJL4cr5ypoHNeJ23hgAitn8xuGona5l+UNntVi0OuSCkLs2mCKYMBGCli1+jp/nOWB8Pzf89inx+PkHJLcwOuZ8f97SQhXODJZycRJA9hr+HY8Ob0Htu3iplIq6uq9bDOkhR41GTeoYLlHeCRsYloCw3B473/lLFzid+1NKAhKQ6OHaS/VMLBfkkxGomuK1oTG0lofuu5q9lirzi5Dmzh8/1qirXpB20+64Qc2HJAklXa1fSYrGdgvSb/e7gngKBf92HBAcoVgehRLa73UNXiRmgsdCgGmLSkrNembuxdc2/yXhX6iMaOAsvyerkJrmySscCLm/RrgrQ8qyJiCdM6ZcBdQFd5o2xY4jjtpTVN8+V0JAD/ODbmeteZCMsnUWv9w5DojISBruuD/nTd9zz+PWcTCJT5Gn7M5L79ZRShkY+eCAJYtc0EDhWUJBvZPupoVsCzJd7PDzJ4TxDAclONGxEojJk/O6E5zi0HPHmkyWYlhODQ2eahvdPFh23ZRhvNOm+8GKnImQZ8eKfbbo55u1Rl3j3IOaKTEYustYySSGrYjqKww6dNzhWAausP8hQFMUxDwW3gMheO48+zVPU11ZcZFX3IKbd58N+ji89roulrJTl/XpAM4SuDxKGb9FGL+wgCtcY10RiPgt/lxbpBBGyb4dZGfPj3Tbmg0K6lvNOjbK83suSE2HxRn9twQn8zU6dEtg2UJttwshs+bXdfzWyskpSKd1jn/tPmcdMxiDt53OReMmU8iqVFdlSEe19wgQcTmq+8i1C73FiJ2A/omCxBVc1Rn6TIf384qcbWeJfD7HJpbDO56qA/b/i2Kx3BojesENVdTxuI6wYBNS1Rnvz3rGbZdMy1Rg1DQYvbcEBPv6YdlCXYe2sQJRy4hkXQhsGhM57Jz5pHNCh5/qhebD2olUmK5CEjOBNp+6xbenv4ZAkUg4HDZ9RvywvPdGdgvic/rEGvVkZoi1qpz2P61/OPvDWi5E/bUCzZj9pwQfp+9zm1kHXLwkS2orsywzZAo9Q0eflkQoFt1hkVLfFRVZEmnJRXlWSrKTBoaDTweh0DApnfPFFIquldn8HkdpFDYtiQYsAsOxKq0PoYuiyEnh5lms4LuNWmkdB0mBFRXZInFdW6a1N/dVOGeYL17pN2cCp/DklofyZTkk5mlLK31UlOVxetxuGnyABb+FOaIQ5cR8Ds0tUDA77C01ucGMEIWliXYYesWQiHbFfKAzR0P9uGZaT1AKmrrvYw+bhGZrCzkZPQbmGDbv0V59OE+hEM2FWUm0VatkCRUVZGlR00aISBcnqVXjzTKlJSWWJRGTDIZicjlVfTolsHQU2gSAgGbinITK6f51zVaoYObNZVKaew2rAmpKXr1SLPdVi3YtmC3YY00tRgMGRxD0xRej4NpurahC+1AxpT8bfMYuq5YVuclGLDwepzC935tR+TsbNdhCYcs4gkNJ7eYmuy4j9e6JscR+H024ycNwOtRbL9VC6GghZaLdEVjOm+8V8Kk+/vy9fclhIJW4Wh/8Y1qtto8is/n8OW3Jdi2YGmdl+GjtmLI4BjLG7x89lWEYFWGtz+oYOa3JZRFTOoaPHz9fUkhV8PrdXjrwwr23aOekrDFq+9U8urbVVR2T6MUzF/o5633K9h6yxjpjEYmK/n4izLufbQ3wcosX31Xwn2P92KHbVrw5MLOti1IpSUtUYP3Pyln2ovdCFWnefP9Cp6c3oNNNkrkEoRc8yGZ0mhsMXj5jWo+nRkpKKp1TWLJgu2TIPxer8MHH5dTV+9hyOYxZv0UZusto3z9fZgRB9YiJfy6yM+Yizbj2kt+Ytu/RWlt1bFsQTBgF2xor0cVMNFU2rXHggELy5IkUxLTlHz1fQk7btOMx6MwPA6JuJbTICszZ9uuvfjvsYOZ8lx3SiMmtr1uFi1vF2cykpqqLBVlWTweFyduaPJQV+9B1xUBv71SUCOVdhEKn9ehsdnAsoQbWctI0rnAQzBgI6XrOPr9NuWlJumMpLVNurcQbjQuFLIIh2yaW9xiAU0qyNnBmqaorsyicKG4hkYXd/b6bCzTfV6kxMLvc513O5fvkUhobiJR0M3Ay5oC05SURkx8HieHHQsyWUk8rpE1JaGgtX4oHqWyBZvY57X5ZlaY2+/tx1mn/Mqjz/TgH39voKHRQ9aUzJkXZGD/JF9/H0aTcNGVg+jRPc2QwTEefaoXB+5bx4/zgrTEDPw+m1RKY9u/tbDRgCR3P7ghG26Y4JRjF3LLnf35z9WDuOf2bykrNXntjSpOOm4RA/snyLYjyELwGxxzXVAevfF5LGKtOk0thuvA4QYtImELxcoQpVKuWdDcYrhhXt0pYK9+r0PAb0PupFI5bWtZgqW1PqRUaJpaaSy/zyGTlSTrNXRd5U4CXMgst0ZLlvlwm5tAMGi5poMj0HVF2LAwTUEmY7Tpu+FG9Hw+Mxemdufp9Vik01rBQRe4EJ/P55qR60qZrEwChXJy5oSLJhy6bx33PNKbR6f2pKnF4N2PKthj50bOvWwTBg5IMmtOmm2HRLnr4d68+U4V4y6cw2kXbobP4/DD3CCmJamr9wCuFm5uMbj3MR+fflrG0KHN/OuEBcydH2Tjjd0cgZsm98cjIZ7RePD2b6lv0FbaOJdNFx5aHyxopcBWrkAYunKT3JX7xdDVHauOQw56XPlFdBSwiiC4XYhW5O2u+uI6ys1FzoeNVw1QwMo5v6u+UEq5p8Cq/ohSrCSU+Ws1Tf2mVfuq165DUritLtxUKSFcxKF7tzT9+qTYekiUzQa1ssfOjeyzez2OLdloQIJNN46zYLHfdVykYlmdjz69UqSSGgfus5zuNWl22aGJIYNjDN2mmcXLfJSELDy6Yustohi6olf3NE2NbsJJZZmJ5nHYd4/lrhPR3toI6Nk9vbadh981mtvxxxWSYhrqdCEQpPLXru76zsZqc3+7V7UdvytjreVg1loYSSkhNEAsLlQ7u7atRX2jlwUL/dRUZ/j4i1I22iBB394p5v0S5OMvShl+YC29e6SZ+3OAYMimJGTR0OhhYP8kCxb5EVIVnDj3WHJYVuulvNykJGySTGnUN3jp3StFLKbTEjPo2ztFKvVbIc5Hyd7/uJwjRg9Zyd78fbQ2Xer/H8ZaL8kW0qMpO3unBNcm9npsFiz2M+qszTlq9BCmvdiNSQ/05eGnexIMWiyt9fLtrDCJpMaX35aQzkoqykyW1XlZttzL/AV+npjendMv3IxIiUlTs8Gvi/zE4hqJtEZTi8GP80IsrfORyki+mxVm0dIV8F17WlhKRTKlsdUWUTYakCCV1n4TSVwDUignmyt4+/27rFT6d4+xYqyOO+sVOQoIx53j756fAhyUstyA9FoZzwZlrYWxhFKWAvW469g5EArZ3PtYb2bPCfHjJ+9Ru9zLEzO68+pbVfg8DkvrfPTpmeKGiQP56PMyImGTS87+mdvv7cfipT6OPnwpn8wsJZOWTH6gLy++Xk0mK9l2SJRPZpYyZHCMeEInmXIFOtbqesSPTf6GrYdESST0drFjyxKUl5r8c8RSxl45iFBgTbWxsoX0ao6d+VQIOVFIz5PKSVsg1iCTTzkIHRyrXiFOFvA8rPCVujoYuSo2hRoO3COEVuPus1iDV1bZQvp05aRPUHC6lJ4dlZOxQaxBCNWxhRbSlZ0aC2oLofmPV3ZyTdfMElpQV1bqbgXLpB68WtmtFqxJsbKyhPTrjp1+vWXhhI8Ki+Q4UFpi0ZrQuPzGjZj6fHdQgoH9ksydHyQa05k9N0QsrrPJhnEcRzDl+e40NLmBj6ZcdlZFhUk0ZtASdZNcdtyumVRa472Py3ntnUo236SVAX2S9O6RxnEEc38Jugkuq2FX0xTRVp1jRyxh5+2baGpxx+3ipF0vTIFCXdq84KanlJN+SciAjlKdfxB5lcFA2EJ4JUJc0bJw/ItKcavQAnINxgKlzNy9E1sWjn9RKK4QwitB2HRVWyllChnQHTv1cvOC8U8q5KW5hOA1sGiVJaRPd+zUrOYFN92qhDNO2dlWhKZRAFGLHstG6Lqy001Z3b6yJRS4SdnJX4Tw6jmt3JWxHJBSOaYplDgXEGLJgu2TQgi/wE0cmf5SNxqbPeyyQxO1dV503SGV0TB0B9uW6LpDKGizaImPDQck+eVXP6Yl6V6TwXHg10UB9ttzOS+9UU3/vkl236mRKc91p6Isy9I6H0cftpT/fV4GwNJaL1ts2srgQa3t4sR5ygcbFi72c9iorVha66U0YmGZoohdVrbbU9EvlZM8r3nBhFvYdZwemZ8JC+G8L6V3sLJTJgK987QW5QCO0EK6suJ3NC+cMIZNx3mYhVPaJ/m81AP7KitpIpTWuRZVDkrYQg8YjpV8tWVh4EA2RTLrymxZ37GTpBYc49hxC5BFjKVQWELzG46T/cGxs7vEBpbEeO9KK9L3vHM0GbxFOSkn9zJ3ppEVSllC8xjKceol2V0aF9z8EwhV2vvcg6TmfU7hgGNbiCI0slKWkLquwHIca9/owglvApT2u3BLqeR7CBFRTtbMjdXZ+tsgpZAe4Vjp41sWTXgERqzcUFAKCIfdSFQqtaLKQEqVq+ly/7RtF0s0LRduyiedgFvekkjqhQBHPKFRErZytWWKWEzH73fzCvLpiKnV2MRtyc7l5v40L8jJ527O97PCRHLFlyqHb+azQnMnuwNKCukVKEc5tnVOy6LxE2GKBj8ouNIJ9D2/mxd9qtS8OzlOGpRjg8rn6In8LpAbWgiPREgcO3tzy8KbzocRGmyq4ErVt+/x3ijdHpbSNxKVQSmrTRp8YXMKGlEIXSI9YGemhPEdv2DBlRkYJ2CWgKl2aZ8LJkjNex7YKCeb13xt8gfzYwmFkJqUPhw782EGa0RywYRaGCdhMwEj7dI+550ppedWhJTKyaj82qzSgSI3T6kJzY+yM3OVlRzesuT2b92xXL4ifc89ROJ5WEijRDlpcG3ctmu2gi/QhPSjlNmIlf5n8+JbX3XXDGCqXdLrvG01zZgqNE9fZacBx24zx/xYbfbSJ5RjZR2sf0UXTHjI3cuR9m96seUxwM4+6aBYuUqhsLLKFXrHWVGoaDuiEIJu25Mhf20xn4/I53eEAjbRmM4td/dn6nPdaMplzumGyuVpCBASITSUsgHeQVmXNi+Y8LG7gFNz9crjJFzpwDi9tG/6AiHEGUJo3VylZreZmDsWykGhvlLYV7T8Ov753P25jc8lSwBlfS48GSEvFFJs4G5B27EEArdFrXKcnxHOjc2/3nRvbuXyYwhXmK90SvuNPUigjROIrRDSnY9yVhlLoJRdqxSTWhY03QT3mCvmBvk5l/U9fweEcQ2o3Qtro1a8G0K4Cl85Vgx4yFGxK6IL72xeec1coQn3HLuhrmvXgTpESF1HOfm1zrGm5cfKIsQzjkpdGl0w8df8/W35CnU7o0r3Ba4SiH8KoYXcsdr4kIW9tBBKvGaTvTi64Jav2vIlFi8YGpewXjYUXJUECssReAxFOGjx/Y9hnn21mo8+LWPhEj+JhO5YjkgK5GKE+Bicqc2/3vSae3fbBczTis2u7HNJd0fYRyrEfuBsilLlSmAJRK1AzESKaU3zm551haTtxrZhLyd85RucUUI2NEIJ5yBQWypUVe6CBtC+EUo8p/TGZ5p/uSe68svQlvLPGG2U96k4GKkOV8rZRqG6CYWOEE0gZwnEy8Kxnm5cNH7pqnNaQSvmXt7von8o1Eil1A6gegmFByFiCjFXCvGGFDzZMP+GOasfa8Xcy/teMFQhj0Q4u6BUPxR+hEgC84WS71rKfiq2aPwXq97X7lh9Lt5UCXWUEmoPodQGKBUGMkrIRRLxP1upp6MLb3y7vb38fyJD1OUA2mECAAAAAElFTkSuQmCC" alt="Built Small — Powered by Welcome to Chinatown" class="logo-img">
+    <div class="header-meta">
+      <strong>AI Foundations Program</strong><br>
+      NYS EAC Partnership · 2026–2027
+    </div>
+  </div>
+  <div class="header-title">AI Prompting Guides</div>
+  <div class="header-subtitle">Five ready-to-use prompts built around the challenges small business owners told us matter most</div>
+</div>
+
+<div class="body">
+
+<!-- INTRO STRIP -->
+<div class="intro-strip">
+  <div class="intro-col">
+    <div class="intro-col-label">What this is</div>
+    <div class="intro-col-text">Five ready-to-use AI prompts built around the top challenges small business owners reported in our survey.</div>
+  </div>
+  <div class="intro-col">
+    <div class="intro-col-label">How to use it</div>
+    <div class="intro-col-text">Read the example first. Then use the fill-in-the-blank template — replace the highlighted blanks with details from your own business.</div>
+  </div>
+  <div class="intro-col">
+    <div class="intro-col-label">Where to paste it</div>
+    <div class="intro-col-text">Hit Copy on the template, paste it into Claude at claude.ai, fill in your details, and send. The more specific you are, the better the result.</div>
+  </div>
+  <div class="intro-col">
+    <div class="intro-col-label">One tip before you start</div>
+    <div class="intro-col-text">AI works best when you treat it like a smart new employee who knows nothing about your business yet. Give it context — it will give you better work.</div>
+  </div>
+</div>
+
+<!-- FRAMEWORK REFERENCE -->
+<div class="framework-ref">
+  <div class="framework-ref-head">
+    <div class="framework-ref-head-title">The Prompting Framework</div>
+    <div class="framework-ref-head-sub">&nbsp;— every prompt in this guide follows these four steps</div>
+  </div>
+  <div class="framework-steps">
+    <div class="framework-step">
+      <div class="fs-num">1</div>
+      <div class="fs-label">Role &amp; Goal</div>
+      <div class="fs-desc">Tell AI who it is and what you need it to accomplish. This focuses it on your type of business and situation.</div>
+    </div>
+    <div class="framework-step">
+      <div class="fs-num">2</div>
+      <div class="fs-label">Steps</div>
+      <div class="fs-desc">Break the task into clear numbered steps. This stops AI from taking shortcuts or missing something important.</div>
+    </div>
+    <div class="framework-step">
+      <div class="fs-num">3</div>
+      <div class="fs-label">Output</div>
+      <div class="fs-desc">Describe exactly what you want back — format, length, tone. If you don't say, AI will guess.</div>
+    </div>
+    <div class="framework-step">
+      <div class="fs-num">4</div>
+      <div class="fs-label">Reflection</div>
+      <div class="fs-desc">Ask AI to check its own work before giving it to you. A simple review step catches most mistakes early.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════ -->
+<!-- GUIDE 1: MARKETING & GETTING MORE CUSTOMERS -->
+<!-- ══════════════════════════════════════════ -->
+<div class="guide">
+  <div class="guide-header">
+    <div class="guide-num">1</div>
+    <div>
+      <div class="guide-title">Marketing &amp; Getting More Customers</div>
+      <div class="guide-goal">Write a social media post — or a short series — that tells the right people about your business in a way they actually want to read.</div>
+    </div>
+  </div>
+  <div class="guide-body">
+    <div class="fw-grid">
+      <div class="fw-row">
+        <div class="fw-step-label"><div class="fw-step-num">1</div><div class="fw-step-name">Role &amp; Goal</div></div>
+        <div class="fw-step-content">Tell AI what kind of business you run, where you post, and what you want customers to do — visit, order, call, follow.</div>
+      </div>
+      <div class="fw-row">
+        <div class="fw-step-label"><div class="fw-step-num">2</div><div class="fw-step-name">Steps</div></div>
+        <div class="fw-step-content">Ask AI to choose a tone, write posts for your platforms, add a clear call to action, and suggest the best time to post.</div>
+      </div>
+      <div class="fw-row">
+        <div class="fw-step-label"><div class="fw-step-num">3</div><div class="fw-step-name">Output</div></div>
+        <div class="fw-step-content">Specify how many posts, which platforms, and the tone — friendly, professional, exciting. Ask for hashtags if you want them.</div>
+      </div>
+      <div class="fw-row">
+        <div class="fw-step-label"><div class="fw-step-num">4</div><div class="fw-step-name">Reflection</div></div>
+        <div class="fw-step-content">Ask AI to check that each post sounds natural, not like an ad, and that the call to action is clear and easy to follow.</div>
+      </div>
+    </div>
+    <hr class="guide-divider">
+    <div class="prompt-row">
+      <div>
+        <div class="prompt-section-label">Example prompt</div>
+        <div class="example-block" data-label="Example">
+          <pre><span class="hl">You are a marketing assistant for a small Cantonese bakery in Flushing, Queens.</span>
+
+My goal is to get more local customers to visit and try our new seasonal special — a limited-edition almond pastry available this month only.
+
+Step 1: Write 3 Instagram posts about the almond pastry. Make them feel warm and personal, not salesy.
+Step 2: End each post with a simple call to action — "Visit us this weekend" or "Order online at [link]."
+Step 3: Suggest 5 hashtags that local food lovers in Queens actually use.
+Step 4: Tell me the best days and times to post for a neighborhood bakery.
+
+Give me each post as a separate block, ready to copy and paste. Keep each post under 150 words.
+
+Before you finish: read each post out loud in your head. If it sounds like an ad, rewrite it to sound like a real person who loves what they sell.</pre>
+        </div>
+      </div>
+      <div>
+        <div class="prompt-section-label">Fill-in-the-blank template &nbsp;<span style="font-weight:400;font-size:8pt;letter-spacing:0;">— replace highlighted blanks with your details</span></div>
+        <div class="template-block" data-label="Your Template">
+          <button class="copy-btn" onclick="copyTemplate(this)">⧉ Copy</button>
+          <pre>You are a marketing assistant for <span class="blank">[your type of business]</span> in <span class="blank">[your neighborhood or city]</span>.
+
+My goal is to get more customers to <span class="blank">[visit / order online / call / follow us]</span> by promoting <span class="blank">[product or service you want to highlight]</span>.
+
+Step 1: Write <span class="blank">[number]</span> posts for <span class="blank">[Instagram / Facebook / both]</span>. The tone should feel <span class="blank">[warm / professional / fun / local]</span>.
+Step 2: End each post with a clear call to action: <span class="blank">[what you want people to do]</span>.
+Step 3: Suggest <span class="blank">[number]</span> hashtags that customers in <span class="blank">[your area]</span> actually search for.
+Step 4: Tell me the best days and times to post for a <span class="blank">[type of business]</span> in my area.
+
+Give me each post as a separate block, ready to copy and paste. Keep each post under <span class="blank">[100 / 150 / 200]</span> words.
+
+Before you finish: read each post as a customer would. If it sounds like an ad rather than a real recommendation, rewrite it.</pre>
+        </div>
+      </div>
+    </div>
+    <div class="context-note">
+      <div class="context-note-head"><span class="context-note-icon">💡</span><div class="context-note-label">Give AI more context — it will give you better results</div></div>
+      <div class="context-note-body">You can paste any of the following at the top of your prompt: your current bio or "About" section, examples of posts you like (or don't like), a description of your best customers, and what makes your business different from nearby competitors. The more AI knows about your business, the less generic the posts will feel.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- GUIDE 2: MANAGING FINANCES & CASH FLOW -->
+<!-- ═══════════════════════════════════════ -->
+<div class="guide">
+  <div class="guide-header">
+    <div class="guide-num">2</div>
+    <div>
+      <div class="guide-title">Managing Finances &amp; Cash Flow</div>
+      <div class="guide-goal">Turn your numbers into a simple monthly summary you can actually read — and use to make better decisions.</div>
+    </div>
+  </div>
+  <div class="guide-body">
+    <div class="fw-grid">
+      <div class="fw-row">
+        <div class="fw-step-label"><div class="fw-step-num">1</div><div class="fw-step-name">Role &amp; Goal</div></div>
+        <div class="fw-step-content">Tell AI you need help understanding your finances — not just calculating numbers, but explaining what they mean for your business.</div>
+      </div>
+      <div class="fw-row">
+        <div class="fw-step-label"><div class="fw-step-num">2</div><div class="fw-step-name">Steps</div></div>
+        <div class="fw-step-content">Ask AI to organize your income and expenses into categories, calculate key totals, flag anything unusual, and write a plain-language summary.</div>
+      </div>
+      <div class="fw-row">
+        <div class="fw-step-label"><div class="fw-step-num">3</div><div class="fw-step-name">Output</div></div>
+        <div class="fw-step-content">Ask for a short summary in plain English — not a spreadsheet — plus 2–3 specific things to pay attention to next month.</div>
+      </div>
+      <div class="fw-row">
+        <div class="fw-step-label"><div class="fw-step-num">4</div><div class="fw-step-name">Reflection</div></div>
+        <div class="fw-step-content">Ask AI to confirm that every number matches what you gave it, and that the advice is practical for a small independent business.</div>
+      </div>
+    </div>
+    <hr class="guide-divider">
+    <div class="prompt-row">
+      <div>
+        <div class="prompt-section-label">Example prompt</div>
+        <div class="example-block" data-label="Example">
+          <pre><span class="hl">You are a small business financial advisor helping the owner of a Dominican hair salon in the Bronx.</span>
+
+My goal is to understand where my money is going each month and whether I am making a profit.
+
+Here is my income and spending for last month:
+[paste your numbers here]
+
+Step 1: Sort my income and expenses into clear categories — rent, supplies, staff, marketing, etc.
+Step 2: Calculate my total income, total expenses, and net profit or loss.
+Step 3: Flag any category where I spent more than 30% of my income.
+Step 4: Write a 3-sentence plain-English summary of what these numbers mean for my business.
+
+Give me the summary first, then the full breakdown underneath. Use simple language — no accounting jargon.
+
+Before you finish: check that all the numbers I gave you are included and that the totals add up correctly.</pre>
+        </div>
+      </div>
+      <div>
+        <div class="prompt-section-label">Fill-in-the-blank template</div>
+        <div class="template-block" data-label="Your Template">
+          <button class="copy-btn" onclick="copyTemplate(this)">⧉ Copy</button>
+          <pre>You are a small business financial advisor helping the owner of <span class="blank">[your type of business]</span> in <span class="blank">[your city or neighborhood]</span>.
+
+My goal is to understand <span class="blank">[where my money is going / whether I am making a profit / why my cash feels tight]</span>.
+
+Here is my income and spending for <span class="blank">[last month / this quarter / this year]</span>:
+<span class="blank">[paste your numbers here — POS sales records, receipts, invoices, or any record of your financial transactions]</span>
+
+Step 1: Sort my income and expenses into clear categories.
+Step 2: Calculate my total income, total expenses, and net profit or loss.
+Step 3: Flag any category where I spent more than <span class="blank">[20% / 30%]</span> of my income.
+Step 4: Write a <span class="blank">[3 / 5]</span>-sentence plain-English summary of what these numbers mean.
+
+Give me the summary first, then the full breakdown underneath. No accounting jargon.
+
+Before you finish: confirm all my numbers are included and the totals add up correctly.</pre>
+        </div>
+      </div>
+    </div>
+    <div class="context-note">
+      <div class="context-note-head"><span class="context-note-icon">💡</span><div class="context-note-label">What to attach or paste in</div></div>
+      <div class="context-note-body">You can paste in your POS sales records, a summary from your accounting software, copies of your invoices and receipts, or any other record of your financial transactions — AI does not need a perfectly formatted spreadsheet to work with. The more complete your numbers, the more useful the summary will be. <strong>Never share passwords, full account numbers, or Social Security numbers with any AI tool.</strong></div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════ -->
+<!-- GUIDE 3: FINDING TIME FOR IT ALL -->
+<!-- ════════════════════════════════ -->
+<div class="guide">
+  <div class="guide-header">
+    <div class="guide-num">3</div>
+    <div>
+      <div class="guide-title">Finding Time for Everything</div>
+      <div class="guide-goal">Use AI to draft the routine emails, messages, and replies that eat up your week — so you can spend that time running your business.</div>
+    </div>
+  </div>
+  <div class="guide-body">
+    <div class="fw-grid">
+      <div class="fw-row">
+        <div class="fw-step-label"><div class="fw-step-num">1</div><div class="fw-step-name">Role &amp; Goal</div></div>
+        <div class="fw-step-content">Tell AI what kind of message you need and who you are writing it to — a customer, supplier, landlord, or team member.</div>
+      </div>
+      <div class="fw-row">
+        <div class="fw-step-label"><div class="fw-step-num">2</div><div class="fw-step-name">Steps</div></div>
+        <div class="fw-step-content">Ask AI to draft the message in your voice, keep it short, put the main point in the first two sentences, and write a subject line if it is an email.</div>
+      </div>
+      <div class="fw-row">
+        <div class="fw-step-label"><div class="fw-step-num">3</div><div class="fw-step-name">Output</div></div>
+        <div class="fw-step-content">Ask for a draft ready to send with minor edits — not a template you have to rewrite. Specify tone: professional, friendly, firm.</div>
+      </div>
+      <div class="fw-row">
+        <div class="fw-step-label"><div class="fw-step-num">4</div><div class="fw-step-name">Reflection</div></div>
+        <div class="fw-step-content">Ask AI to re-read the message and check that the tone matches the relationship, the request is clear, and nothing sounds rude or confusing.</div>
+      </div>
+    </div>
+    <hr class="guide-divider">
+    <div class="prompt-row">
+      <div>
+        <div class="prompt-section-label">Example prompt</div>
+        <div class="example-block" data-label="Example">
+          <pre><span class="hl">You are helping the owner of a small catering business in Brooklyn write a professional message.</span>
+
+I need to follow up with a client who hired us three weeks ago and still hasn't paid their invoice.
+
+Step 1: Write a short, firm but polite email reminding them that payment is overdue.
+Step 2: Mention the invoice number (INV-2025-047) and the amount owed (,200).
+Step 3: Give them two ways to pay: Zelle or check. Include a deadline of 7 days.
+Step 4: Write a subject line that is clear and professional.
+
+Keep the email under 100 words. Tone: businesslike — not angry, not apologetic.
+
+Before you finish: read it as the client would. Does it feel respectful but firm? If it sounds too aggressive or too soft, adjust it.</pre>
+        </div>
+      </div>
+      <div>
+        <div class="prompt-section-label">Fill-in-the-blank template</div>
+        <div class="template-block" data-label="Your Template">
+          <button class="copy-btn" onclick="copyTemplate(this)">⧉ Copy</button>
+          <pre>You are helping the owner of <span class="blank">[your type of business]</span> in <span class="blank">[your city]</span> write a professional message.
+
+I need to <span class="blank">[follow up on a late payment / respond to a complaint / confirm an order / send a quote / introduce my business]</span>.
+
+Step 1: Write a short <span class="blank">[email / text message / letter]</span> that <span class="blank">[describes what you need to say]</span>.
+Step 2: Include these details: <span class="blank">[names, amounts, dates, or reference numbers]</span>.
+Step 3: <span class="blank">[Add a deadline / Include contact details / Give two options for next steps]</span>.
+Step 4: Write a clear professional subject line (for emails).
+
+Keep it under <span class="blank">[100 / 150]</span> words. Tone: <span class="blank">[friendly / professional / firm but polite / warm]</span>.
+
+Before you finish: read it as the person receiving it. Is the main point clear in the first two sentences? Does the tone match the relationship? If not, revise.</pre>
+        </div>
+      </div>
+    </div>
+    <div class="context-note">
+      <div class="context-note-head"><span class="context-note-icon">💡</span><div class="context-note-label">Save time every week with this</div></div>
+      <div class="context-note-body">Write prompts once for the messages you send most often — late payment reminders, booking confirmations, supplier requests, complaint responses. Save them in a notes app. Next time, paste in your saved prompt, update the specific details, and you are done in under two minutes.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════ -->
+<!-- GUIDE 4: RESEARCHING BETTER OPTIONS (was Rising Costs) -->
+<!-- ══════════════════════════════════════════════ -->
+<div class="guide">
+  <div class="guide-header">
+    <div class="guide-num">4</div>
+    <div>
+      <div class="guide-title">Researching Better Options</div>
+      <div class="guide-goal">Use AI to research suppliers, compare pricing strategies, or prepare for a negotiation — so costs don't catch you off guard.</div>
+    </div>
+  </div>
+  <div class="guide-body">
+    <div class="fw-grid">
+      <div class="fw-row">
+        <div class="fw-step-label"><div class="fw-step-num">1</div><div class="fw-step-name">Role &amp; Goal</div></div>
+        <div class="fw-step-content">Tell AI you are trying to start taking online appointments so clients can book without calling you.</div>
+      </div>
+      <div class="fw-row">
+        <div class="fw-step-label"><div class="fw-step-num">2</div><div class="fw-step-name">Steps</div></div>
+        <div class="fw-step-content">Ask AI to name and explain your options in plain language, compare them on cost and ease of use, and recommend the most realistic one for a small business.</div>
+      </div>
+      <div class="fw-row">
+        <div class="fw-step-label"><div class="fw-step-num">3</div><div class="fw-step-name">Output</div></div>
+        <div class="fw-step-content">Ask for a comparison in simple terms — not technical language — a clear recommendation with a reason, and a first step you can take today.</div>
+      </div>
+      <div class="fw-row">
+        <div class="fw-step-label"><div class="fw-step-num">4</div><div class="fw-step-name">Reflection</div></div>
+        <div class="fw-step-content">Ask AI to confirm every tool it recommends has a free tier or is affordable for a small business, and that setup does not require a developer.</div>
+      </div>
+    </div>
+    <hr class="guide-divider">
+    <div class="prompt-row">
+      <div>
+        <div class="prompt-section-label">Example prompt</div>
+        <div class="example-block" data-label="Example">
+          <pre><span class="hl">You are a technology advisor helping the owner of a small nail salon in Sunset Park, Brooklyn.</span>
+
+My goal is to start taking online appointments so clients can book without calling me.
+
+Step 1: Name 3 booking apps that work well for a small salon. Explain each in one or two plain sentences — no tech jargon.
+Step 2: Compare them on: monthly cost, ease of setup, and whether they send automatic reminders to clients.
+Step 3: Recommend the one easiest to get started with for someone not very comfortable with technology.
+Step 4: Give me 5 simple steps to set it up for the first time.
+
+Write this as if explaining to someone good at running a business but who has never set up software before.
+
+Before you finish: confirm your top recommendation has a free plan or costs less than 0/month, and that I can set it up on my own without hiring anyone.</pre>
+        </div>
+      </div>
+      <div>
+        <div class="prompt-section-label">Fill-in-the-blank template</div>
+        <div class="template-block" data-label="Your Template">
+          <button class="copy-btn" onclick="copyTemplate(this)">⧉ Copy</button>
+          <pre>You are a technology advisor helping the owner of <span class="blank">[your type of business]</span> in <span class="blank">[your city or neighborhood]</span>.
+
+My goal is to <span class="blank">[start taking online appointments / accept payments on my phone / set up an inventory system / send automated messages to customers]</span>.
+
+Step 1: Name <span class="blank">[3 / 4]</span> tools or apps that work well for a small <span class="blank">[type of business]</span>. Explain each in one or two plain sentences — no tech jargon.
+Step 2: Compare them on: <span class="blank">[monthly cost / ease of setup / customer support / works on phone / free trial]</span>.
+Step 3: Recommend the easiest option for someone who is <span class="blank">[not very tech-savvy / on a tight budget / running the business alone]</span>.
+Step 4: Give me <span class="blank">[3 / 5]</span> simple steps to set it up for the first time.
+
+Write this as if explaining to someone good at running a business but new to this type of software.
+
+Before you finish: confirm your top recommendation has a free plan or costs less than <span class="blank">[0 / 0]</span>/month, and that I can set it up without hiring a developer.</pre>
+        </div>
+      </div>
+    </div>
+    <div class="context-note">
+      <div class="context-note-head"><span class="context-note-icon">💡</span><div class="context-note-label">Already using a tool? AI can help with that too</div></div>
+      <div class="context-note-body">If you already use Square, QuickBooks, Google Business, Shopify, or any other tool but feel like you are only using 20% of what it can do — tell AI the name of the tool and what you are trying to accomplish, and ask it to walk you through the specific feature you need. You do not have to start from scratch.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- GUIDE 5: DIGITAL ADVERTISING — GOOGLE & INSTAGRAM ADS -->
+<!-- ═══════════════════════════════════════════════ -->
+<div class="guide">
+  <div class="guide-header">
+    <div class="guide-num">5</div>
+    <div>
+      <div class="guide-title">Digital Advertising — Google &amp; Instagram Ads</div>
+      <div class="guide-goal">Use AI to research, plan, and set up a cost-effective digital ad strategy — without wasting money on ads that don't reach the right people.</div>
+    </div>
+  </div>
+  <div class="guide-body">
+    <div class="fw-grid">
+      <div class="fw-row">
+        <div class="fw-step-label"><div class="fw-step-num">1</div><div class="fw-step-name">Role &amp; Goal</div></div>
+        <div class="fw-step-content">Tell AI what kind of business you run, who your ideal customer is, and what you want the ad to make them do — visit, call, buy, book.</div>
+      </div>
+      <div class="fw-row">
+        <div class="fw-step-label"><div class="fw-step-num">2</div><div class="fw-step-name">Steps</div></div>
+        <div class="fw-step-content">Ask AI to compare Google Ads vs Instagram Ads for your business type, recommend which to start with, suggest a realistic budget, and write your first ad.</div>
+      </div>
+      <div class="fw-row">
+        <div class="fw-step-label"><div class="fw-step-num">3</div><div class="fw-step-name">Output</div></div>
+        <div class="fw-step-content">Ask for a plain-language comparison, a recommended starting budget, a first ad draft you can use immediately, and one clear next step to launch.</div>
+      </div>
+      <div class="fw-row">
+        <div class="fw-step-label"><div class="fw-step-num">4</div><div class="fw-step-name">Reflection</div></div>
+        <div class="fw-step-content">Ask AI to confirm the recommended budget is realistic for a small business just starting out, and that the ad copy speaks directly to your target customer.</div>
+      </div>
+    </div>
+    <hr class="guide-divider">
+    <div class="prompt-row">
+      <div>
+        <div class="prompt-section-label">Example prompt</div>
+        <div class="example-block" data-label="Example">
+          <pre><span class="hl">You are a digital marketing advisor helping the owner of a small plumbing business in Jackson Heights, Queens.</span>
+
+My goal is to get more local homeowners to call me when they need a plumber. I have never run paid ads before and my budget is around 00–00/month.
+
+Step 1: Explain in plain language whether Google Ads or Instagram Ads would work better for a local plumbing business, and why.
+Step 2: Suggest a realistic monthly budget split between the two platforms, or recommend just one if that makes more sense.
+Step 3: Write one Google search ad (headline + 2 description lines) and one Instagram ad caption I can use to start.
+Step 4: Give me 3 simple steps to set up my first Google Ads campaign today.
+
+Use plain language throughout — I am not a marketer.
+
+Before you finish: check that the budget you recommend is realistic for a small local business with 00–00/month, and that the ad copy focuses on what a homeowner actually needs to hear before they call a plumber.</pre>
+        </div>
+      </div>
+      <div>
+        <div class="prompt-section-label">Fill-in-the-blank template</div>
+        <div class="template-block" data-label="Your Template">
+          <button class="copy-btn" onclick="copyTemplate(this)">⧉ Copy</button>
+          <pre>You are a digital marketing advisor helping the owner of <span class="blank">[your type of business]</span> in <span class="blank">[your city or neighborhood]</span>.
+
+My goal is to get more <span class="blank">[local customers / online shoppers / people in my area]</span> to <span class="blank">[call me / visit my shop / book online / buy from my website]</span>. My monthly ad budget is around <span class="blank">[00–00 / 00–00 / 00+]</span>.
+
+Step 1: Explain in plain language whether Google Ads or Instagram Ads would work better for a <span class="blank">[type of business]</span> trying to reach <span class="blank">[describe your customer]</span>, and why.
+Step 2: Suggest a realistic monthly budget split, or recommend just one platform if that makes more sense for my situation.
+Step 3: Write one Google search ad (headline + 2 description lines) and one Instagram ad caption I can use to start.
+Step 4: Give me <span class="blank">[3 / 5]</span> simple steps to set up my first <span class="blank">[Google / Instagram]</span> ad campaign today.
+
+Use plain language throughout — I am not a marketer.
+
+Before you finish: confirm the budget you recommend is realistic for a small independently owned business just starting with paid ads, and that the ad copy speaks directly to what my customer actually cares about.</pre>
+        </div>
+      </div>
+    </div>
+    <div class="context-note">
+      <div class="context-note-head"><span class="context-note-icon">💡</span><div class="context-note-label">Important: AI plans, you verify before you spend</div></div>
+      <div class="context-note-body">AI can help you understand your options, write your first ad, and plan a budget — but ad platforms change their interfaces and pricing often. Before you put any money in, verify the setup steps directly on Google Ads (ads.google.com) or Meta Ads Manager (facebook.com/business). <strong>Start with a small test budget — 0 or less — before scaling up. Never spend more than you can afford to lose while you are still learning.</strong></div>
+    </div>
+  </div>
+</div>
+
+</div><!-- end body -->
+
+<!-- FOOTER -->
+<div class="footer">
+  <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAALEAAABQCAYAAABWMZTiAAA9FElEQVR4nO2dd5gUVfb3P/dWVeeenjzkaEBFZY0ohjWtOQOmNaGyq5gV84o5gQEXzDkLAuacwxoxCwookmeY2D2dK9z3j+puBhxmehCF3/N6nmdEmKpb59576txzvieUWF73VNLwHOp3nCig8Rf9RUopx+v1CqXUXMdxhkYikRZACCGcdc1beyTN1ARs60MQEcBe1/z8ResBCSFkJpNx/H7/RkqpR4QQ6t1335VKKbGueWuPJDiY6atQ9i8gAvwlyH8RgBBCi0ajVmlp6QGNjY237bbbbtbMmTP1dc1XeySWLBiWFCLhR2yANzAZ8AIWsF6+dH/Rn09WaWmp3tTU9O+qqqq7lVK6EMJa10y1JbFkwfZJKQ2/bTej6XvgCVwPKpX/dbs3KQWgfu+j3f+uwbvS9eeLlZ6jVNd4F6swuSbzX3WMtcHH7+GnyCcCSmma5hiGIVKp1J5VVVXvKKU0IcR6c2S7x4OyEKIU23oTK9Mbw3sWSrWwOkfPMKR7m1pzfa1wN9FxFLajUEohACnFajcrTx6PhnKK3DQBylGYtoMUAk2TSCFwcs/rjEchwLIcd665G9Zk/qZlrzSvtcFHntbGfvyGBO7e2ErYti10XRc+n29KbW3t9kKIX5RScn1x9NrYODZClGJlHkGIPuiew1CqaeVLcIWsoTGBEAIpRZe1SZ6EEHgMDb/fIBT0oOsatu2QTJlksxYIgSZ/uyWOo1hWG8Pn1XE6fbbLn8ejEQn7yJo20WgK03IwDInTyYsgcIWsrNSPUuA4DpomqW9IIGXX5l9RHiRr2qBA0wQt0RRWF/iwlaK81A8KbMcpvBBraz9WfaJSCp9PJxz0ks5YMpNJ26FQuNLn881YtmzZjkBKKSWEEH/EEdAlWsVQVyACmJkJCNkLqW8NKkZeIzuOwu83+OHHOkaf/QwBv+HetQbTEAK8Hp1IxEfP7hEGbVTNNkN68bctetKzewTHcWiNZ3AchabJwvODAQ83TnyH+x/9jKqKIKa1emUghMubUoo7bzmcffYcxE/z6jn+1KfIZC0MXetQgDQpiCey7L3Hxtx1y2HE4hkCAZ2vvl3CmLEzCIe8KKU6nL8mBbF4htNPGcal5+3B8oY4Pq+X+oY4R5/yRJf4+MfuG3H3rYeTSGYL8wr4Db6bVcu/z5lGMOBB0TE/xZDIaWGvV+fRu45ii826E2vNaPHWVqu8omILx3EeEUIcrpTSlVL2uhZk1yYWwr9iDSWQQYgyPIG7EKIGSOf+HWzH1QjX3vwW4655lbKKIFYHgtQROUph2w6W5WDbDoah0bN7hF12HMCIQ7Zg12ED8Hp0orG0y6wQaJrAcRSHHfsw7330C2WlfkzLWe0xKqUgnTbpVhPmpadPYrNNe/DAY59yyhlTCYe9rjbvYAukFESjKS4buydXXbw3dfVxKiuCXH7da1w//k3KKoubfypt8tDkIzhq+N+oXd5KTVWIx6d+xQmnPUVJ2Fc0H5eevydXX7I39Y0JdF1iO+5Jcc34N7nyutd+136s+rxEMssmG9fwytSTCIe8ZLM2QmBVVFTo9fX111dXV1+yPjh67QgxgAaqFakNxhP4L64A2+QtLkcpyiJ+Rp/9DA898UVOI674fZcYEK5wity42axNMplFNzR22LYvp58yjP333gTbdkgks0gh8PsNGhoT7H34vSxe0kIg4MG2ndU839Xk0WiarYb05NnHT6CmuoQrb3idK298narKEFYnvAsB0Via+24fwbFHbE19Q5zysgAnjnmaJ6d93en88/aslIIXnhzFtlv1orEpSfduJVwz/k0uv/61oviQAlpiae6dOJzjjtyGhsY4uq6hlCJS4ueUs6byyFMzf9d+tF03XdNobE6wzx4b8/SDx5LJWK7vIoQViUT0xsbG42pqah5d14K8GiEG0FGqGd3YD8N/Fag4eW2slEJKiRRw8DEP8dGnv1JW6l8rGqCtbRfPmRP7/WMTrrjoH2yxWXeampPYjkNZxM8XXy3mwKMewLZdQe3IHjR0SX1jgiMOHcIDk0ciheDkM6fy+NQvqexEewkhsG0HIeC5J05k+6370BrPIKXggCMeYObXi4mU+LDs1Y+haZJkMkuvHhFenXYKVRVBEimT8lI/J505lceenlk0H+DyscO2fWmJpdCkQJMSBBx89IN8/PkCSiNrZz8MXbK8IcEZo4dx63UH0dScRAihDI/h6Jpmp9PpXSsrKz9Zl4iFXP2vXMTCMl/CytyHEKXkAyFCCCzbQdM17v/vSPr1KSORyLbriHWVVM7EcBxFOOQlEvHz0muz2evQe7jzgY+JlPjwenQam5MM3bYvt994CMmU2SlUZ1oOlRVBnpr+NddOeAuvT+eWaw9k2Pb9aImm0bXVL4VSCkOXZE2bUadPYfHSKB5DwzA0Hpw8ku7dSkimTWQH87dth2DQwy8Lmjj5zKk4jkLXJfF4honXH8ROQ/vTEk2h653zYVo2J50xhYVLmgn6PSgFlu1g5PajT68yEsm1sx/5dZt83/+44/7/UVkRxHGUsMysADwej2d6Q0NDTyGErZTqQJ7+OOrkoXnE4l4s86WcILunhiYFyWSW3j1Luf+/I/F4NNc2XRPgd3VPd1yBLiv1Y5o2Z1wwg3+dMw2AUNBL3fJWjh7+Ny49b3cam5IdCgC4R3pFeYCbJr7Dg499TlVVhLtvG06vHhGSqU6EMOdULlzUzElnTEEpSGcs+vct577bRyCFwLZVh/O3LIfy0gBvvz+P8y57oYCYeAyd+yeNpHfPUpJJs0PhW4mP06dgWjaaJhFCkEhl6dO7jPv/OxJD17DstbMfjuMQKfFx0ZUv88obP1JeFsB2kKlUyvb5fN01TZs+Z84c79SpU8W6CE0X8eYoED7M9A049rcgwuQ1sq5LWqIpdhran9uuP5hEMrtGwQspBXpuI9ojy3ahrcqKIA8+/jmHH/cwsViakhIfy+vjXHLuHhwzcisacs5Oh7NREAh4OO+yF3jn/Z/YdFAP7r71cNdJ6mTTLcuhtNTP+//7hbMveY6yiI/G5iS777IBE64+gNZ4usMXAVy8uKoiyP2PfcbNk9+juipMNJamX074NF12KnyW5b7YH3w8n7Mvfp5Q0INSCl2TtLSk2HmH/tx2/UHEE2u2H6uSUhQgxdFnP8OPc5YTDnpRCC0Wi1qlpaXbVVRU3D9y5EibdZBFVpwQowNZsqn/gFMP+ADX3tJ1SUNjguOO3JqLzt6tKI3YloQQJBJZ6hsTZLJWAU77DRdKYVkO1VUh3vvwFw7550M0NCYIBjzEWtPcfsPB7Lhd8aZBJmPxr7On8dPcWvbafRDjr9qfeLzzTbcsh8ryIA898QU3TXyXbtVhape3cvJx23POabsU9SLZjkNZaYBx17/O9Be+paYmxPKGOLsOG8Ct1x5YFB/5Y/7hJ10+KsoDWJZT2I/jj9qGC876e5f3Y3XkOAqf13WoTzz9aVrjGTyGhkLoTU1NZnl5+TENDQ2XCiGsL774wvjdD+wCdeDYrUoaqBhS3waP/1ZcIV6BCDjKtWFPOO1pnp7+dadOCrgCnE6b7L7LBvTrW8Fb781hzrx6IiV+6ADvNHSNppYkQzbvwbOPn0Ao4EFqkmW1MfY+/F7qGxL4fHqH2KuuS5pb3FPkmYePo6I8wEVXvMSNE9+lqhPYTLjME09keOSuoxh+0OY0NCYoKfFxzMlP8NwrPxSEanUkpcA0bXxeg5emnMTgTbvR3JykW02YS69+letvfbtrfNx5JCMO3pKGJvclcpQiHPRy3KlPMfXZb4raj2JI1yWNTUkOPWAwj91zNIlEBkBJKe1gMKi3tLQMr6mpmfZnIhZdeEVtEBFs61PM9ASECLAqsJlKmUy66RC237oP0VjHGhHcTRBCsLwhzhUX7sXHb5zBBWfuVgDzV3ekmpZNeWmAr75ZwnH/ehIFZDIWffvkjmRNFGUalJX6ee+jnxl7+QtkszaXX7gXww/avFPtlQ8D+7w6p4+dzsyvF1MS9pFKmdx5y2EM2bwHsdb0ak8VcDWbx6MTi6c5cczTNDYmCAY9NDQmGHfhXow4eIsu8GEwZuwMPv9qEZESnzt3IJ02mTz+ULbdqndR+1EM5f2Kac9/xxU3vE55WQDHUcK2bS2dTjvBYPCRurq6IUIISyn1p5gWXZyVhRBlWOYMzOwjKzl6Uriaxe8zeGDyEXSrDnfqsTvKjQB+9uUihh//MFIIrhu3H+Ov2p9EItshymlaNhXlQd7+4GfOuug5SsI+mptT/H2ngdxy7UEuBNYF02D8f98lEPAy8cZD2HrLnkRjxQlhIpHlhDFP09DkhqJDQS8PTj6CirIgmYzVKWIRDnmZPceNgOYdtFTaZPKEQ9l6SK9Ohc/lQyOZNDlxzNPU1cfx+QyUgqxlEwgYPDj5CGqqwiRTZu4ZK/D5zmz49sg0Haoqgtw86T0eeOxzqipDKCVENptFShnw+/0zli5dWgU4fwZisQYPcBCiBCt9B7b55sqIhSaJJ7Js0L+C+24fgRB06rHbtkNVRYh3P/yFcy99nnQqy5iTh3HJebvT1JLsUJBMy6aqMsgjT33BrXe8T3VViLrlrYz657acf/quNBRhD+bt06tveoMnn/mSHt3LuGfiCKorQ6SLgM1CIS9z5jVwyplT0XXpRrk2qubu2w4vQIUd2beW5VBeFuDlN37k4itfprwsQDptEQx6eXDSSKorQ6SK4sPD3J8bOOWsqUDOEROSeDzLhgMruXficHRdkkqZZLM22axNOm12OvaqJISb+5FMmXg9OmdcMIOXXp9NKOgBIWQikbD9fn8/v98/FVe+/nDEogs28Uq34QquF29gMkLbAFSCvGNqWQ5VlUHueegTxpw/g7KyQAGkXx3pmqShKcEN4/bjvNN3JZt1Mdkpz37jQjqruT+fH2FaNi9POZlt/taL1niGkrCXf45+khkvfl+0fer16Dz7+AnsOHQgL7zyHUed9Dgej1Z4xurI0DWWN8Q5ddQO/PemQ1heH6dbTZjb7/6Qcy59noqyYKfz1zRJU3OSW687iDNG78TS2ig1VWHefHcOw094FI+hIUTHCT75wMS/Rw1l0k2H0tTsKgHHcXMsZs9ZTks0Vfg3n0/nmvFv8vo7cygv63iN8usUT2Q4+djtOenY7WhqTuI4ikiJj0EbVWOaTi7vwrEqKyv15ubme8vLy0f/0fbxGgoxuI5eEqH1wRu4AwgBWfLK3bLdo/qCy1/k5snvd+6kuF4KyWSWR+8+iuGHbMkv8xvYd8R9LK1tdT3h1WygpkmisRS77bwBMx49nkQyi8ejk8lY7D/yfr6btYxw2NehILmnSIaB/Sp44alR9O9Xye13vc85lzzf4UvU9v7GpgQ3X3MgZ5+6M8vq3PyIsy56jsn3/a+I+bsCmslYTHnoWPbefWPq6lvp0S3CHfd/xJkXPtclPiZcfSDnnLYz9Q0JjFyOhd9voOcim0q5Ka1La2PsO/w+fv61kVDQ2+H4+cQgXdeY/uhx7LzjhiQSKYSAVMpaNWfbKi8v1xsaGs6trq6+9Y8U5N9hr9ggAij7Z7Kpq3JDSfLOniZd7//qS/fh4P0269xJyeXJGobG6RfM4KNP5jOgfxXbbdWHVCrb6XFaEvbxwcfz+d9nCygJ+0inTcIhLw9OHkllRZB0pvMjORzy8uPc5Zx23nSi0QSnnzKM008ZVhRs5jgOpRE/l17zKi+8OouqyiCNTUluvGJ/9tlzY5qaO5u/ck0ATfCvs59h9pw6yksD1C1v5dRRO3Lm6OL5KCv1c9k1r/D8K7OoKA9g5vI2UimT1niGeCJLIpmloTFBdWWIByYfQSjoJZvt2IZXakX4/MiTHue7H5agHLU6SFCLRqNWOBy+Zfny5fsJIax33nnnDylv+p1Gtw2iFNv6ADMzESHC5PFj9whWmJbNXbcczpaDuxNrzRThLGnEE1mOPuVxdtjrdl57+yfCoY41BLiOZTZj8enMhRiGhpCC1niGQRvVcM9tw3EcVZR9WlEW4NW3fuKSq17BUYprLt2bA/bepAghXBG0+dc50/hhdh3BoAfTsrn3thEM2rCa1njn8/fnsdgxU2iNZ/D5dJqak1x7+b4csM8mNBWlDAS6rvHvc6blTiF3/fIBi/yPYWhEY2m23rInd0w4NJfg03G1TT4dtqExwclnTiGVtvC2k9sthBC2bctsNqsCgcATS5cu3WS33XazpkyZstYRi7XgOeYQi+yTWNmnEKKMAmIhBZmMRSTi48HJR1Be6u/UY3dBdZ2WlhRff7cE07Q7dAwLJMBOmfh9RgEf1nXXztx3r0HcMG4/orE0UnY85XwQ4a4HPuH2uz4kXBJg0vhD2WxQN1qLeAm9Xp3mlhQnjnma1lY3gamiPMCDk48gXIS2s2yHkhIfX327hFPPm47Pq7uBHtPh7luHs9kmXeAjmuKEMVNoiaZcQWvHZszjvsMP3oJxF/3DdaY7WSPLdsPQn3+5mDFjXR7dQqaVrxNCSNM0HU3TIqFQaMb8+fNLR4wYsdYRi7U0mIMQYczMbdjWB9AmWUjTJK2tGTbbpBt33zYcy3ZQnWjEvN0VDHiKEmApBfF4hoMO2YLTTtrBLQXCNRHyEawxJ+/YJdMgEvHxn2tfZcYL39K3TyX3TBxOJOIrCjYrCXv59odl/Pvcafj9BrHWNFtt2ZPJNx9GJtu5tstjsdNf+I5xN7xOZUWQRDJLeamfBycf0SU+vvthGf8+ZxqGnncMf3ttXpDHnrEro47ZloamBIbescK0LIfKigBTn/2WK298I5dP8dvTUgihxeNxKxgMbhyJRJ78I8r/15IQK/I2cbad8n9dlzQ1JTlg70247j/70BxNdaoR8/V3RT1dgdQk6YzFfY98xqwf6ygJ+4hE/IVjriWa5rrL92X/fxRvGmiaZMzYGcz8agHbb9Of/950KKZlFy2Ez738A5dd8ypVlSHq6uMMP2hzrrjwHzQXo+0sh8ryADdPeo/7HvmMbjVhGpuTbDm4O3fefHiOjyLMo/IAz78yi0uveZWyUj9OO4IG7nxa41luufYg/j5sIE0txSdUjb/9XR584nMqy/N5zCuTlFJvamqyysrK9qmvr79tt912s1iLORa/A51ojzRQCYTWfvm/bbuY6JkXPscd9/+P6sqOy4vao7z2yZfnFCYiBIlEhkzWpqI8wE5D+3Pi0duw1+4bI6Vb0xbwG8TjGfYZfh9zf2no1BvXNElrPMOmG9fw/BMn0KtXGTfe+jYXX/UyleXBDvOH8/c3NSeZPP5Q/nXCUGqXt1JVGeJf5zzDA49/TlUR+cNOLpNvxmPHs8uOA6hvSNCjWwkTJr3LBeNe6hIfk246lH+PGkp9g5tMvyrZjsLv01leH2fvw+9j6bIoAb+nXQ27Mo9uAeuzj5/Ajtv3o6VltSmlf0j5/1oWYnCT6VvQjN3x+Fcu/89VBeAxNIaf8ChvvjuX8rLik7eFgEQi60b6fAYej15YQFiRaWWaDvGEm7S+204Dueic3dllxwE0NicJ5vDS/UbeTzptYhgd17flj9qD9t2UR+8+Gq9XY8x507n3kc+Kg80c17md9ujx/H3YQKKxFB6PziHHPMSHn8zvtJhAk4JU2qKqMsir006hV48IrfEMVRVBTjt/Bvc89EnR8J1p2jzzyHHsvssGNDe3L2iW7VBa4uPTmYs46KgHUarzggOXR5Oa6jCvTTvFza9O/TalVCm3/N/j8RCLxfbq3r37Win//wNCgrnyf/NNrPQdCBFhBWLhahYF3DtxOBtvUEW8E499pZEth513GMBuO29IacRfANvz2tlx3Ew3IaA04qck5OXtD37mgCMe4MIrXsollDsM3rQbd958GJls8abBsy/9wLjrX0PXJDdeuT977LoBzavXOEAONtMECjjlzKn8/GsjPp+b4HX/f0fQv0+5W0ygdZw/HPAbLFkWY9TpU8hkLLwenZZomglXH8Cef9+wOD5ya3TKmc8w9+cGQiFPu6eQrklaommGbd+PiTcUl15rO4pAwMOixS2MOn0K2ayN0Y7g5xALYdu2DIVCU2prawesjWT6Pyiu7QqymX0Ey5z+G8QilTaprgzx4OSRBIvw2PP3ZbIWPXuU8PLUk3j3xVO5+pK9Aci0c79tO9i5aJLXqzPh9nc54MgHWLosim05HLjPplx9yd5uVKsY+7QiyMS7PuCuBz6mrCzEXbcczsD+FcQ7EULHUQR8BrXLWxk15mkyWQvLsunRPcIDk0bi8ei5SFfHiEVZxMfHn/3KmRc+SzC4QgDvu30EG/SvIB7Pdg7f+Qzq6l0+kkkTj6f9UyjvDB97xFZcfE7xBQdlpX4+/GQ+Z1/8HMGgp10nMt/nzePx5Mv/gwC/x9H7A5MzFEIEMNMTsK3PVmpYqGvSxSeH9GLy+OLxyXDIx8OPf84lV75M/34VXHTO7kx56FhCAW+7ggyuMCulqK4K89nMhewz/D6++HoxjqM4Y/QwTh21A/WN8U698fzzL7ziZV55YxYbDOzGPbcOJ+A3yBYhhKUlfj6duZCzL3qOcNhHc0uSHbfvx+1Fars89Pf41K+47ua3qKoM0hrP0K0mzAOTjyDgNzBNG9kJH5ESH599uYgxY2fg8xqFKNyqPyLXz+Ky8/fkqMOHFIXq5Hl85KmZ3HDbO6sN90sptVgsZpWUlGzh8XgezTVh0dZUkP9QIXYdUAczPQ7lLAb8tE2mb2xKMuKQLbj8wn8UpRFt26GiMsTNk9/j3oc+wTRtdt1xII/efRSalDlTYvXpm6URPw1NCQ4/9hE+/GQ+mi65ftx+HHrA5p0Ksmsburblv8+ZxlffLGCXnQZx4xX7kSxKCO2CEE688wM3mb6ulX92UdtVlAe47pa3eHzqV3SrDtPQmGD7rfvw35sOIZUyO2aCFafKlBnfcNVNb1BRHsTvNwgGPASDuZ+Ah5KQF5/XIJ7IMGn8oQzdpi/RTgoOCjyWBbhm/Js81UFeeQ6xMMvLyw+tr6+/Tgixxg0L/wDHblVyy/+FNhhve+X/jiIS8fGvs6fx0BOfF1Xx6zhudtiMx05g6DZ9MAyNh5+ayannTiNS4uu4EYkmSaVNggEPzz1+Atv8rTdNLUmOOulx3v3w59XCRG3vjycy9O9TzsN3Hsm2W2/Iaec+wT0Pf0JZace5DYVkJdPmhSdHscN2fWmJpigrDXDCmKd4alrnxQQyV6Tbtvy/oSlJ95oSrpnwJpdf91qnjl6ebNth6DZ9MdrmpYgVxQoXn7M7w7bvR9a0cwUH99HQlHC7L3WwxnkedV3ywlOj2GqLnkRb238BhBBWSUmJ3tzcfFxVVdUalf//CUIMa7v8322IYlFdFeTVZ06hZ/cIwaCHUadP4dGnZ1Ia8ReV7NO3VxkvTTmJnj0iNDUnGXnio3zy2QIqihDkRCJDacTP0SO2Zv6CRl55YzaBgKdTbFvT3G4+m2xUw+vTTyn0nnMcxYFHFlv+L0gmzd9V/g/uSxVPZHMCvOIokQIyWZsB/cp5ffpoKsoD+H0GH3w8n8OOfdjtI9dJyyxNc9NS+/Yq5dVpp1BeFmg3QKOUUrquO4Zh2K2trbt269aty+X/f1KJdefl/3rb8v9Oys3zqYWLl0Y5+cyp1C5vZXl9nEiJr6jmkPlkn3nzGzjt/OlkMiYlIS9THjyWYUP7dWpa2LZDIOAhmTK5edK7vPjaLPz+zgXYvVdREnLDyjdPeo/SiJ90xsTv03lg0sgCPNVxNE6tXP6vFEYO0554/cEMK6L8H9xTIRzyEgn7iIS9hZ9QyEtNVYiFi1vcZH0piMbS7L7LBozPF8R2Yj/ZtkMo6GHe/EZOOdPNcc6bY21JCCFM0xRKKU8gEJi2JuX/f5ImzpMEFcfwX41u7ItSzeTbweWdn0++WMDBRz9YyJjq6G3Pt6gqLw+i5RwRwyg+EGToGsvrW/nPBXvxn7F7kkhmMU2bE057mpffmE1VZSjnGLZ/vxButp7Thehi/j6VK098ffpoNh1UQyyWpqI8wHsf/VK0ttN1t7nhycdux523HE5jU4JQ0MvS2hj7DL+XuuWt+H0G9hpubn78Qp50Q5yaqjAXjnuJCZPeK8ps0XWN+oY4/zpxKJPHr8hxXpUcx7EjkYiWSCQ+q6+v3+Xrr7+2RowY4RTT5+1PbnaRL/+/Hsf+ZuXyf63r5f9uYrdBNJqisSmJx9O1SKZp2ZSVBbjtzg/4/KtF6LrEMDSeuv+fjPrndtQ3JABWqxXzTUu6IsD5+3TdRWgm3fsRHkND0yXNLUn22LVN+X8nC2BZzkrl/zVVIbf8P1drqP/O3hN5J/Duhz7hzgc+pqYqTH1DnKsv3ZtD9h9cpDPqtii456FPuO3ODzpy9PKd6btc/v/nC3Gh/P9y1Foo/88nC7nOSdc50jVJMpXllsnv4zF0slkby3bTR28Ytx+ptEUqZa6Vsve2ZOUSdF5+Yzaz59Th9+lu29jGxIry/6aulf9Pe+E7aqpXlP/fUmT5f0eUb5xy8ZUv8/b7cymN+EmmTO665TC2HNyj0/TaFTz6uezaV3nu5dVXgksp9cbGRqu8vPyY5cuXX5YrNu0UsVgHbYccwI9yFmOmx+X+rlFIptdc6O0/Y/fkyBw+aXRq26k17str5RLq3/ngZ374sZZg0INlOURjacae+XdmPHo8fXuX0dCYyCUFrb1yMUPXaGhM8M4HP+dyFFSumCDJVZfszaEHdK7t8vi616Nx6nnT+erbJVSUB6mta+XEY7Zl7Jm/r/dEPhlKKRh99jQWLWlB0yShoJeH7jhitQ7bb3kUGLrGv8+dxrffL6MkvNq8Fa25udmKRCJX19XVDS9GkNdJ76wV5f+fYWYm5DLeXCEUAhCQzJf/b9OHlrVUbr460jRJrDXNtz8sw+tx1yvfvHq3nTfgjWdHM/r4oSSS2UIu75pUCa9KCheO+n52baFTfgGGy9rceXO+/L+YYgKd1niGE8dMKZT/1+fL/w/ZgsbGNRfkgiO9pIXRZz3j5rCk3ILYe24triA2n+McjaY5YczTNLW0n+OcC03ny/8fLqb8fx0JMaxIpp+B1VH5/6Tiyv9/D2maxMl1vWxLrt2aIhT0MnnCoTz72AkM3a4vzS0p4rmumPky+zUlkStSbUv5EHtJiY8HJx1BRRHabqXy/3OeKXxOIZXrPbH13zov/++ILNtt4fXOhz9z4biXqCgLUN+YYP+9N+Ha/+xLSxHptbbtEA57+X622xRc1yRC/jbHWUrZpfL/dSjEsFL5v7Wa8v8BufJ/8vavRNN+/4+e+1NKQd3yGBsMrGLXYQPdHshtNkPTJJZl09Sc5O87D+TFJ0fxyJ1HssN2fUkmszQ1Jwu5H4UxhVitVso3jMlfZ6VNdtyu7282Ml9MsOmgGu6+7XC3mCDnEK5uTkpBdWWI1976icuueZXKyiDZrE0w6FlR/p9xM/fWZM2Ugm7VYe5/7DPufugTenSPULc8zhmjh3HaSTvS0JjA49E7HaOmKsTLb8zm8utfp6I8gGoHF5VSykQiYQcCgU7L//9kiK096rj837QcqiuC3PPIp/z77GfQ9Jz9/Dv4VVBICw0FPQzdti/XX74vgzaqIZlcfVFqvk4tUuJiux998ivTXviO9z78mQWLW8hmLXRNYng0dF1DywUy8gKdT/S3LIdMxnLhvGO2ZeL1B682uJFvf/Dfez7irLEz0D26u+kdfWJBk2Sbk1x17YGMPXM3WqIpKisCvPnuPA479uFc0azs8ncq3I5DLuznWDZTHzme/f6xCclkFp9PZ+SJj/HKS99jdBb0yUGT2ZYk195wMOeetgvxRPvrni//b2xsvLeysrLd8v/1QIihUP4ve+MN3smq5f+2o4iEvdx+94fM/GYJAb/RZVirLXkMjbLSAH37lDFkcA+2HNwdhduGqxiTJS/MoaAXXZfU1rXy1XdL+PSLhXz7wzJ+XdhMY1Mihzs7uWoK1yn0+QwqygNstnENww/egoP22wzTtHNNZtp/nuMoQkEvt97xPt/NWubWEXYggPkIIMCl5+1BTXWIVMqkojzI41O/5JU3fiQYLC440x5pUpBMm/TsHuHic3Yv1EUub4hz3S1vu13xRcd6RgiBYztIKbn0/D0K319pbw2UUvlPLJxXXV19y6qCvJ4IMYCGUlE0fRge/wRcIV4RDlXKzSKTWierUwTlWzip/OcVUtmCF94VcnKfLst/BUrXNbKmTaw1TXNzipZoingiQzZX7Orz6pRG/FRVBqmqCCKEINaaBlZvfuRJKUVJ2Fe0/Z2vNo+1ZlbiNxT0rDEc2YYbpJSYpl0oPrAdhaFruTazxY0ihNvKrLUNj+0+zU2mt30+n97a2rp/dXX1y++8846eK3Nan4QY3ByLJnTP0Xh8F7Dqt/Q6K9vvCuVfjzXtR7bSWMrdDKVU4Vt5edvVzY3IXZf7Zp9p2m5ZllrxZahiqMvzF7/9jFr+xVsbtOradaUuss0gRXW0V0o5Ho8HIUS8tbV1aI8ePWbncyzWs2/1rij/l7IPuuco2n5Lrysb/meSEKDlsUFcQcnmqpphxcEhCtfnN65rL8/amL9cg+cWS/mvW/1BY8tMJmOHQqGSXPn/UCCqlJLrmRBD2/J/IXuh6cNwnBaU0ty1Xy9OjK7Rqtva2bfv/qL2SQiptbbGrbKyso1DoexTQoh9xo17R1vPzIk8SSALIoTXfwce7wCkTIGSf5QS+Yv+D5HjOFY4XKpns4lbvN7QeeupEIPr6MXRjY2IJq4mnvAg5eq+VfcX/f9FChB2IBDQvp+9aOx6LMRg2xqlkQSnXrAlz7zQi9JIFtteP+3iv+jPpRzOr7xe2XmG0LolBzCwbYFl2bnP566Hb9tftA5IoFAik7Xi67kQg1s1ne98LlB/UP7EX/R/jNzwIULI9RGdaJ/y3+9en7x6N2iSi7QV+PttQosQ+S8dub9o75q218o21xVj5uX56GzslXlpy3Pn17ptwzrn5U+lHD//Z4R4fSIBSE2RNSWZjIbjuBKhaeDz2miayv0bSKmwbUHWlCgn18hAgtfrIMSK6/LXZk1JJu0GeHRd4fc5HQpafvx0WndLDnSFx2g/KCKlwjQlli0K0R6P4bBqGkX+wzTZrMB23GuFAI9n7QWb1ib9JcRdJDdUCtEWg5rqDEMGJykrMbEdQWOzh7m/BIi16oSCbnplIqlTErLo2zuBz+sKQTyhs2CRD8eR+H0OtgOapkgkNbpVZxm0YRwBLKvz8tPPQTSp8Hh+iy1LqUilNUIBm8GDomiaor7Rw9Ja72/C2I6CZEKnpipDpMRC1xWODUtqfWSzEl1XhQR7yxKYlqBbdYZwyEbXFFlTsGSZD8cRSLl+qeS/hLgL5H4Nyv3/i8/6mSMPWUZ1VQbDUCgHsqZkaa2Pa24dyKtvV4GC/fZYzrix8yiLmBiGAhTZrOSnn4NcfO3GzJ4TIhiwibXq7LZTI5Oun0V5qYlSkMlKPvy0jIuu3pj6Jg+GvkKQpVSkUhobbZDgngnf079PsqA1jz9jS975qJxwyFpJ0197yRwO3rsOw+OgSYWuK76dVcLxZ2xBKiXRNLBtQTBoc8NlPzJsuxYMw03K8RoOr71TxZiLNkXT1i/T4i+8qouUzUpuuvwnrhg7j6qKLNmsJNaqE0/opDOS/n2SXHfJHCrLs2RNyWmjFrLZxvFcuyhwHIGmwW7Dmrj8vHk4jsB2wO+zGXfePKorM7TGNZIpd2v22rWByoosliloW/irlJuTccNlPzF4k1ZSaY1MRlJSYrHz0CZMS+QcYkUqLdl4YILTRy2gNGLiMVw7XtcUvXum0DWFUgJNuqfBsG2bOe7IJQT8NobuVpx4vQ69eqbWy4DpX0JcJEmpiCc0dtq+mSMPXcqSZV5My9VyoaBNMGBTmjumfV7btUsVfPZlhIVLfAjR1hxQLG/wsPmgVgb2S9Lc4OWQfevYbFArzS0Guu4arB6Pwzc/lPDTvBA+n1PQqpqmaInpjDhoGcO2a2Z5vRdNU0gJ6bRk6y2jBPzu9UoJDF3R1OLhf5+Xksq4GWyOI9ANxU/zgjQ0eTAMB0eBYTgsXuZj5lcRbFvkrnWf+d3sMMmUtt6ZE38JcZGUtxWHbB5DSnIeuyAcsnl0Sg+G7b8Dp16wGW+9X8HEe/uxeKmf8jKTS67dmCen96A0suJod80SQWVFliGbxdB0h9HHLiJrSvJFJUq5TteSWi+ptCwIjhBgmpLqyixnnfIr6bRE0/OtcxWZrGTjDRL07pEik3UH83gUS5d5GX3+YDIZiSbdF8rQFT//GiCbFbmTQhD028z8JsI5/9kEryfXcyPn6M37Jbhe5q78ZROvKSkQUmGagg0HJAmFLJ58shdTnu+O13Dw+20cx/Xo+/dJkm+23vbDjrqu2GKzGPGkxpaDYzQ1e1xko2D3woJFfixrRTqnpimaWwzOPPlXNtogSWOTUUBDtBz6UFGWZcvNWpk3P4jf5/Zgth1Bv94pyktNUmlZgM3m/BxcOZKfM3s2HJDE77dJZwxkDqmY+0vAPSXWM0H+SxMXSUqBYSg++7LUFU5DYTuCVFpjx22befOZz3j43q/p1S2NYbhHu2ULwiGL/n1SZLMSTVM0Nhs4jgvRJRIau+/UyAWn/0I2K4knNOb+EsCbO9qVgl8XBgpCJgUkkxqbbBTnpGMW09yiEykxmfZiNxYv8+HxOrnOSbD9Vi2Fl8HV3oKNN0jg9TrYOYHPZCTz5gdXchjzc91ko3jhhdN1h2jMYMFiP4ahcP7Yr9x2mVYS4ryt1BUq5Myuj2D4WiTHcQXyi68jXH7jRkhNUV5qommKeEIn1qpzzOFLuPHyn8jmnDDTco/9bjUZMlmJz+vw6ZelRGMGhu4e/b17punfJ4WuK159u4rGJg8ejyqYDQsW+3KOl6v50xnJWaN/pbwsC8DyBi8339mfhkYDXXM3IJNx7eKSkIVti0IrgE02jLt7pFynrjlqsGiJL4cr5ypoHNeJ23hgAitn8xuGona5l+UNntVi0OuSCkLs2mCKYMBGCli1+jp/nOWB8Pzf89inx+PkHJLcwOuZ8f97SQhXODJZycRJA9hr+HY8Ob0Htu3iplIq6uq9bDOkhR41GTeoYLlHeCRsYloCw3B473/lLFzid+1NKAhKQ6OHaS/VMLBfkkxGomuK1oTG0lofuu5q9lirzi5Dmzh8/1qirXpB20+64Qc2HJAklXa1fSYrGdgvSb/e7gngKBf92HBAcoVgehRLa73UNXiRmgsdCgGmLSkrNembuxdc2/yXhX6iMaOAsvyerkJrmySscCLm/RrgrQ8qyJiCdM6ZcBdQFd5o2xY4jjtpTVN8+V0JAD/ODbmeteZCMsnUWv9w5DojISBruuD/nTd9zz+PWcTCJT5Gn7M5L79ZRShkY+eCAJYtc0EDhWUJBvZPupoVsCzJd7PDzJ4TxDAclONGxEojJk/O6E5zi0HPHmkyWYlhODQ2eahvdPFh23ZRhvNOm+8GKnImQZ8eKfbbo55u1Rl3j3IOaKTEYustYySSGrYjqKww6dNzhWAausP8hQFMUxDwW3gMheO48+zVPU11ZcZFX3IKbd58N+ji89roulrJTl/XpAM4SuDxKGb9FGL+wgCtcY10RiPgt/lxbpBBGyb4dZGfPj3Tbmg0K6lvNOjbK83suSE2HxRn9twQn8zU6dEtg2UJttwshs+bXdfzWyskpSKd1jn/tPmcdMxiDt53OReMmU8iqVFdlSEe19wgQcTmq+8i1C73FiJ2A/omCxBVc1Rn6TIf384qcbWeJfD7HJpbDO56qA/b/i2Kx3BojesENVdTxuI6wYBNS1Rnvz3rGbZdMy1Rg1DQYvbcEBPv6YdlCXYe2sQJRy4hkXQhsGhM57Jz5pHNCh5/qhebD2olUmK5CEjOBNp+6xbenv4ZAkUg4HDZ9RvywvPdGdgvic/rEGvVkZoi1qpz2P61/OPvDWi5E/bUCzZj9pwQfp+9zm1kHXLwkS2orsywzZAo9Q0eflkQoFt1hkVLfFRVZEmnJRXlWSrKTBoaDTweh0DApnfPFFIquldn8HkdpFDYtiQYsAsOxKq0PoYuiyEnh5lms4LuNWmkdB0mBFRXZInFdW6a1N/dVOGeYL17pN2cCp/DklofyZTkk5mlLK31UlOVxetxuGnyABb+FOaIQ5cR8Ds0tUDA77C01ucGMEIWliXYYesWQiHbFfKAzR0P9uGZaT1AKmrrvYw+bhGZrCzkZPQbmGDbv0V59OE+hEM2FWUm0VatkCRUVZGlR00aISBcnqVXjzTKlJSWWJRGTDIZicjlVfTolsHQU2gSAgGbinITK6f51zVaoYObNZVKaew2rAmpKXr1SLPdVi3YtmC3YY00tRgMGRxD0xRej4NpurahC+1AxpT8bfMYuq5YVuclGLDwepzC935tR+TsbNdhCYcs4gkNJ7eYmuy4j9e6JscR+H024ycNwOtRbL9VC6GghZaLdEVjOm+8V8Kk+/vy9fclhIJW4Wh/8Y1qtto8is/n8OW3Jdi2YGmdl+GjtmLI4BjLG7x89lWEYFWGtz+oYOa3JZRFTOoaPHz9fUkhV8PrdXjrwwr23aOekrDFq+9U8urbVVR2T6MUzF/o5633K9h6yxjpjEYmK/n4izLufbQ3wcosX31Xwn2P92KHbVrw5MLOti1IpSUtUYP3Pyln2ovdCFWnefP9Cp6c3oNNNkrkEoRc8yGZ0mhsMXj5jWo+nRkpKKp1TWLJgu2TIPxer8MHH5dTV+9hyOYxZv0UZusto3z9fZgRB9YiJfy6yM+Yizbj2kt+Ytu/RWlt1bFsQTBgF2xor0cVMNFU2rXHggELy5IkUxLTlHz1fQk7btOMx6MwPA6JuJbTICszZ9uuvfjvsYOZ8lx3SiMmtr1uFi1vF2cykpqqLBVlWTweFyduaPJQV+9B1xUBv71SUCOVdhEKn9ehsdnAsoQbWctI0rnAQzBgI6XrOPr9NuWlJumMpLVNurcQbjQuFLIIh2yaW9xiAU0qyNnBmqaorsyicKG4hkYXd/b6bCzTfV6kxMLvc513O5fvkUhobiJR0M3Ay5oC05SURkx8HieHHQsyWUk8rpE1JaGgtX4oHqWyBZvY57X5ZlaY2+/tx1mn/Mqjz/TgH39voKHRQ9aUzJkXZGD/JF9/H0aTcNGVg+jRPc2QwTEefaoXB+5bx4/zgrTEDPw+m1RKY9u/tbDRgCR3P7ghG26Y4JRjF3LLnf35z9WDuOf2bykrNXntjSpOOm4RA/snyLYjyELwGxxzXVAevfF5LGKtOk0thuvA4QYtImELxcoQpVKuWdDcYrhhXt0pYK9+r0PAb0PupFI5bWtZgqW1PqRUaJpaaSy/zyGTlSTrNXRd5U4CXMgst0ZLlvlwm5tAMGi5poMj0HVF2LAwTUEmY7Tpu+FG9Hw+Mxemdufp9Vik01rBQRe4EJ/P55qR60qZrEwChXJy5oSLJhy6bx33PNKbR6f2pKnF4N2PKthj50bOvWwTBg5IMmtOmm2HRLnr4d68+U4V4y6cw2kXbobP4/DD3CCmJamr9wCuFm5uMbj3MR+fflrG0KHN/OuEBcydH2Tjjd0cgZsm98cjIZ7RePD2b6lv0FbaOJdNFx5aHyxopcBWrkAYunKT3JX7xdDVHauOQw56XPlFdBSwiiC4XYhW5O2u+uI6ys1FzoeNVw1QwMo5v6u+UEq5p8Cq/ohSrCSU+Ws1Tf2mVfuq165DUritLtxUKSFcxKF7tzT9+qTYekiUzQa1ssfOjeyzez2OLdloQIJNN46zYLHfdVykYlmdjz69UqSSGgfus5zuNWl22aGJIYNjDN2mmcXLfJSELDy6Yustohi6olf3NE2NbsJJZZmJ5nHYd4/lrhPR3toI6Nk9vbadh981mtvxxxWSYhrqdCEQpPLXru76zsZqc3+7V7UdvytjreVg1loYSSkhNEAsLlQ7u7atRX2jlwUL/dRUZ/j4i1I22iBB394p5v0S5OMvShl+YC29e6SZ+3OAYMimJGTR0OhhYP8kCxb5EVIVnDj3WHJYVuulvNykJGySTGnUN3jp3StFLKbTEjPo2ztFKvVbIc5Hyd7/uJwjRg9Zyd78fbQ2Xer/H8ZaL8kW0qMpO3unBNcm9npsFiz2M+qszTlq9BCmvdiNSQ/05eGnexIMWiyt9fLtrDCJpMaX35aQzkoqykyW1XlZttzL/AV+npjendMv3IxIiUlTs8Gvi/zE4hqJtEZTi8GP80IsrfORyki+mxVm0dIV8F17WlhKRTKlsdUWUTYakCCV1n4TSVwDUignmyt4+/27rFT6d4+xYqyOO+sVOQoIx53j756fAhyUstyA9FoZzwZlrYWxhFKWAvW469g5EArZ3PtYb2bPCfHjJ+9Ru9zLEzO68+pbVfg8DkvrfPTpmeKGiQP56PMyImGTS87+mdvv7cfipT6OPnwpn8wsJZOWTH6gLy++Xk0mK9l2SJRPZpYyZHCMeEInmXIFOtbqesSPTf6GrYdESST0drFjyxKUl5r8c8RSxl45iFBgTbWxsoX0ao6d+VQIOVFIz5PKSVsg1iCTTzkIHRyrXiFOFvA8rPCVujoYuSo2hRoO3COEVuPus1iDV1bZQvp05aRPUHC6lJ4dlZOxQaxBCNWxhRbSlZ0aC2oLofmPV3ZyTdfMElpQV1bqbgXLpB68WtmtFqxJsbKyhPTrjp1+vWXhhI8Ki+Q4UFpi0ZrQuPzGjZj6fHdQgoH9ksydHyQa05k9N0QsrrPJhnEcRzDl+e40NLmBj6ZcdlZFhUk0ZtASdZNcdtyumVRa472Py3ntnUo236SVAX2S9O6RxnEEc38Jugkuq2FX0xTRVp1jRyxh5+2baGpxx+3ipF0vTIFCXdq84KanlJN+SciAjlKdfxB5lcFA2EJ4JUJc0bJw/ItKcavQAnINxgKlzNy9E1sWjn9RKK4QwitB2HRVWyllChnQHTv1cvOC8U8q5KW5hOA1sGiVJaRPd+zUrOYFN92qhDNO2dlWhKZRAFGLHstG6Lqy001Z3b6yJRS4SdnJX4Tw6jmt3JWxHJBSOaYplDgXEGLJgu2TQgi/wE0cmf5SNxqbPeyyQxO1dV503SGV0TB0B9uW6LpDKGizaImPDQck+eVXP6Yl6V6TwXHg10UB9ttzOS+9UU3/vkl236mRKc91p6Isy9I6H0cftpT/fV4GwNJaL1ts2srgQa3t4sR5ygcbFi72c9iorVha66U0YmGZoohdVrbbU9EvlZM8r3nBhFvYdZwemZ8JC+G8L6V3sLJTJgK987QW5QCO0EK6suJ3NC+cMIZNx3mYhVPaJ/m81AP7KitpIpTWuRZVDkrYQg8YjpV8tWVh4EA2RTLrymxZ37GTpBYc49hxC5BFjKVQWELzG46T/cGxs7vEBpbEeO9KK9L3vHM0GbxFOSkn9zJ3ppEVSllC8xjKceol2V0aF9z8EwhV2vvcg6TmfU7hgGNbiCI0slKWkLquwHIca9/owglvApT2u3BLqeR7CBFRTtbMjdXZ+tsgpZAe4Vjp41sWTXgERqzcUFAKCIfdSFQqtaLKQEqVq+ly/7RtF0s0LRduyiedgFvekkjqhQBHPKFRErZytWWKWEzH73fzCvLpiKnV2MRtyc7l5v40L8jJ527O97PCRHLFlyqHb+azQnMnuwNKCukVKEc5tnVOy6LxE2GKBj8ouNIJ9D2/mxd9qtS8OzlOGpRjg8rn6In8LpAbWgiPREgcO3tzy8KbzocRGmyq4ErVt+/x3ijdHpbSNxKVQSmrTRp8YXMKGlEIXSI9YGemhPEdv2DBlRkYJ2CWgKl2aZ8LJkjNex7YKCeb13xt8gfzYwmFkJqUPhw782EGa0RywYRaGCdhMwEj7dI+550ppedWhJTKyaj82qzSgSI3T6kJzY+yM3OVlRzesuT2b92xXL4ifc89ROJ5WEijRDlpcG3ctmu2gi/QhPSjlNmIlf5n8+JbX3XXDGCqXdLrvG01zZgqNE9fZacBx24zx/xYbfbSJ5RjZR2sf0UXTHjI3cuR9m96seUxwM4+6aBYuUqhsLLKFXrHWVGoaDuiEIJu25Mhf20xn4/I53eEAjbRmM4td/dn6nPdaMplzumGyuVpCBASITSUsgHeQVmXNi+Y8LG7gFNz9crjJFzpwDi9tG/6AiHEGUJo3VylZreZmDsWykGhvlLYV7T8Ov753P25jc8lSwBlfS48GSEvFFJs4G5B27EEArdFrXKcnxHOjc2/3nRvbuXyYwhXmK90SvuNPUigjROIrRDSnY9yVhlLoJRdqxSTWhY03QT3mCvmBvk5l/U9fweEcQ2o3Qtro1a8G0K4Cl85Vgx4yFGxK6IL72xeec1coQn3HLuhrmvXgTpESF1HOfm1zrGm5cfKIsQzjkpdGl0w8df8/W35CnU7o0r3Ba4SiH8KoYXcsdr4kIW9tBBKvGaTvTi64Jav2vIlFi8YGpewXjYUXJUECssReAxFOGjx/Y9hnn21mo8+LWPhEj+JhO5YjkgK5GKE+Bicqc2/3vSae3fbBczTis2u7HNJd0fYRyrEfuBsilLlSmAJRK1AzESKaU3zm551haTtxrZhLyd85RucUUI2NEIJ5yBQWypUVe6CBtC+EUo8p/TGZ5p/uSe68svQlvLPGG2U96k4GKkOV8rZRqG6CYWOEE0gZwnEy8Kxnm5cNH7pqnNaQSvmXt7von8o1Eil1A6gegmFByFiCjFXCvGGFDzZMP+GOasfa8Xcy/teMFQhj0Q4u6BUPxR+hEgC84WS71rKfiq2aPwXq97X7lh9Lt5UCXWUEmoPodQGKBUGMkrIRRLxP1upp6MLb3y7vb38fyJD1OUA2mECAAAAAElFTkSuQmCC" alt="Built Small" class="footer-logo">
+  <div class="footer-right">
+    Questions? Email <strong>bryan@welcometochinatown.com</strong> &nbsp;|&nbsp; welcometochinatown.org
+  </div>
+</div>
+
+</div><!-- end page -->
+
+<script>
+function copyTemplate(btn) {
+  const block = btn.closest('.template-block');
+  const pre = block.querySelector('pre');
+  // Get plain text — strip HTML tags from spans
+  const tmp = document.createElement('div');
+  tmp.innerHTML = pre.innerHTML;
+  // Replace blank spans with their text content
+  tmp.querySelectorAll('.blank').forEach(el => {
+    el.replaceWith(document.createTextNode(el.textContent));
+  });
+  const text = tmp.innerText || tmp.textContent;
+  navigator.clipboard.writeText(text.trim()).then(() => {
+    btn.classList.add('copied');
+    btn.textContent = '✓ Copied';
+    setTimeout(() => {
+      btn.classList.remove('copied');
+      btn.textContent = '⧉ Copy';
+    }, 2000);
+  });
+}
+</script>
+</body>
+</html>
