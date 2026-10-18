@@ -29,7 +29,9 @@ body{font-family:var(--body);background:var(--off);color:var(--ink);line-height:
 /* hero */
 .hero{background:var(--navy);color:var(--off);padding:6vh 0 7vh;position:relative;}
 .hero .wrap{text-align:center;}
-.hero .lockup{height:84px;width:auto;margin:0 auto 3.2vh;display:block;}
+.lockup-link{display:inline-block;}
+.hero .lockup{height:118px;width:auto;margin:0 auto 3.2vh;display:block;transition:transform .12s ease;}
+.lockup-link:hover .lockup{transform:scale(1.04);}
 .eyebrow{font-family:var(--mono);font-size:13px;letter-spacing:.22em;text-transform:uppercase;color:var(--yellow);margin-bottom:14px;}
 .hero h1{font-family:var(--serif);font-weight:900;font-size:clamp(40px,8vw,72px);line-height:1;letter-spacing:-.02em;margin-bottom:16px;}
 .hero h1 em{font-style:normal;background:var(--yellow);color:var(--navy);padding:0 .22em;border-radius:4px;}
@@ -75,10 +77,11 @@ body{font-family:var(--body);background:var(--off);color:var(--ink);line-height:
 /* presented by */
 .presented{text-align:center;}
 .spk-row{display:flex;flex-wrap:wrap;justify-content:center;gap:22px 30px;margin-top:24px;}
-.spk{width:120px;text-align:center;}
-.spk img{width:74px;height:74px;border-radius:50%;object-fit:cover;object-position:top center;border:3px solid var(--yellow);box-shadow:0 4px 12px rgba(10,19,74,.15);}
-.spk .n{font-weight:700;font-size:13.5px;margin-top:9px;color:var(--navy);line-height:1.2;}
-.spk .o{font-size:12px;color:var(--muted);}
+.spk{width:150px;text-align:center;}
+.spk .face{width:108px;height:108px;border-radius:50%;object-fit:cover;object-position:top center;border:3px solid var(--yellow);box-shadow:0 4px 12px rgba(10,19,74,.15);}
+.spk .n{font-weight:700;font-size:15px;margin-top:12px;color:var(--navy);line-height:1.2;}
+.spk .org{height:30px;width:auto;max-width:132px;object-fit:contain;display:block;margin:11px auto 0;}
+@media(max-width:720px){.spk{width:44%;max-width:160px;}.spk .face{width:96px;height:96px;}}
 
 /* footer */
 footer{margin-top:7vh;background:var(--navy);color:var(--off);padding:5vh 0 6vh;text-align:center;}
@@ -94,7 +97,7 @@ footer a:hover{text-decoration:underline;}
 
 <header class="hero">
   <div class="wrap">
-    <img class="lockup" src="lockup_lite.png" alt="BuiltSmall">
+    <a class="lockup-link" href="https://www.builtsmall.ai" target="_blank" rel="noopener" aria-label="BuiltSmall website"><img class="lockup" src="lockup_lite.png" alt="BuiltSmall"></a>
     <div class="eyebrow">EAC Conference</div>
     <h1>Next <em>Era</em></h1>
     <p class="sub">Free AI training for small businesses, in two sessions. Everything from today, in one place.</p>
@@ -130,14 +133,14 @@ footer a:hover{text-decoration:underline;}
     <h3>Presented by</h3>
     <p class="lead">Welcome to Chinatown with partner Entrepreneur Assistance Centers from across New York.</p>
     <div class="spk-row">
-      <div class="spk"><img src="speakers/bryan.jpg" alt="Bryan Lozano"><div class="n">Bryan Lozano</div><div class="o">Welcome to Chinatown</div></div>
-      <div class="spk"><img src="speakers/daniel.jpg" alt="Daniel Bempah"><div class="n">Daniel Bempah</div><div class="o">Welcome to Chinatown</div></div>
+      <div class="spk"><img class="face" src="speakers/bryan.jpg" alt="Bryan Lozano"><div class="n">Bryan Lozano</div><img class="org" src="speakers/logo_wtc.png" alt="Welcome to Chinatown"></div>
+      <div class="spk"><img class="face" src="speakers/daniel.jpg" alt="Daniel Bempah"><div class="n">Daniel Bempah</div><img class="org" src="speakers/logo_wtc.png" alt="Welcome to Chinatown"></div>
     </div>
     <div class="spk-row">
-      <div class="spk"><img src="speakers/bhavna.jpg" alt="Bhavna Punjwani"><div class="n">Bhavna Punjwani</div><div class="o">Queens EDC</div></div>
-      <div class="spk"><img src="speakers/iris.jpg" alt="Iris Cohello"><div class="n">Iris Cohello</div><div class="o">WEDC</div></div>
-      <div class="spk"><img src="speakers/jennifer.jpg" alt="Jennifer McGee"><div class="n">Jennifer McGee</div><div class="o">WISE</div></div>
-      <div class="spk"><img src="speakers/yujia.jpg" alt="Yujia Hu"><div class="n">Yujia Hu</div><div class="o">SBIDC</div></div>
+      <div class="spk"><img class="face" src="speakers/bhavna.jpg" alt="Bhavna Punjwani"><div class="n">Bhavna Punjwani</div><img class="org" src="speakers/logo_qedc.svg" alt="Queens EDC"></div>
+      <div class="spk"><img class="face" src="speakers/iris.jpg" alt="Iris Cohello"><div class="n">Iris Cohello</div><img class="org" src="speakers/logo_wedc.png" alt="WEDC"></div>
+      <div class="spk"><img class="face" src="speakers/jennifer.jpg" alt="Jennifer McGee"><div class="n">Jennifer McGee</div><img class="org" src="speakers/logo_wise.png" alt="WISE"></div>
+      <div class="spk"><img class="face" src="speakers/yujia.jpg" alt="Yujia Hu"><div class="n">Yujia Hu</div><img class="org" src="speakers/logo_sbidc_dark.svg" alt="SBIDC"></div>
     </div>
   </section>
 </main>
