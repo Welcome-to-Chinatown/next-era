@@ -74,6 +74,25 @@ body{font-family:var(--body);background:var(--off);color:var(--ink);line-height:
 .card .files .arw{margin-left:auto;color:var(--muted);font-size:15px;}
 .card .btn-primary{align-self:flex-start;}
 
+/* practice (expandable, self-explanatory) */
+.practice{margin-top:14px;border-top:1px solid var(--line);}
+.practice summary{list-style:none;cursor:pointer;display:flex;align-items:center;gap:11px;padding:15px 0 6px;font-size:15px;font-weight:700;color:var(--navy);}
+.practice summary::-webkit-details-marker{display:none;}
+.practice summary .chev{margin-left:auto;font-size:18px;color:var(--muted);transition:transform .15s ease;}
+.practice[open] summary .chev{transform:rotate(90deg);}
+.practice-body{padding:6px 0 8px;}
+.practice-what{color:var(--muted);font-size:14.5px;line-height:1.5;margin-bottom:12px;}
+.practice-steps{margin:0 0 12px 18px;font-size:14.5px;color:var(--ink);line-height:1.5;}
+.practice-steps li{margin-bottom:5px;}
+.practice-steps a{color:var(--navy);font-weight:700;}
+.prompt-box{position:relative;background:var(--navy-deep);border-radius:11px;padding:14px;}
+.prompt-box pre{white-space:pre-wrap;word-break:break-word;font-family:var(--mono);font-size:12.5px;line-height:1.55;color:#e9ebff;max-height:230px;overflow:auto;margin:0;padding-top:4px;}
+.copy-btn{position:absolute;top:10px;right:10px;background:var(--yellow);color:var(--navy);border:none;border-radius:7px;padding:7px 13px;font-family:var(--body);font-weight:700;font-size:12.5px;cursor:pointer;z-index:1;}
+.copy-btn:hover{background:var(--yellow-soft);}
+.copy-btn.done{background:#bfe3b6;}
+.practice-expect{color:var(--muted);font-size:13.5px;line-height:1.5;margin-top:12px;}
+.practice-expect strong{color:var(--navy);}
+
 /* presented by */
 .presented{text-align:center;}
 .spk-row{display:flex;flex-wrap:wrap;justify-content:center;gap:22px 30px;margin-top:24px;}
@@ -115,9 +134,34 @@ footer a:hover{text-decoration:underline;}
       <a class="btn btn-primary" href="deck_next_era_foundations.html" target="_blank" rel="noopener">Open the slides</a>
       <ul class="files">
         <li><a href="handout.html" target="_blank" rel="noopener"><span class="tag">GUIDE</span> Prompt guide <span class="arw">&rarr;</span></a></li>
-        <li><a href="procurement_inventory.csv" download><span class="tag">CSV</span> Procurement inventory <span class="arw">&darr;</span></a></li>
-        <li><a href="procurement_demo_prompt.md" download><span class="tag">PROMPT</span> Procurement demo prompt <span class="arw">&darr;</span></a></li>
       </ul>
+      <details class="practice">
+        <summary><span class="tag">TRY IT</span> Practice: the reorder dashboard <span class="chev">&rsaquo;</span></summary>
+        <div class="practice-body">
+          <p class="practice-what">Turn a messy caf&eacute; inventory into a one-page reorder dashboard and ready-to-send supplier emails. Works in any AI chat tool that can read a file (ChatGPT, Claude, Gemini).</p>
+          <ol class="practice-steps">
+            <li><strong>Download the data:</strong> <a href="procurement_inventory.csv" download>procurement_inventory.csv</a> &mdash; a sample caf&eacute; stock list (on hand, par level, unit cost, supplier).</li>
+            <li><strong>Start a new chat, attach that file, then paste this prompt:</strong></li>
+          </ol>
+          <div class="prompt-box">
+            <button class="copy-btn" type="button" onclick="copyPrompt(this)">Copy</button>
+            <pre>Role and goal. You are my operations assistant for a small caf&eacute;. I am giving you my inventory as a CSV. I want two things from it: a clear reorder dashboard I can look at, and reorder emails I can send today.
+
+Steps.
+1. Read the CSV. Flag every item where on_hand is below par_level.
+2. For each flagged item, calculate units to order to reach par (par_level minus on_hand) and the reorder cost (units to order times unit_cost).
+3. Group the flagged items by supplier.
+4. Build the dashboard, then write the emails.
+
+Output.
+- First, a single-page dashboard as an artifact. Include: total items tracked, number of items below par, total reorder cost across all suppliers, a bar chart of reorder cost by supplier, and a table of every below-par item with its supplier, on hand, par, units to order, and cost. Make it clean and easy to read.
+- Then, one reorder email per supplier, addressed to that supplier's email from the file. Each email lists the items to reorder and the quantity to bring each back to par, in a warm and professional tone, and asks for delivery within that supplier's lead time.
+
+Eval. Before you finish, check three things: every below-par item shows up once under the correct supplier in both the dashboard and an email; units to order equals par minus on hand for each item; and the reorder cost totals match between the table and the chart.</pre>
+          </div>
+          <p class="practice-expect"><strong>You should get:</strong> a dashboard with about 15 items below par across 6 suppliers, plus one reorder email per supplier.</p>
+        </div>
+      </details>
     </article>
     <article class="card">
       <div class="card-tag">Session 2</div>
@@ -126,8 +170,29 @@ footer a:hover{text-decoration:underline;}
       <a class="btn btn-primary" href="next-era-advanced/deck/BuiltSmall_NextEraAdvanced_Deck.html" target="_blank" rel="noopener">Open the slides</a>
       <ul class="files">
         <li><a href="next-era-advanced/handouts/NextEra_Finance_Dashboard_Handout.html" target="_blank" rel="noopener"><span class="tag">GUIDE</span> Finance dashboard handout <span class="arw">&rarr;</span></a></li>
-        <li><a href="next-era-advanced/handouts/retail_store_data.csv" download><span class="tag">CSV</span> Retail store data <span class="arw">&darr;</span></a></li>
       </ul>
+      <details class="practice">
+        <summary><span class="tag">TRY IT</span> Practice: the finance dashboard <span class="chev">&rsaquo;</span></summary>
+        <div class="practice-body">
+          <p class="practice-what">A home-goods shop has 100 orders in a messy spreadsheet (mixed date styles, mismatched category names, refunds). Ask AI to clean it and build a dashboard of what is selling, what is returned, and when.</p>
+          <ol class="practice-steps">
+            <li><strong>Download the data:</strong> <a href="next-era-advanced/handouts/retail_store_data.csv" download>retail_store_data.csv</a> &mdash; 100 sample orders, messy on purpose (not a real business).</li>
+            <li><strong>Start a new chat, attach that file, then paste this prompt</strong> (fill in the [brackets]):</li>
+          </ol>
+          <div class="prompt-box">
+            <button class="copy-btn" type="button" onclick="copyPrompt(this)">Copy</button>
+            <pre>Role &amp; goal: You are my business analyst. I run [type of shop] and I want a dashboard that shows how my shop is doing.
+Steps:
+1. Clean the data: read all the date styles, merge category names that mean the same thing, trim extra spaces.
+2. Calculate total revenue (use the Total column), number of orders, average order value, and total refunds. Do not subtract refunds from revenue.
+3. Show sales by category and sales by month.
+4. List the top 10 items by revenue.
+Output: A simple dashboard with four number cards, a bar chart, a line chart, and a table. Plain English labels, no jargon.
+Eval: Before you answer, check your totals against the file and tell me which cleaning choices you made.</pre>
+          </div>
+          <p class="practice-expect"><strong>Check your numbers:</strong> revenue about $3,825, 100 orders, average order about $38, refunds $321.52, 6 categories after merging. Full walkthrough in the handout above.</p>
+        </div>
+      </details>
     </article>
   </section>
 
@@ -159,5 +224,16 @@ footer a:hover{text-decoration:underline;}
     </div>
   </div>
 </footer>
+<script>
+function copyPrompt(btn){
+  var pre=btn.parentElement.querySelector('pre');
+  var text=pre.innerText;
+  function done(){var o=btn.textContent;btn.textContent='Copied';btn.classList.add('done');setTimeout(function(){btn.textContent=o;btn.classList.remove('done');},1600);}
+  if(navigator.clipboard&&navigator.clipboard.writeText){
+    navigator.clipboard.writeText(text).then(done).catch(select);
+  }else{select();}
+  function select(){try{var r=document.createRange();r.selectNodeContents(pre);var s=window.getSelection();s.removeAllRanges();s.addRange(r);document.execCommand&&document.execCommand('copy');done();}catch(e){}}
+}
+</script>
 </body>
 </html>
