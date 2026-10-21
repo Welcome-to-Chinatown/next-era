@@ -1,0 +1,33 @@
+item,category,supplier,unit,on_hand,par_level,unit_cost,weekly_usage,lead_time_days
+Chicken Thighs,Proteins,Prime Cut Meats,lb,18,60,2.85,70,2
+  Pork Belly ,Proteins,Prime Cut Meats,lb,10,40,4.9,35,3
+Beef Short Rib,Proteins,Prime Cut Meats,lb,22,30,8.4,25,3
+Ground Beef,Proteins,Prime Cut Meats,lb,45,40,5.2,38,2
+Shrimp 16/20,Seafood,Harbor Fresh Seafood,lb,8,30,11.5,28,1
+Salmon Fillet,Seafood,Harbor Fresh Seafood,lb,12,25,10.75,22,1
+Cod,Seafood,Harbor Fresh Seafood,lb,20,20,9.6,15,1
+Yellow Onion,Produce,Greenmarket Produce Co.,lb,40,80,0.95,75,1
+Garlic,Produce,Greenmarket Produce Co.,lb,4,10,3.4,8,1
+Scallions,produce,Greenmarket Produce Co.,bunch,12,30,1.1,28,1
+Napa Cabbage,Produce,Greenmarket Produce Co.,head,6,20,1.8,18,1
+Bok Choy,Produce,Greenmarket Produce Co.,lb,15,15,1.45,12,1
+Ginger,Produce,Greenmarket Produce Co.,lb,2,8,2.9,6,1
+Limes,Produce,greenmarket produce co.,case,1,3,32.0,2,1
+Cilantro,Produce,Greenmarket Produce Co.,bunch,20,24,0.85,22,1
+Jasmine Rice,Dry Goods,Pantry Wholesale,25 lb bag,3,10,24.5,8,3
+Soy Sauce,Dry Goods,Pantry Wholesale,gallon,2,6,12.6,4,3
+Cooking Oil,DRY GOODS,Pantry Wholesale,35 lb jug,1,4,41.0,3,2
+Rice Noodles,Dry Goods,Pantry Wholesale,case,5,6,28.0,4,3
+Sesame Oil,Dry Goods,Pantry Wholesale,quart,6,6,9.75,2,3
+Cornstarch,Dry Goods,Pantry Wholesale,25 lb bag,3,3,19.0,1,3
+Flour,Dry Goods,Pantry Wholesale,50 lb bag,4,4,22.0,2,3
+Sparkling Water,Beverages,Pantry Wholesale,case,7,10,21.0,9,3
+Jasmine Tea,Beverages,Pantry Wholesale,case,4,4,34.0,2,3
+Eggs,Dairy,Valley Dairy Collective,case,2,6,38.0,5,2
+Heavy Cream,Dairy,Valley Dairy Collective,quart,4,12,5.6,10,2
+Butter,Dairy,Valley Dairy Collective,case,3,3,68.0,2,2
+To-Go Containers,Paper & Supplies,Cityline Paper & Supply,case,4,10,46.0,8,3
+Takeout Bags,Paper & Supplies,cityline paper & supply ,case,0,4,29.5,4,3
+Gloves,Paper & Supplies,Cityline Paper & Supply,box,8,12,9.8,6,2
+Napkins,Paper & Supplies,Cityline Paper & Supply,case,6,6,31.0,3,3
+Dish Soap,Paper & Supplies,Cityline Paper & Supply,gallon,5,5,14.25,2,3
