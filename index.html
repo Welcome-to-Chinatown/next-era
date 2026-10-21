@@ -170,10 +170,7 @@ Eval. Before you finish, check three things: every below-par item shows up once 
       <a class="btn btn-primary" href="next-era-advanced/deck/BuiltSmall_NextEraAdvanced_Deck.html" target="_blank" rel="noopener">Open the slides</a>
       <ul class="files">
         <li><a href="next-era-advanced/handouts/NextEra_Finance_Dashboard_Handout.html" target="_blank" rel="noopener"><span class="tag">GUIDE</span> Finance dashboard handout <span class="arw">&rarr;</span></a></li>
-        <li><a href="next-era-advanced/demo/CLAUDE.md" download><span class="tag">DEMO</span> Demo instructions file (CLAUDE.md) <span class="arw">&rarr;</span></a></li>
-        <li><a href="next-era-advanced/demo/restaurant_inventory.csv" download><span class="tag">DEMO</span> Demo data: restaurant inventory <span class="arw">&rarr;</span></a></li>
       </ul>
-      <p style="font-size:.9rem;opacity:.8;margin:.6rem 0 0;">Following along with a coding agent? Save the instructions file as <code>CLAUDE.md</code> for Claude Code, <code>AGENTS.md</code> for Codex, or <code>GEMINI.md</code> for Gemini CLI. Use sample data only.</p>
       <details class="practice">
         <summary><span class="tag">TRY IT</span> Practice: the finance dashboard <span class="chev">&rsaquo;</span></summary>
         <div class="practice-body">
@@ -194,6 +191,22 @@ Output: A simple dashboard with four number cards, a bar chart, a line chart, an
 Eval: Before you answer, check your totals against the file and tell me which cleaning choices you made.</pre>
           </div>
           <p class="practice-expect"><strong>Check your numbers:</strong> revenue about $3,825, 100 orders, average order about $38, refunds $321.52, 6 categories after merging. Full walkthrough in the handout above.</p>
+        </div>
+      </details>
+      <details class="practice">
+        <summary><span class="tag">VIBE CODE</span> Vibe-coded exercise: the restaurant reorder dashboard <span class="chev">&rsaquo;</span></summary>
+        <div class="practice-body">
+          <p class="practice-what">A restaurant has 32 items in a messy inventory file. Instead of asking a chat for one answer, you have a coding agent build a reorder dashboard from a plain-language instructions file: what is running low, what to order, and what it costs.</p>
+          <ol class="practice-steps">
+            <li><strong>Download the two files:</strong> <a href="next-era-advanced/demo/CLAUDE.md" download>CLAUDE.md</a> (the instructions) and <a href="next-era-advanced/demo/restaurant_inventory.csv" download>restaurant_inventory.csv</a> (the data). Sample data, not a real business.</li>
+            <li><strong>Make a new folder</strong> and put both files in it. Save the instructions file as <code>CLAUDE.md</code> for Claude Code, <code>AGENTS.md</code> for Codex, or <code>GEMINI.md</code> for Gemini CLI.</li>
+            <li><strong>Open your coding agent in that folder, then paste this prompt:</strong></li>
+          </ol>
+          <div class="prompt-box">
+            <button class="copy-btn" type="button" onclick="copyPrompt(this)">Copy</button>
+            <pre>Build the dashboard described in my [CLAUDE.md / AGENTS.md / GEMINI.md] file. This folder already has my md file and the inventory CSV, so do not overwrite them. Ask me any questions before you start. When it is ready, run it locally so I can open it at localhost:3000.</pre>
+          </div>
+          <p class="practice-expect"><strong>Check your numbers:</strong> 32 items tracked, 22 below par, reorder cost about $1,981, 1 out of stock. Then ask for one change, like "show only urgent items." Use sample data only.</p>
         </div>
       </details>
     </article>
