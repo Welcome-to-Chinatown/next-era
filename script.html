@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="description" content="Presenter script for Next Era Foundations. Pick your name to see only your parts in large type.">
+<title>Next Era Foundations &middot; Script</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Mulish:wght@700;900&family=DM+Sans:wght@400;500;700&family=DM+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+:root{--fs:30px;--navy:#0b1130;--panel:#121a44;--yellow:#e5e138;--off:#f3f4ff;--muted:#9aa3d4;--serif:'Mulish',system-ui,sans-serif;--body:'DM Sans',system-ui,sans-serif;--mono:'DM Mono',monospace;}
+*{box-sizing:border-box;margin:0;padding:0;}
+html{-webkit-text-size-adjust:100%;}
+body{font-family:var(--body);background:var(--navy);color:var(--off);line-height:1.5;-webkit-font-smoothing:antialiased;padding-bottom:40vh;}
+a{color:var(--yellow);}
+/* toolbar */
+.bar{position:sticky;top:0;z-index:20;background:rgba(8,12,36,.96);backdrop-filter:blur(6px);border-bottom:2px solid var(--yellow);padding:10px 14px;}
+.bar-row{display:flex;flex-wrap:wrap;align-items:center;gap:8px;max-width:1000px;margin:0 auto;}
+.bar h1{font-family:var(--serif);font-weight:900;font-size:16px;letter-spacing:.01em;margin-right:6px;white-space:nowrap;}
+.spk-btn{font-family:var(--body);font-weight:700;font-size:14px;color:var(--off);background:transparent;border:2px solid rgba(243,244,255,.25);border-radius:999px;padding:6px 14px;cursor:pointer;}
+.spk-btn:hover{border-color:var(--yellow);}
+.spk-btn.active{background:var(--yellow);color:var(--navy);border-color:var(--yellow);}
+.spacer{flex:1;}
+.fs{display:flex;align-items:center;gap:6px;}
+.fs button{font-family:var(--mono);font-weight:500;font-size:16px;color:var(--navy);background:var(--yellow);border:none;border-radius:8px;width:38px;height:34px;cursor:pointer;}
+.fs span{font-family:var(--mono);font-size:12px;color:var(--muted);min-width:42px;text-align:center;}
+.hint{max-width:1000px;margin:8px auto 0;font-size:12.5px;color:var(--muted);font-family:var(--mono);}
+.hint a{text-decoration:none;}
+/* content */
+main{max-width:900px;margin:0 auto;padding:0 18px;}
+.sec{padding:10px 0 26px;border-bottom:1px solid rgba(243,244,255,.08);}
+.sec-head{position:sticky;top:60px;z-index:10;background:rgba(11,17,48,.97);display:flex;align-items:center;gap:12px;flex-wrap:wrap;padding:12px 0;margin-bottom:6px;border-bottom:1px solid rgba(229,225,56,.25);}
+.chip{font-family:var(--serif);font-weight:900;font-size:16px;background:var(--yellow);color:var(--navy);padding:4px 13px;border-radius:999px;white-space:nowrap;}
+.sec-title{font-family:var(--serif);font-weight:900;font-size:19px;}
+.sec-meta{font-family:var(--mono);font-size:12px;color:var(--muted);width:100%;}
+.slidemark{font-family:var(--mono);font-weight:500;font-size:14px;letter-spacing:.04em;text-transform:uppercase;color:var(--yellow);margin:22px 0 10px;padding-top:8px;border-top:1px dashed rgba(229,225,56,.3);}
+.sec p{font-size:var(--fs);line-height:1.5;margin:0 0 .7em;max-width:34ch;}
+.sec ul{list-style:none;margin:0 0 .7em;padding:0;}
+.sec li{font-size:var(--fs);line-height:1.5;margin:0 0 .55em;padding-left:1.1em;position:relative;max-width:34ch;}
+.sec li::before{content:'';position:absolute;left:0;top:.62em;width:.42em;height:.42em;border-radius:50%;background:var(--yellow);}
+.who{font-family:var(--serif);font-weight:900;color:var(--yellow);}
+.cue{font-style:italic;color:var(--muted);background:rgba(243,244,255,.05);border-left:3px solid var(--muted);border-radius:6px;padding:.5em .8em !important;font-size:calc(var(--fs) * .62) !important;max-width:40ch !important;}
+.cue::before{content:'DO  ';font-style:normal;font-family:var(--mono);font-size:.8em;color:var(--yellow);letter-spacing:.1em;}
+.cue-inline{font-style:italic;color:var(--muted);font-size:.72em;}
+.topnote{font-family:var(--mono);font-size:12px;color:var(--muted);text-align:center;padding:14px 18px 4px;}
+@media(max-width:620px){
+  .bar h1{font-size:14px;width:100%;}
+  .sec-head{top:98px;}
+  .sec p,.sec li{max-width:none;}
+}
+</style>
+</head>
+<body>
+<div class="bar">
+  <div class="bar-row">
+    <h1>Next Era Foundations &middot; Script</h1>
+    <button class="spk-btn active" data-f="all">All</button><button class="spk-btn" data-f="Bryan">Bryan</button><button class="spk-btn" data-f="Jennifer">Jennifer</button><button class="spk-btn" data-f="Iris">Iris</button><button class="spk-btn" data-f="Daniel">Daniel</button><button class="spk-btn" data-f="Yujia">Yujia</button>
+    <span class="spacer"></span>
+    <div class="fs"><button id="fsminus" aria-label="Smaller text">A&minus;</button><span id="fslabel">30px</span><button id="fsplus" aria-label="Larger text">A+</button></div>
+  </div>
+  <div class="hint">Tap your name to see only your parts. Use A+ / A&minus; to size the text. &nbsp;&middot;&nbsp; <a href="https://welcome-to-chinatown.github.io/next-era/deck_next_era_foundations.html" target="_blank" rel="noopener">Open the deck &rarr;</a></div>
+</div>
+<div class="topnote">EAC Conference, Session 1. 60 minutes.</div>
+<main>
+<section class="sec" data-speaker="Bryan">
+<div class="sec-head"><span class="chip">Bryan</span><span class="sec-title">Welcome</span><span class="sec-meta">Slides 1–5 · 1:02 to 1:08 PM · Six minutes.</span></div>
+<div class="slidemark">Slide 1 · Next Era Foundations</div>
+<p>Good afternoon, everyone. Thank you for being here. Welcome to Next Era Foundations.</p>
+<p>Before we get started, please open your laptop or your phone. A laptop is easier. Open two things. First, an AI tool. ChatGPT, Claude, or Gemini, whichever one you have. Second, a blank Word or Google Doc. It is easier to write your ideas in the doc first and then paste them into the AI. So keep both open.</p>
+<p>This is not a fully hands-on session. But we will end with an exercise so you can practice.</p>
+<p>Quick show of hands. Who has used AI in the last week?</p>
+<p class="cue">Pause. Look around.</p>
+<p>Keep your hand up if you used it for your business.</p>
+<p class="cue">Pause. React to what you see. A few hands: "That is why we are here." Most hands: "Good. Today is about using it on purpose."</p>
+<p>Here is how this hour works. We are going to cover three things. What AI is. How to use it safely. And where it fits into the work you already do every week. We will take questions at the end. If something is unclear before then, raise your hand.</p>
+<div class="slidemark">Slide 2 and 3 · Who we are</div>
+<p>I am Bryan Lozano with Welcome to Chinatown. We support small businesses across New York.</p>
+<p>The State named us its AI Specialist Entrepreneur Assistance Center. Entrepreneur Assistance Centers are free business help centers funded by New York State. There are 26 of them across the state. Our job is to help small businesses everywhere in New York use AI.</p>
+<p>BuiltSmall is how we do that. It is our AI program for small businesses. Training, tools, and support. All free.</p>
+<p>Part of that job is training the other centers to teach this. We recently trained a handful of them, and I am excited that some of them are hosting this session with me today.</p>
+<p class="cue">Point to each person as you say their name.</p>
+<p>Iris Cohello from the WEDC Westchester Women's Business Center. Jennifer McGee from the WISE Women's Business Center. Bhavna Punjwani from Queens Economic Development Corporation. Yujia Hu from Southwest Brooklyn Industrial Development Corporation. And Daniel Quansah, who works with me at Welcome to Chinatown.</p>
+<div class="slidemark">Slide 4 · Who this is for</div>
+<p>This session is for owners who are new to AI, or who have tried it but are not using it in the business yet. We cover the fundamentals, with some practice at the end.</p>
+<p>If you already use AI every day, stay with us. Then stay in your seat for Session 2, Next Era Advanced, right here in this room. That is where we go deeper. Prompting, automations, and building your own tools.</p>
+<div class="slidemark">Slide 5 · Why this hour</div>
+<p>So why are we doing this?</p>
+<p>New York State is home to 2.3 million small businesses. Think about your favorite one. The restaurant, the barbershop, the corner store. They are what make New York feel like New York.</p>
+<p>At the same time, among the smallest firms that have not started with AI, 82 percent say the reason is simple. They do not think it applies to their business.</p>
+<p>That is not a technology problem. It is a relevance problem. So that is the job of this hour. Show you how this applies to you, and how owners like you already use it.</p>
+<p>One thing before we start. Turn to the person next to you. Tell them your business, and one task that eats up your week. The one you would hand off in a second if you could. Then write it at the top of your doc. You have one minute. Hold on to it. We will come back to it.</p>
+<p class="cue">One minute. Then bring the room back.</p>
+<p>All right. Let's start with the basics. What is AI? Jennifer is going to take us through it. Jennifer.</p>
+</section>
+<section class="sec" data-speaker="Jennifer">
+<div class="sec-head"><span class="chip">Jennifer</span><span class="sec-title">What is AI</span><span class="sec-meta">Slides 6–9 · 1:08 to 1:14 PM · Six minutes, including a 2:34 video.</span></div>
+<div class="slidemark">Slide 6 · Section one</div>
+<p>Thank you, Bryan. Hi, everyone. I am Jennifer McGee from the WISE Women's Business Center.</p>
+<p>This first section is about what AI is. What it is, how it works, and what it is not.</p>
+<p>I work with owners every day. The question I hear most is simple. What is this thing, and can I trust it? So let's start there.</p>
+<div class="slidemark">Slide 7 · What is AI</div>
+<p>We are going to watch a short video before we go into definitions. It is about two and a half minutes. Listen for one term, large language model. We will unpack it right after.</p>
+<p class="cue">Press play. The video runs 2:34.</p>
+<div class="slidemark">Slide 8 · What is an LLM</div>
+<p>So, large language model. LLM for short. This is the kind of AI behind ChatGPT, Claude, and Gemini. And the name tells you what it is. Three words.</p>
+<ul><li>Large. It learned from a huge amount of writing. Trillions of words. Books, articles, and most of the public internet.</li><li>Language. What it learned from is human writing. That is why it reads and writes the way people do.</li><li>Model. It is a program that predicts. You ask it a question, and it writes one word. Then it guesses the most likely next word. Then the next. One word at a time, until it has a full answer.</li></ul>
+<p>Different companies make different models, and each one keeps trying to improve on the last. But the basic idea is the same.</p>
+<div class="slidemark">Slide 9 · What AI is, and is not</div>
+<p>So what does that mean for your business? Here is what it is, and what it is not.</p>
+<p>It is predictive. It guesses the next word based on patterns it has seen.</p>
+<p>It is a fast drafter. It is quick, it does not get tired, and it is confident. Remember that word, confident. We will come back to it.</p>
+<p>And it reads and writes well. Newer tools also create documents, images, and spreadsheets.</p>
+<p>Now the other side.</p>
+<p>It is not magic. It does not understand things the way you do. It matches patterns. And because it is confident, it can be confidently wrong. It will give you a wrong answer in the same calm voice as a right one. You may hear this called a hallucination.</p>
+<p>It does not know your business unless you tell it. It does not know your prices, your customers, or how you like to talk to them.</p>
+<p>And most importantly, it is not a replacement for your judgment. You know what good looks like for your business. It does not.</p>
+<p>If you remember one line from this section, make it this one: AI can draft, but you should decide.</p>
+<p>Now that you know what it is, you are going to hear a lot of new words, and a lot of tool names. Bryan is going to walk you through the ones worth knowing. Bryan.</p>
+</section>
+<section class="sec" data-speaker="Bryan">
+<div class="sec-head"><span class="chip">Bryan</span><span class="sec-title">Vocabulary and tools</span><span class="sec-meta">Slides 10–11 · 1:14 to 1:19 PM · Five minutes.</span></div>
+<div class="slidemark">Slide 10 · The vocabulary of AI</div>
+<p>Thank you, Jennifer.</p>
+<p>You are going to hear a lot of new words about AI. In the news, from vendors, from your nephew. Here are six worth knowing. You do not need to memorize them. If you remember what each one does, that is enough.</p>
+<ul><li>Prompt. A prompt is the message you type to the AI. It is your instruction. If you type, write a thank-you note to my landlord, that is a prompt. Daniel will show you how to write a good one later.</li><li>Context window. Think of this as the AI's short-term memory for one conversation. Everything you type, every file you add, and everything it writes back has to fit in that memory. In a very long conversation, it can start to forget what you said at the beginning. If that happens, start a new chat.</li><li>Tokens. Tokens are how the AI measures text. A token is a piece of a word. Roughly, one token is about one word. AI companies count tokens to set limits and prices. More text means more tokens, and more cost.</li><li>RAG. RAG stands for Retrieval-Augmented Generation. That is a mouthful, so here is what it means. Retrieval: the AI looks something up. Augmented: it adds what it found. Generation: then it writes the answer. In plain words, you give the AI your own documents, and it answers from them instead of from the whole internet.</li></ul>
+<p>A free example is Google's NotebookLM. You upload your menu, your price list, or your store policies. Then you ask, what is our return policy? It answers from your document and shows you where it found the answer. Claude Projects and custom GPTs in ChatGPT work the same way. No coding needed.</p>
+<ul><li>Agentic AI. Agentic comes from the word agent. Most AI answers questions. An agent does tasks for you. It can open a website, click buttons, and fill out a form. For example, you could ask it to visit three supplier websites and compare prices. Because it acts on its own, this is where checking its work matters most.</li><li>Open source. Open source means the AI model is free for anyone to download and run. Llama from Meta, DeepSeek, Qwen, and Kimi K2 are examples. You can run them on your own computer, so your information stays with you. The tradeoff is setup. It takes some technical skill.</li></ul>
+<div class="slidemark">Slide 11 · Types of AI tools worth knowing</div>
+<p>Now, the tools. As you can see, there are a lot of them.</p>
+<p>The big ones are the general chat assistants. ChatGPT from OpenAI. Claude from Anthropic. Gemini from Google. They are general purpose. They can do every job on this slide. Writing, meeting notes, marketing, design, customer messages, bookkeeping, and translation.</p>
+<p>Then there are tools built for one job. Fireflies or Otter for meeting notes. Jasper for marketing. Adobe Firefly for design.</p>
+<p>And AI is now showing up inside tools you already use. If you are on Instagram, Meta AI is built in. QuickBooks is adding AI. So is Canva.</p>
+<p>Today we focus on the chat assistants, because one tool can do all of this. Once you know how to use one well, the rest get easier.</p>
+<p>So now you know what AI is, and what is out there. The bigger question is, where does it fit in your business? This is the part we care about most. Iris is going to show you how we think about it. Iris.</p>
+</section>
+<section class="sec" data-speaker="Iris">
+<div class="sec-head"><span class="chip">Iris</span><span class="sec-title">The PITA and three checks (with Bryan)</span><span class="sec-meta">Slides 12–14 · 1:19 to 1:26 PM · Seven minutes. Iris leads from the front. Bryan holds the second mic and works the room.</span></div>
+<div class="slidemark">Slide 12 · Section two, The BuiltSmall framework</div>
+<p><span class="who">IRIS</span> Thank you, Bryan. I am Iris Cohello from the WEDC Westchester Women's Business Center.</p>
+<p>This section is the method. It is how we decide where AI goes in a business. Three steps. Find the task that drains your week. Check that it fits AI. Then ask it well. We will do the first two now. Daniel will do the third one later.</p>
+<div class="slidemark">Slide 13 · Start with the task that drains your week</div>
+<p><span class="who">IRIS</span> Most people start with the tool. They ask, what can AI do? We start with the problem. Because when you start with the problem, you know exactly what you are trying to fix.</p>
+<p>At the start, Bryan asked you to tell your neighbor one task that eats your week. You wrote it at the top of your doc. There is a name for that task. We call it the PITA. P, I, T, A. The pain in the ass task.</p>
+<p>For many owners, the PITA looks like this. Reconciling sales. Sorting receipts. Reordering stock. Writing the same caption again and again.</p>
+<p>So let's hear some. What is your PITA? Call it out.</p>
+<p class="cue">Bryan walks the room with the second mic. Take three or four. Bryan repeats each one so the room hears it. Iris picks two to test on the next slide: one likely to pass, one likely to fail. Keep each person to one sentence.</p>
+<p><span class="who">IRIS</span> Hold on to those. We are going to test them.</p>
+<div class="slidemark">Slide 14 · Three checks</div>
+<p><span class="who">IRIS</span> So now you have a PITA. How do you know if AI can help with it? We run it through three checks.</p>
+<ul><li>One. Procedure. Can you write down the steps? Think about reconciling your books. You go through your receipts, you put each one in a category, you add them up. Those are steps. That is a yes. Choosing a business partner? There is no list of steps for that. That is a no.</li><li>Two. Repetition. Does it repeat in the same shape? A weekly reorder email to your supplier. Same items, same people, every week. Yes. A one-time legal fight. No.</li><li>Three. Risk. What happens if AI gets it wrong? A draft caption is low risk. Let AI run with it, and give it a read. Your taxes are high risk. AI can draft, but you check every line. This is also why we tell owners to start with work inside the business, not work that goes straight to customers.</li></ul>
+<p>If it passes all three, that is where you start. Let's test one.</p>
+<p class="cue">Bryan calls back one or two of the PITAs people shouted out and runs each one through the three checks with that owner. About 30 seconds each.</p>
+<p><span class="who">IRIS</span> If it fails a check, that is useful too. It tells you where not to spend your time.</p>
+<p><span class="who">IRIS</span> Passes all three? That is where you start. Now let's look at one PITA that passes all three, start to finish. Bhavna.</p>
+</section>
+<section class="sec" data-speaker="Bryan">
+<div class="sec-head"><span class="chip">Bryan</span><span class="sec-title">Procurement demo</span><span class="sec-meta">Slides 15–16 · 1:26 to 1:31 PM · Five minutes planned, about 3.5 needed: 2.2 minutes of talking plus the 1:05 recording. The spare time is buffer for practice.</span></div>
+<div class="slidemark">Slide 15 · The demo, Procurement</div>
+<p>Thank you, Iris. I am Bhavna Punjwani from Queens Economic Development Corporation.</p>
+<p>Let's give you all an example of how AI can be used for your business.</p>
+<p>The PITA here is procurement. Ordering stock. How many of you in the room can relate to that?</p>
+<p class="cue">Pause for hands.</p>
+<p>Here is the situation. You have a big inventory list. You need to know what is running low and what it will cost to restock. Then you have to email every supplier, one by one, by hand.</p>
+<p>So we asked AI to help. We gave it one inventory file and one prompt. The prompt asks it to be my assistant, look at the inventory, build a dashboard of what to reorder, group everything by supplier, and draft a short, polite reorder email to each one.</p>
+<p>The way that prompt is written has four parts. Daniel will teach you those later, so do not worry about them right now.</p>
+<p>Let's watch.</p>
+<div class="slidemark">Slide 16 · The demo, recording</div>
+<p class="cue">Press play</p>
+<p class="cue">The recording runs 1:05. Speak only at these three moments.</p>
+<p><span class="cue-inline">[0:05, prompt and CSV going in:]</span> Here is the prompt, with my inventory file attached. On the right, you can see Claude working through the steps we gave it, one by one.</p>
+<p><span class="cue-inline">[0:20, dashboard appears:]</span> Now it has built a dashboard. Every supplier, what each one costs, and every line item. <span class="cue-inline">[Stay quiet while the dashboard scrolls.]</span></p>
+<p><span class="cue-inline">[0:37, emails on the left:]</span> And here are the emails, one for each supplier. It wrote these after it reviewed the data and built the dashboard, because that is what we asked it to do.</p>
+<p class="cue">When the recording ends:</p>
+<p>That was fast. One file, one prompt, a dashboard, and every email. About a minute.</p>
+<p>This example is small. Most businesses have a lot more inventory than this, and AI can work through a lot more data. But it only works with the numbers you give it. If your file is wrong, your emails will be wrong. So check the quantities before you hit send. You are still the one who knows what good looks like.</p>
+<p class="cue">If someone asks how it was built: "Great question. Daniel will take that one in Q&amp;A."</p>
+<p>That is one example. There are a lot more. And there are some rules to keep you safe while you try them. Daniel.</p>
+</section>
+<section class="sec" data-speaker="Daniel">
+<div class="sec-head"><span class="chip">Daniel</span><span class="sec-title">More jobs, safety and privacy</span><span class="sec-meta">Slides 17–18 · 1:31 to 1:36 PM · Five minutes.</span></div>
+<div class="slidemark">Slide 17 · And there is more</div>
+<p>Thank you, Bhavna. I am Daniel Quansah, and I work with Bryan at Welcome to Chinatown.</p>
+<p>Procurement is one job. There are a lot more that pass the three checks.</p>
+<ul><li>You can draft replies to the questions customers ask you again and again. Hours, parking, do you deliver.</li><li>You can plan a week of social posts, then turn each one into a flyer or a story.</li><li>You can translate posts, signs, and customer messages.</li><li>And you can write a job post, an onboarding checklist, or a simple training guide.</li></ul>
+<p>We asked owners across New York what eats their week. None of the answers will surprise you. Social media and marketing came first, at 37 percent. Then creating content, customer replies, and admin. These are the same problems small businesses have had for as long as any of us have done this work.</p>
+<div class="slidemark">Slide 18 · Safety and privacy</div>
+<p>Now we want to anchor this whole conversation in safety and privacy. Five rules.</p>
+<ul><li>One. Keep a human in the loop. AI is a great drafter. But you decide what goes out. Never let it send money, sign anything, hire anyone, or post on its own. You know what good looks like for your business. It does not.</li><li>Two. Keep private things out. No card numbers. No bank account numbers. No passwords. No Social Security numbers. No customer or employee records in a public AI tool.</li><li>Three. Assume free tools may learn from what you type. There is often a reason a tool is free. You can turn this off, and Yujia will show you how in a minute. Or use a paid business plan for sensitive work.</li><li>Four. AI makes things up. Jennifer said it is confident. When it does not know something, it can invent an answer instead of saying so. It can invent a business, a source, or a website that does not exist. So check names, numbers, and dates. For anything legal, tax, or medical, check with a person. And read anything that goes to customers like an editor.</li><li>Five. Start inside your business, not in front of customers. Your books, your inventory, your schedule. A chatbot that talks to customers and gets it wrong, gets it wrong in public. The back office is easier to check, and that is where you save the most time.</li></ul>
+<p>One more thing. Scammers use AI too. They can clone a voice from a short recording. Their phishing emails now read clean, with no spelling mistakes. If anyone asks for money or access in a way that feels unusual, even someone who sounds like your family or your bank, hang up and call them back on a number you already know.</p>
+<p>So, rule three. Turning off training. Yujia is going to show you exactly where that setting is. Yujia.</p>
+</section>
+<section class="sec" data-speaker="Yujia">
+<div class="sec-head"><span class="chip">Yujia</span><span class="sec-title">Turn off training</span><span class="sec-meta">Slide 19 · 1:36 to 1:38 PM · Two minutes. Read as written.</span></div>
+<div class="slidemark">Slide 19 · Turn off training</div>
+<p>Thank you, Daniel. I am Yujia Hu from Southwest Brooklyn Industrial Development Corporation.</p>
+<p>Daniel said free tools may learn from what you type. Most of them let you turn that off. It takes less than a minute. Here is where to find it.</p>
+<ul><li>If you use ChatGPT, go to Settings, then Data controls. Turn off Improve the model for everyone.</li><li>If you use Claude, go to Settings, then Privacy. Turn off Help improve our AI models.</li><li>If you use Gemini, go to Settings, then Gemini Apps Activity. Turn it off.</li></ul>
+<p>You already have your AI tool open. So let's do it right now. We will wait.</p>
+<p class="cue">Pause 30 seconds. Presenters near the front can help anyone who is stuck.</p>
+<p>One thing to remember. Turning this off does not make it safe to share private information. Daniel's rule still stands. No card numbers, no passwords, no customer records.</p>
+<p>So now you know what AI is, where it fits, and how to stay safe. Next, Bryan is going to show you two New York businesses that are already doing this. Bryan.</p>
+</section>
+<section class="sec" data-speaker="Bryan">
+<div class="sec-head"><span class="chip">Bryan</span><span class="sec-title">Case studies</span><span class="sec-meta">Slides 20–25 · 1:38 to 1:44 PM · Six minutes.</span></div>
+<div class="slidemark">Slide 20 · People like you are already doing this</div>
+<p>Thank you, Yujia.</p>
+<p>We know this can feel like a lot. So we asked owners what it would take for them to try AI. We surveyed 678 small businesses across New York, in English, Chinese, and Spanish.</p>
+<p>The top answer was not cost, at 42 percent. It was not someone to walk them through it, at 41 percent. The top answer, at 49 percent, was seeing another business like theirs do it first.</p>
+<p>So here are two. Both in New York. Both small. Both started with a PITA.</p>
+<div class="slidemark">Slide 21 · Jason at Soft Swerve</div>
+<p>This is Soft Swerve Ice Cream. Jason Liu and Michael Tsang are the co-founders. They have six locations in New York City.</p>
+<p>Jason first came to us with one problem. Tip reconciliation. Every month, he had to figure out who worked which hours at each shop, and what each employee was owed in tips. It took him about six hours a month. He did not want to pay for the expensive version of his accounting software, so he did it by hand.</p>
+<p>With AI, that went from six hours to about five minutes.</p>
+<p>Once he saw that win, he kept going. His sales run through Square, and Square could not give him reports detailed enough to make decisions. So he used AI to build his own dashboard on top of his Square data. A real-time view across all six shops, by location, by hour, and by topping.</p>
+<div class="slidemark">Slide 22 · What the dashboard answers</div>
+<p>Here is what that looks like.</p>
+<p>He can see which flavors are growing and which are lagging, shop by shop. And which add-ons people order. Waffle cones or cups. Which toppings.</p>
+<p>That matters. Soft Swerve brings in Asian-inspired flavors from around the country and the world. Jason told us tariffs pushed his costs up 25 percent. He needs to know which flavors and toppings earn their place.</p>
+<p>He can also see sales by day and hour. Friday and Saturday nights carry the week. But people still come in on a Tuesday right before closing. So now his staffing matches when people come in.</p>
+<p>Same business. Same Square data Jason already had. The AI made it readable.</p>
+<div class="slidemark">Slide 23 · Henry at Ideas of Order</div>
+<p>The second is Henry Ng. He founded Ideas of Order, a design and architecture firm. Henry came to us without a coding background, and not very comfortable with technology.</p>
+<p>His business ran on spreadsheets. A spreadsheet for when furniture was arriving. A spreadsheet for invoices. A spreadsheet for procurement. Too many manual steps for a small team.</p>
+<p>So Henry used AI to build his own tool that pulls it all into one place. One view of every project. By room, by vendor, with budget against cost.</p>
+<p>He could have paid about $300 a month for an off-the-shelf tool. He did not need most of it. So he built the part he needed.</p>
+<div class="slidemark">Slide 24 · What the tool tracks</div>
+<p>The numbers on screen are from a sample project, not a real client.</p>
+<p>The tool tracks invoicing and fees, by project. Nothing slips through.</p>
+<p>And it tracks deliveries. What is overdue, and what is due this week, by vendor. One screen instead of a folder full of emails.</p>
+<p>Henry has done this work for years. He knows what good looks like. Now he has a tool built around how he works.</p>
+<div class="slidemark">Slide 25 · Problem first, proven</div>
+<p>We said it at the start. Start with the task that drains your week.</p>
+<p>For Jason, it was tip reconciliation. For Henry, it was procurement by hand across a stack of spreadsheets. Neither of them started by asking what AI can do. They started with the problem.</p>
+<p>Pick your pain. That is where it starts.</p>
+<p>Now, the last skill is how to ask. Daniel is going to show you the framework we use, and then you are going to try it on your own PITA. Daniel.</p>
+</section>
+<section class="sec" data-speaker="Daniel">
+<div class="sec-head"><span class="chip">Daniel</span><span class="sec-title">Prompting and practice</span><span class="sec-meta">Slides 26–29 · 1:44 to 1:54 PM · Ten minutes: three teaching, seven practice. Session 2 goes deep on prompting. Here, the goal is one good try.</span></div>
+<div class="slidemark">Slide 26 · Using AI effectively</div>
+<p>Thank you, Bryan.</p>
+<p>Let's talk about the last piece, the prompt. A prompt is how you give AI direction. You saw it in Bhavna's demo.</p>
+<p>Most owners use AI like Google. They type one line, get a weak answer, and then type no, that is not it, again and again. That back and forth is where people give up.</p>
+<p>Look at the left side. Write me a caption. You get a caption that could belong to any business on any street.</p>
+<p>Now the right side. Same job, four parts. Role and goal. You are my social media manager. Write an Instagram caption for my tea shop's new jasmine milk tea. Steps. Lead with the flavor, say it is new this week, end with a reason to visit. Output. Friendly, under 30 words, in English and Chinese. Eval. Check that it reads naturally in both languages.</p>
+<p>Now you get a caption you can post. The quality of your input sets the quality of your output.</p>
+<div class="slidemark">Slide 27 · The prompt framework</div>
+<p>Here are the four parts.</p>
+<ul><li>Role and goal. Tell the AI who it is and what to get done.</li><li>Steps. Break the job into steps, the same way you did for the procedure check. Think of AI as a well-read intern. Hand an intern your books with no instructions and they will get it wrong. Whose fault is that?</li><li>Output. Say exactly what you want back. A table, an email, a post for Instagram. It cannot read your mind.</li><li>Eval. Ask it to check its own work. Confirm the totals add up. Confirm every line is counted once. This is the step most people skip, and it is the one that catches mistakes.</li></ul>
+<p>It takes a minute longer up front. It saves you the back and forth.</p>
+<div class="slidemark">Slide 28 · Let's practice</div>
+<p>Now it is your turn. Go to your doc. Your PITA is at the top.</p>
+<p>Write a prompt for it, in your doc, using the four parts. Role and goal. Steps. Output. Eval. Then paste it into your AI tool and see what comes back.</p>
+<p>If you are stuck, scan this code. It opens the prompt guide I put together, with ready-made prompts by job.</p>
+<p>Use your real details. Not your private numbers.</p>
+<p>All six of us are going to walk the room. Raise your hand and one of us will come to you.</p>
+<p>You have seven minutes. Go. <span class="cue-inline">[If Yujia signals the session is late, say five minutes instead.]</span></p>
+<p class="cue">Start the timer. All six presenters walk the room, one zone each.</p>
+<p class="cue">At 3:00 left, advance to slide 28.</p>
+<div class="slidemark">Slide 29 · Keep going</div>
+<p class="cue">Say over the room, not from the stage:</p>
+<p>Three minutes left. If you got an answer, do not stop there. Tell the AI what is off and ask again. Your first try will be average. The second gets better.</p>
+<p><span class="cue-inline">[At 0:00:]</span> Time. Who got an answer they could use? Raise your hand.</p>
+<p class="cue">Take one person. Thirty seconds. Ask: what was your PITA, and what did it give you?</p>
+<p>That is the whole method. Find your PITA. Run it through the checks. Ask with the four parts. Then try again. If you want to go further, that is what Session 2 is for.</p>
+<p>Bryan is going to close us out and take your questions. Bryan.</p>
+</section>
+<section class="sec" data-speaker="Bryan">
+<div class="sec-head"><span class="chip">Bryan</span><span class="sec-title">Close and Q&amp;A</span><span class="sec-meta">Slides 30–31 · 1:54 to 2:02 PM · Eight minutes, about six of them Q&amp;A.</span></div>
+<div class="slidemark">Slide 30 · What BuiltSmall offers</div>
+<p>Thank you, Daniel. And thank you all for doing the work.</p>
+<p>I know this is a lot, and it is probably not how you have been using AI. So here is where to start. Start with the tasks that annoy you. Start with the back office, the admin, the things that eat your time. And then practice.</p>
+<p>This hour is the start. Here is where to go next.</p>
+<ul><li>Session 2, Next Era Advanced, is next, right here in this room. That is where we build. Prompting, automations, and your own tools.</li><li>Office hours. One on one, by appointment, in your language. Bring the problem you are working on.</li><li>And sign up for updates at builtsmall.ai. We will tell you when new sessions open.</li></ul>
+<p>You also have four business advisers in this room. Iris in Westchester. Jennifer in Syracuse. Bhavna in Queens. Yujia in Southwest Brooklyn. Find the one closest to you after this.</p>
+<div class="slidemark">Slide 31 · Q&amp;A</div>
+<p>Before questions, scan this code. Two minutes, anonymous. Tell us what worked and what to fix. It helps us make this better for the next room.</p>
+<p>Now, ask us anything.</p>
+<p class="cue">Take questions. Repeat each one into the mic. Route it using the Q&amp;A routing table. Keep each answer under one minute.</p>
+<p><span class="cue-inline">[At 2:01 PM:]</span> We have time for one more.</p>
+<p><span class="cue-inline">[Close:]</span> Thank you, everyone. Thank you to Iris, Jennifer, Bhavna, Yujia, and Daniel. Go find your PITA this week. If you are joining us for Session 2, stay in your seat.</p>
+</section>
+</main>
+<script>
+(function(){
+  var root=document.documentElement, label=document.getElementById('fslabel');
+  function setFs(px){px=Math.max(18,Math.min(64,px));root.style.setProperty('--fs',px+'px');label.textContent=px+'px';try{localStorage.setItem('nef_fs',px);}catch(e){}}
+  var saved=18;try{saved=parseInt(localStorage.getItem('nef_fs'))||30;}catch(e){saved=30;}setFs(saved);
+  document.getElementById('fsplus').onclick=function(){setFs(parseInt(getComputedStyle(root).getPropertyValue('--fs'))+2);};
+  document.getElementById('fsminus').onclick=function(){setFs(parseInt(getComputedStyle(root).getPropertyValue('--fs'))-2);};
+  var btns=[].slice.call(document.querySelectorAll('.spk-btn'));
+  var secs=[].slice.call(document.querySelectorAll('.sec'));
+  function filter(f){
+    btns.forEach(function(b){b.classList.toggle('active',b.dataset.f===f);});
+    secs.forEach(function(s){s.style.display=(f==='all'||s.dataset.speaker===f)?'':'none';});
+    try{localStorage.setItem('nef_spk',f);}catch(e){}
+    window.scrollTo(0,0);
+  }
+  btns.forEach(function(b){b.onclick=function(){filter(b.dataset.f);};});
+  var sp='all';try{sp=localStorage.getItem('nef_spk')||'all';}catch(e){}
+  if(!document.querySelector('.spk-btn[data-f="'+sp+'"]'))sp='all';
+  filter(sp);
+})();
+</script>
+</body>
+</html>
