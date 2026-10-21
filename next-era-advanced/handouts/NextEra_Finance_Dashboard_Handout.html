@@ -30,9 +30,7 @@ label{display:block;font-weight:800;color:var(--navy);margin-top:.6rem}.foot{mar
 <div class="box facts"><h2>The sample file</h2>
 <p>Home-goods shop, 100 orders. Messy on purpose: mixed date styles, category names that do not match, extra spaces, refunds in their own column. Sample data, not a real business.</p>
 <a class="btn" href="retail_store_data.csv" download>Download retail_store_data.csv</a></div>
-<div class="box"><h2><span>1</span>Run it plain</h2><p>Attach the file to a new chat, then send this. Note what is vague.</p>
-<pre id="p1">Here is my shop's sales file. Make me a dashboard.</pre><button onclick="cp('p1',this)">Copy</button></div>
-<div class="box"><h2><span>2</span>Rebuild it with four parts</h2><p>Fill in the [brackets], attach the file, and run it in a <b>new chat.</b></p>
+<div class="box"><h2><span>1</span>Ask for the dashboard with four parts</h2><p>Fill in the [brackets], attach the file, and run it in a <b>new chat.</b></p>
 <pre id="p2">Role & goal: You are my business analyst. I run [type of shop] and I want a dashboard that shows how my shop is doing.
 Steps:
 1. Clean the data: read all the date styles, merge category names that mean the same thing, trim extra spaces.
@@ -41,7 +39,7 @@ Steps:
 4. List the top 10 items by revenue.
 Output: A simple dashboard with four number cards, a bar chart, a line chart, and a table. Plain English labels, no jargon.
 Eval: Before you answer, check your totals against the file and tell me which cleaning choices you made.</pre><button onclick="cp('p2',this)">Copy</button></div>
-<div class="box"><h2><span>3</span>Check the numbers</h2>
+<div class="box"><h2><span>2</span>Check the numbers</h2>
 <table><tr><th>What to check</th><th class="n">Should be about</th></tr>
 <tr><td>Total revenue</td><td class="n">$3,825 ($3,824.56)</td></tr>
 <tr><td>Number of orders</td><td class="n">100</td></tr>
@@ -50,7 +48,7 @@ Eval: Before you answer, check your totals against the file and tell me which cl
 <tr><td>Categories</td><td class="n">6 after merging</td></tr></table>
 <ul class="check"><li>Do your numbers match? If not, <b>ask the AI what it did differently.</b></li><li>Did it explain its cleaning choices?</li></ul>
 <p style="margin-top:.5rem">No dashboard on your screen? Ask: &ldquo;Give me a summary table of the numbers and describe the charts you would build.&rdquo;</p></div>
-<div class="box"><h2><span>4</span>Make it yours</h2>
+<div class="box"><h2><span>3</span>Make it yours</h2>
 <label>My PITA sentence from earlier</label><textarea placeholder="My pain point is that ___. If I had ___, I would ___."></textarea>
 <label>What I would ask a dashboard to show for my business</label><textarea placeholder="Role &amp; goal: ...&#10;Steps: ...&#10;Output: ...&#10;Eval: ..."></textarea></div>
 <div class="box"><h2>See it built for real</h2><p>In the demo, a coding agent builds a restaurant reorder dashboard from one plain-language file. Follow along with the files on the Next Era website: <b>CLAUDE.md</b> and <b>restaurant_inventory.csv</b>.</p></div>
